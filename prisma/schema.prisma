@@ -11,5 +11,5 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      =  "http://192.168.1.145:5432/ecommerce"
+  url      = env("DATABASE_URL")
 }
