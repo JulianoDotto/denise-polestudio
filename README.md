@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Denise Pole Studio – Catálogo com WhatsApp
 
-## Getting Started
+MVP em **Next.js (App Router)** + **Prisma** + **Tailwind** + **shadcn/ui** para catálogo de produtos, aulas, ebooks e eventos com redirecionamento para WhatsApp.
 
-First, run the development server:
+## Requisitos
+
+- Node.js 18+
+- Banco PostgreSQL
+
+## Configuração
+
+1. Crie o arquivo `.env` na raiz (ou edite o existente):
+
+```bash
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
+WHATSAPP_PHONE="553591397374"
+NEXT_PUBLIC_WHATSAPP_PHONE="553591397374"
+ADMIN_EMAIL="admin@local"
+ADMIN_PASSWORD="admin123"
+AUTH_SECRET="change-me"
+```
+
+2. Instale dependências:
+
+```bash
+npm install
+```
+
+3. Rode as migrations ou `db push`:
+
+```bash
+npm run db:migrate
+# ou
+npm run db:push
+```
+
+4. Rode o seed:
+
+```bash
+npm run db:seed
+```
+
+5. Inicie o projeto:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Admin
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Acesse `http://localhost:3000/admin/login`
+- Use `ADMIN_EMAIL` e `ADMIN_PASSWORD` do `.env`
+- Apenas usuários com role `ADMIN` acessam `/admin/*`
+- Menus: Dashboard, Produtos, Aulas, Ebooks, Eventos, Categorias, Usuários
 
-## Learn More
+## Scripts úteis
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run db:generate` – gera o Prisma Client
+- `npm run db:migrate` – cria e aplica migrations
+- `npm run db:push` – sincroniza schema sem migrations
+- `npm run db:seed` – popula dados fake
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estrutura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` – páginas (Home, Lojas, Produtos, Aulas, Ebooks, Eventos)
+- `app/(admin)/admin` – painel admin + CRUDs
+- `components/` – UI, carrinho, header/footer
+- `lib/` – acesso a dados, auth e helpers
+- `prisma/` – schema + seed
