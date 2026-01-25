@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Prisma } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -19,11 +20,11 @@ export default async function AdminEbooksPage({
   const page = Number.isNaN(pageParam) || pageParam < 1 ? 1 : pageParam
   const status = typeof sp.status === 'string' ? sp.status : 'all'
 
-  const where: any = { type: 'EBOOK' }
+  const where: Prisma.ItemWhereInput = { type: 'EBOOK' }
   if (q) {
     where.OR = [
-      { title: { contains: q, mode: 'insensitive' } },
-      { slug: { contains: q, mode: 'insensitive' } },
+      { title: { contains: q, mode: Prisma.QueryMode.insensitive } },
+      { slug: { contains: q, mode: Prisma.QueryMode.insensitive } },
     ]
   }
   if (status === 'active') where.isActive = true

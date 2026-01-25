@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Prisma } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -20,14 +21,14 @@ export default async function AdminProductsPage({
   const status = typeof sp.status === 'string' ? sp.status : 'all'
   const category = typeof sp.category === 'string' ? sp.category : 'all'
 
-  const where: any = {
+  const where: Prisma.ItemWhereInput = {
     type: 'PRODUCT',
   }
 
   if (q) {
     where.OR = [
-      { title: { contains: q, mode: 'insensitive' } },
-      { slug: { contains: q, mode: 'insensitive' } },
+      { title: { contains: q, mode: Prisma.QueryMode.insensitive } },
+      { slug: { contains: q, mode: Prisma.QueryMode.insensitive } },
     ]
   }
 

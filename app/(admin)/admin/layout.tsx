@@ -16,7 +16,7 @@ export default async function AdminLayout({
           <Link href="/admin" className="text-sm font-semibold uppercase tracking-[0.3em]">
             Admin
           </Link>
-          <Link href="/admin/logout" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <Link href="/logout" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Sair
           </Link>
         </div>

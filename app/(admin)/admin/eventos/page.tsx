@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Prisma } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
 import StatusBadge from '@/components/admin/StatusBadge'
@@ -20,12 +21,12 @@ export default async function AdminEventsPage({
   const status = typeof sp.status === 'string' ? sp.status : 'all'
   const time = typeof sp.time === 'string' ? sp.time : 'all'
 
-  const where: any = { type: 'EVENT' }
+  const where: Prisma.ItemWhereInput = { type: 'EVENT' }
   if (q) {
     where.OR = [
-      { title: { contains: q, mode: 'insensitive' } },
-      { slug: { contains: q, mode: 'insensitive' } },
-      { description: { contains: q, mode: 'insensitive' } },
+      { title: { contains: q, mode: Prisma.QueryMode.insensitive } },
+      { slug: { contains: q, mode: Prisma.QueryMode.insensitive } },
+      { description: { contains: q, mode: Prisma.QueryMode.insensitive } },
     ]
   }
   if (status === 'active') where.isActive = true

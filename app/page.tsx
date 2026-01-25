@@ -1,20 +1,39 @@
 import Link from 'next/link'
+import { unstable_noStore as noStore } from 'next/cache'
+
+import { prisma } from '@/lib/prisma'
+
+export const dynamic = 'force-dynamic'
 
 const banners = [
   { label: 'Aulas', href: '/aulas' },
-  { label: 'Loja Pole Dance', href: '/lojas/pole-dance' },
-  { label: 'Loja Sex Shop', href: '/lojas/sexshop' },
   { label: 'Ebooks', href: '/ebooks' },
   { label: 'Eventos', href: '/eventos' },
 ]
 
-export default function Home() {
+export default async function Home() {
+  noStore()
+
+  const [sections, latestProducts] = await Promise.all([
+    prisma.storeSection.findMany({
+      where: { isActive: true },
+      orderBy: { order: 'asc' },
+      take: 4,
+      include: { _count: { select: { items: true } } },
+    }),
+    prisma.item.findMany({
+      where: { type: 'PRODUCT', isActive: true },
+      orderBy: { createdAt: 'desc' },
+      take: 3,
+    }),
+  ])
+
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-10 px-4 py-8">
       <section className="flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">Bem-vinda ao Pole Studio</h1>
         <p className="text-sm text-muted-foreground">
-          Selecione uma seção para explorar produtos, aulas, ebooks e eventos.
+          Descubra aulas, coleções e experiências pensadas para você.
         </p>
         <div className="flex flex-col gap-3">
           {banners.map((banner) => (
@@ -25,6 +44,55 @@ export default function Home() {
             >
               {banner.label}
               <span className="text-xs text-muted-foreground">Ver</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-4">
+        <div>
+          <h2 className="text-lg font-semibold">Categorias em destaque</h2>
+          <p className="text-sm text-muted-foreground">
+            Explore nossas principais categorias.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {sections.map((section) => (
+            <Link
+              key={section.id}
+              href={`/lojas/${section.slug}`}
+              className="flex items-center justify-between rounded-3xl border bg-white px-5 py-4 text-sm font-semibold"
+            >
+              <div>
+                <p className="uppercase tracking-[0.2em]">{section.title}</p>
+                <p className="text-xs text-muted-foreground">
+                  {section._count.items} produto(s)
+                </p>
+              </div>
+              <span className="text-xs text-muted-foreground">Ver</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-4">
+        <h2 className="text-lg font-semibold">Produtos em destaque</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {latestProducts.map((product) => (
+            <Link
+              key={product.id}
+              href={`/produtos/${product.slug}`}
+              className="flex flex-col gap-3 rounded-3xl border bg-white p-4"
+            >
+              <img
+                src={product.coverUrl || '/images/placeholder.svg'}
+                alt={product.title}
+                className="h-32 w-full rounded-2xl object-cover"
+              />
+              <div>
+                <h3 className="text-sm font-semibold">{product.title}</h3>
+                <p className="text-xs text-muted-foreground">Uma seleção especial</p>
+              </div>
             </Link>
           ))}
         </div>

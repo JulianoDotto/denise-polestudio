@@ -6,7 +6,8 @@ import { hash } from 'bcryptjs'
 
 import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/auth/requireAdmin'
-import { getSession } from '@/lib/auth/session'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth/authOptions'
 import { slugify } from './slug'
 
 function parseCheckbox(value: FormDataEntryValue | null) {
@@ -602,8 +603,8 @@ export async function updateUser(formData: FormData) {
   const isActive = parseCheckbox(formData.get('isActive'))
   const password = String(formData.get('password') || '').trim()
 
-  const session = await getSession()
-  const isSelf = session?.userId === id
+  const session = await getServerSession(authOptions)
+  const isSelf = session?.user?.id === id
   const primaryEmail = (process.env.ADMIN_EMAIL || '').toLowerCase()
 
   if (primaryEmail && email === primaryEmail && role !== 'ADMIN') {
@@ -642,8 +643,8 @@ export async function toggleUserStatus(formData: FormData) {
   const next = String(formData.get('next') || 'true') === 'true'
   if (!id) redirect('/admin/users')
 
-  const session = await getSession()
-  if (session?.userId === id && !next) {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.id === id && !next) {
     redirect('/admin/users?error=self')
   }
 
@@ -672,8 +673,8 @@ export async function toggleUserRole(formData: FormData) {
   const next = String(formData.get('next') || 'USER')
   if (!id) redirect('/admin/users')
 
-  const session = await getSession()
-  if (session?.userId === id && next !== 'ADMIN') {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.id === id && next !== 'ADMIN') {
     redirect('/admin/users?error=self')
   }
 

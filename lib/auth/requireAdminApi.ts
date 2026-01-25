@@ -1,12 +1,14 @@
+import { getServerSession } from 'next-auth'
+
 import { prisma } from '@/lib/prisma'
-import { getSession } from './session'
+import { authOptions } from '@/lib/auth/authOptions'
 
 export async function requireAdminApi() {
-  const session = await getSession()
-  if (!session || session.role !== 'ADMIN') return null
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.id || session.user.role !== 'ADMIN') return null
 
   const user = await prisma.user.findUnique({
-    where: { id: session.userId },
+    where: { id: session.user.id },
   })
 
   if (!user || user.role !== 'ADMIN' || !user.isActive) return null
