@@ -223,19 +223,11 @@ async function main() {
 
   const events = [
     {
-      slug: 'workshop-pole-primavera',
-      title: 'Workshop Pole Primavera',
-      description: '30 MAI - Workshop especial para iniciantes e intermediárias.',
-      eventDate: new Date('2026-05-30'),
-      order: 1,
-      whatsappTextTemplate: 'Olá, quero informações sobre o Workshop Pole Primavera.',
-    },
-    {
       slug: 'imersao-sensual',
       title: 'Imersão Artes Sensuais',
       description: '12 JUN - Imersão presencial com práticas e vivências.',
       eventDate: new Date('2026-06-12'),
-      order: 2,
+      order: 1,
       whatsappTextTemplate: 'Olá, quero informações sobre a Imersão Artes Sensuais.',
     },
     {
@@ -243,7 +235,7 @@ async function main() {
       title: 'Evento Bed Dance',
       description: '05 JUL - Evento especial com coreografias e apresentações.',
       eventDate: new Date('2026-07-05'),
-      order: 3,
+      order: 2,
       whatsappTextTemplate: 'Olá, quero informações sobre o Evento Bed Dance.',
     },
   ]
@@ -258,6 +250,43 @@ async function main() {
         eventDate: evento.eventDate,
         order: evento.order,
         whatsappTextTemplate: evento.whatsappTextTemplate,
+      },
+    })
+  }
+
+  const workshops = [
+    {
+      slug: 'workshop-sensualidade',
+      title: 'Workshop de Sensualidade',
+      description: 'Técnicas de expressão corporal, musicalidade e confiança no movimento.',
+      order: 1,
+      whatsappTextTemplate: 'Olá, quero informações sobre o Workshop de Sensualidade.',
+    },
+    {
+      slug: 'workshop-flexibilidade',
+      title: 'Workshop de Flexibilidade',
+      description: 'Sequências guiadas para ampliar mobilidade e força com segurança.',
+      order: 2,
+      whatsappTextTemplate: 'Olá, quero informações sobre o Workshop de Flexibilidade.',
+    },
+    {
+      slug: 'workshop-coreografico',
+      title: 'Workshop Coreográfico',
+      description: 'Criação de coreografias com foco em presença e interpretação.',
+      order: 3,
+      whatsappTextTemplate: 'Olá, quero informações sobre o Workshop Coreográfico.',
+    },
+  ]
+
+  for (const workshop of workshops) {
+    await prisma.item.create({
+      data: {
+        type: ItemType.WORKSHOP,
+        slug: workshop.slug,
+        title: workshop.title,
+        description: workshop.description,
+        order: workshop.order,
+        whatsappTextTemplate: workshop.whatsappTextTemplate,
       },
     })
   }

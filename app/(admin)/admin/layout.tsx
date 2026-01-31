@@ -33,8 +33,17 @@ export default async function AdminLayout({
           <Link href="/admin/aulas" className="rounded-2xl px-3 py-2 hover:bg-muted">
             Aulas
           </Link>
-          <Link href="/admin/ebooks" className="rounded-2xl px-3 py-2 hover:bg-muted">
-            Ebooks
+          <Link
+            href="/admin/workshops"
+            className="rounded-2xl px-3 py-2 hover:bg-muted"
+          >
+            Workshops
+          </Link>
+          <Link
+            href="/admin/produtos-digitais"
+            className="rounded-2xl px-3 py-2 hover:bg-muted"
+          >
+            Produtos digitais
           </Link>
           <Link href="/admin/eventos" className="rounded-2xl px-3 py-2 hover:bg-muted">
             Eventos

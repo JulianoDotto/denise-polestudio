@@ -8,11 +8,13 @@ export default async function AdminDashboard() {
     classCount,
     ebookCount,
     eventCount,
+    workshopCount,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.item.count({ where: { type: 'CLASS' } }),
     prisma.item.count({ where: { type: 'EBOOK' } }),
     prisma.item.count({ where: { type: 'EVENT' } }),
+    prisma.item.count({ where: { type: 'WORKSHOP' } }),
   ])
 
   return (
@@ -24,7 +26,7 @@ export default async function AdminDashboard() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-5">
         <div className="rounded-2xl border bg-muted/20 p-4">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Usuários
@@ -49,11 +51,17 @@ export default async function AdminDashboard() {
           </p>
           <p className="mt-2 text-2xl font-semibold">{eventCount}</p>
         </div>
+        <div className="rounded-2xl border bg-muted/20 p-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Workshops
+          </p>
+          <p className="mt-2 text-2xl font-semibold">{workshopCount}</p>
+        </div>
       </div>
 
       <div className="rounded-2xl border bg-white p-4">
         <h2 className="text-sm font-semibold">Atalhos rápidos</h2>
-        <div className="mt-3 grid gap-2 md:grid-cols-3">
+        <div className="mt-3 grid gap-2 md:grid-cols-4">
           <Link
             href="/admin/aulas/new"
             className="rounded-2xl border px-3 py-2 text-sm hover:bg-muted"
@@ -61,7 +69,7 @@ export default async function AdminDashboard() {
             Nova aula
           </Link>
           <Link
-            href="/admin/ebooks/new"
+            href="/admin/produtos-digitais/new"
             className="rounded-2xl border px-3 py-2 text-sm hover:bg-muted"
           >
             Novo produto digital
@@ -71,6 +79,12 @@ export default async function AdminDashboard() {
             className="rounded-2xl border px-3 py-2 text-sm hover:bg-muted"
           >
             Novo evento
+          </Link>
+          <Link
+            href="/admin/workshops/new"
+            className="rounded-2xl border px-3 py-2 text-sm hover:bg-muted"
+          >
+            Novo workshop
           </Link>
         </div>
       </div>

@@ -291,6 +291,97 @@ export async function deleteClass(formData: FormData) {
   redirect('/admin/aulas?deleted=1')
 }
 
+export async function createWorkshop(formData: FormData) {
+  await requireAdmin()
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const whatsappTextTemplate =
+    String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  if (!title) redirect('/admin/workshops/new?error=1')
+
+  await prisma.item.create({
+    data: {
+      title,
+      slug,
+      description,
+      coverUrl,
+      isActive,
+      whatsappTextTemplate,
+      type: 'WORKSHOP',
+    },
+  })
+
+  revalidatePath('/admin')
+  revalidatePath('/admin/workshops')
+  redirect('/admin/workshops?success=1')
+}
+
+export async function updateWorkshop(formData: FormData) {
+  await requireAdmin()
+
+  const id = String(formData.get('id') || '')
+  if (!id) redirect('/admin/workshops')
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const whatsappTextTemplate =
+    String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  await prisma.item.update({
+    where: { id },
+    data: {
+      title,
+      slug,
+      description,
+      coverUrl,
+      isActive,
+      whatsappTextTemplate,
+      type: 'WORKSHOP',
+    },
+  })
+
+  revalidatePath('/admin')
+  revalidatePath('/admin/workshops')
+  redirect('/admin/workshops?success=1')
+}
+
+export async function toggleWorkshopStatus(formData: FormData) {
+  await requireAdmin()
+  const id = String(formData.get('id') || '')
+  const next = String(formData.get('next') || 'true') === 'true'
+  if (!id) redirect('/admin/workshops')
+
+  await prisma.item.update({
+    where: { id },
+    data: { isActive: next },
+  })
+
+  revalidatePath('/admin')
+  revalidatePath('/admin/workshops')
+  redirect('/admin/workshops?success=1')
+}
+
+export async function deleteWorkshop(formData: FormData) {
+  await requireAdmin()
+  const id = String(formData.get('id') || '')
+  if (!id) redirect('/admin/workshops')
+
+  await prisma.item.delete({ where: { id } })
+
+  revalidatePath('/admin/workshops')
+  redirect('/admin/workshops?deleted=1')
+}
+
 export async function createEbook(formData: FormData) {
   await requireAdmin()
 
@@ -298,13 +389,14 @@ export async function createEbook(formData: FormData) {
   const description = String(formData.get('description') || '').trim() || null
   const coverUrl = String(formData.get('coverUrl') || '').trim() || null
   const priceCents = parseNumber(formData.get('priceCents'))
+  const digitalUrl = String(formData.get('digitalUrl') || '').trim()
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
-  if (!title) redirect('/admin/ebooks/new?error=1')
+  if (!title || !digitalUrl) redirect('/admin/produtos-digitais/new?error=1')
 
   await prisma.item.create({
     data: {
@@ -314,31 +406,37 @@ export async function createEbook(formData: FormData) {
       coverUrl,
       priceCents,
       isActive,
+      hotmartUrl: digitalUrl,
       whatsappTextTemplate,
       type: 'EBOOK',
     },
   })
 
   revalidatePath('/admin')
-  revalidatePath('/admin/ebooks')
-  redirect('/admin/ebooks?success=1')
+  revalidatePath('/admin/produtos-digitais')
+  redirect('/admin/produtos-digitais?success=1')
 }
 
 export async function updateEbook(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/ebooks')
+  if (!id) redirect('/admin/produtos-digitais')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
   const coverUrl = String(formData.get('coverUrl') || '').trim() || null
   const priceCents = parseNumber(formData.get('priceCents'))
+  const digitalUrl = String(formData.get('digitalUrl') || '').trim()
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  if (!title || !digitalUrl) {
+    redirect(`/admin/produtos-digitais/${id}/edit?error=1`)
+  }
 
   await prisma.item.update({
     where: { id },
@@ -349,21 +447,22 @@ export async function updateEbook(formData: FormData) {
       coverUrl,
       priceCents,
       isActive,
+      hotmartUrl: digitalUrl,
       whatsappTextTemplate,
       type: 'EBOOK',
     },
   })
 
   revalidatePath('/admin')
-  revalidatePath('/admin/ebooks')
-  redirect('/admin/ebooks?success=1')
+  revalidatePath('/admin/produtos-digitais')
+  redirect('/admin/produtos-digitais?success=1')
 }
 
 export async function toggleEbookStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/ebooks')
+  if (!id) redirect('/admin/produtos-digitais')
 
   await prisma.item.update({
     where: { id },
@@ -371,20 +470,20 @@ export async function toggleEbookStatus(formData: FormData) {
   })
 
   revalidatePath('/admin')
-  revalidatePath('/admin/ebooks')
-  redirect('/admin/ebooks?success=1')
+  revalidatePath('/admin/produtos-digitais')
+  redirect('/admin/produtos-digitais?success=1')
 }
 
 export async function deleteEbook(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/ebooks')
+  if (!id) redirect('/admin/produtos-digitais')
 
   await prisma.item.delete({ where: { id } })
 
   revalidatePath('/admin')
-  revalidatePath('/admin/ebooks')
-  redirect('/admin/ebooks?deleted=1')
+  revalidatePath('/admin/produtos-digitais')
+  redirect('/admin/produtos-digitais?deleted=1')
 }
 
 export async function createEvent(formData: FormData) {

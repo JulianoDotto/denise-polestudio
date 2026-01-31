@@ -22,6 +22,7 @@ enum ItemType {
   CLASS
   EBOOK
   EVENT
+  WORKSHOP
 }
 
 model StoreSection {
