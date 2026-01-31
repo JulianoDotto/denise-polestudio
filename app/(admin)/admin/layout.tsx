@@ -30,9 +30,6 @@ export default async function AdminLayout({
           <div className="mt-2 border-t pt-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Catálogo
           </div>
-          <Link href="/admin/products" className="rounded-2xl px-3 py-2 hover:bg-muted">
-            Produtos
-          </Link>
           <Link href="/admin/aulas" className="rounded-2xl px-3 py-2 hover:bg-muted">
             Aulas
           </Link>
@@ -41,9 +38,6 @@ export default async function AdminLayout({
           </Link>
           <Link href="/admin/eventos" className="rounded-2xl px-3 py-2 hover:bg-muted">
             Eventos
-          </Link>
-          <Link href="/admin/categories" className="rounded-2xl px-3 py-2 hover:bg-muted">
-            Categorias
           </Link>
           <div className="mt-2 border-t pt-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Usuários

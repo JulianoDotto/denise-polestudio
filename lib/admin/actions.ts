@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { hash } from 'bcryptjs'
+import type { Prisma } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/auth/requireAdmin'
@@ -32,6 +33,13 @@ function parseLines(value: FormDataEntryValue | null) {
 function parseDate(value: FormDataEntryValue | null) {
   if (!value) return null
   const date = new Date(`${value.toString()}T00:00:00`)
+  if (Number.isNaN(date.getTime())) return null
+  return date
+}
+
+function parseDateTime(value: FormDataEntryValue | null) {
+  if (!value) return null
+  const date = new Date(value.toString())
   if (Number.isNaN(date.getTime())) return null
   return date
 }
@@ -475,6 +483,35 @@ export async function deleteEvent(formData: FormData) {
   redirect('/admin/eventos?deleted=1')
 }
 
+export async function createStorePost(formData: FormData) {
+  await requireAdmin()
+
+  const title = String(formData.get('title') || '').trim()
+  const imageUrl = String(formData.get('imageUrl') || '').trim() || null
+  const isPinned = parseCheckbox(formData.get('isPinned'))
+  const expiresAt = isPinned ? null : parseDateTime(formData.get('expiresAt'))
+
+  if (!title) {
+    redirect('/loja?error=title')
+  }
+
+  if (!isPinned && !expiresAt) {
+    redirect('/loja?error=expiresAt')
+  }
+
+  await prisma.storePost.create({
+    data: {
+      title,
+      imageUrl,
+      isPinned,
+      expiresAt,
+    },
+  })
+
+  revalidatePath('/loja')
+  redirect('/loja?success=1')
+}
+
 export async function createCategory(formData: FormData) {
   await requireAdmin()
 
@@ -615,7 +652,7 @@ export async function updateUser(formData: FormData) {
     redirect('/admin/users?error=self')
   }
 
-  const data: any = {
+  const data: Prisma.UserUpdateInput = {
     email,
     name,
     role: role === 'ADMIN' ? 'ADMIN' : 'USER',

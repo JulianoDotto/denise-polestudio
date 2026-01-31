@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { PrismaClient, ItemType, Role } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
@@ -11,6 +12,7 @@ const prisma = new PrismaClient({
 async function main() {
   await prisma.itemImage.deleteMany()
   await prisma.item.deleteMany()
+  await prisma.storePost.deleteMany()
   await prisma.storeSection.deleteMany()
   await prisma.user.deleteMany()
 

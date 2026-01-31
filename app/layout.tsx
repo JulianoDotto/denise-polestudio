@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
-import CartSheet from "@/components/cart/CartSheet";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Denise Pole Studio",
-  description: "Catálogo de produtos, aulas e eventos com atendimento via WhatsApp.",
+  title: "Denise Garcia",
+  description: "Aulas, produtos digitais e eventos com atendimento via WhatsApp.",
 };
 
 export default function RootLayout({
@@ -31,7 +30,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        <CartSheet />
         <main className="min-h-[70vh]">{children}</main>
         <Footer />
       </body>
