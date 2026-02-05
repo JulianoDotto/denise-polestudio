@@ -2,9 +2,10 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 
 import AgeGateModal from '@/components/site/AgeGateModal'
-import StorePostFormShell from '@/components/site/StorePostFormShell'
+import StorePostAdminModal from '@/components/site/StorePostAdminModal'
 import StorePostImageField from '@/components/site/StorePostImageField'
 import StorePostDurationFields from '@/components/site/StorePostDurationFields'
+import StoreCarousel from '@/components/site/StoreCarousel'
 import { createStorePost } from '@/lib/admin/actions'
 import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
@@ -39,102 +40,106 @@ export default async function LojaPage({
       { createdAt: 'desc' },
     ],
   })
+  const carouselItems = posts.map((post) => ({
+    id: post.id,
+    title: post.title,
+    imageUrl: post.imageUrl || '/images/placeholder.svg',
+  }))
+  const heroImage = '/images/placeholder.svg'
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
+    <div className="flex flex-col gap-10 pb-12">
       <AgeGateModal />
-      <h1 className="text-2xl font-semibold">Loja</h1>
 
-      {isAdmin ? (
-        <StorePostFormShell>
-          {searchParams?.error === 'title' ? (
-            <p className="text-sm text-red-500">Informe um título para a publicação.</p>
-          ) : null}
-          {searchParams?.error === 'expiresAt' ? (
-            <p className="text-sm text-red-500">
-              Defina uma data de duração ou marque como publicação fixa.
-            </p>
-          ) : null}
-          {searchParams?.success ? (
-            <p className="text-sm text-emerald-600">Publicação criada com sucesso.</p>
-          ) : null}
-          <form action={createStorePost} className="grid gap-4">
-            <label className="flex flex-col gap-2 text-sm">
-              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Título
-              </span>
-              <input
-                name="title"
-                className="w-full rounded-2xl border px-4 py-2 text-sm"
-                placeholder="Título da publicação"
-              />
-            </label>
-            <StorePostImageField />
-            <StorePostDurationFields />
-            <button
-              type="submit"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-            >
-              Publicar
-            </button>
-          </form>
-        </StorePostFormShell>
-      ) : null}
-
-      <div className="flex flex-col gap-6 rounded-3xl border bg-white p-6">
+      <section className="relative isolate h-[520px] overflow-hidden bg-black sm:h-[640px]">
         <img
-          src="/images/placeholder.svg"
-          alt="Produtos Denise Garcia"
-          className="h-48 w-full rounded-3xl object-cover"
+          src={heroImage}
+          alt="Loja Denise Garcia"
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="flex flex-col gap-3">
-          <p className="text-sm text-muted-foreground">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pb-14">
+          <p className="text-xs uppercase tracking-[0.5em] text-white/70">Coleção</p>
+          <h1 className="mt-3 font-display text-4xl uppercase tracking-[0.35em] text-white sm:text-5xl">
+            Loja
+          </h1>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-5xl px-4">
+        <div className="rounded-3xl bg-white p-6 text-zinc-900 shadow-xl shadow-black/10 sm:p-8">
+          <p className="text-sm uppercase tracking-[0.35em] text-zinc-500">
+            Sobre a loja
+          </p>
+          <p className="mt-4 text-base leading-relaxed text-zinc-700">
             Produtos selecionados pela Denise, focados em bem-estar, sensualidade e
             autocuidado. Tudo pensado para complementar sua jornada nas aulas e experiências.
           </p>
-          {contactUrl ? (
-            <Link
-              href={contactUrl}
-              target="_blank"
-              className="rounded-full bg-primary px-4 py-2 text-center text-sm font-semibold text-primary-foreground"
-            >
-              COMPRAR PELO WHATSAPP
-            </Link>
-          ) : (
-            <span className="rounded-full border px-4 py-2 text-center text-sm text-muted-foreground">
-              Configure o WhatsApp para contato
-            </span>
-          )}
+          <p className="mt-4 text-base leading-relaxed text-zinc-700">
+            Se precisar de ajuda para escolher, fale direto pelo WhatsApp e receba
+            recomendações personalizadas.
+          </p>
+          <div className="mt-6 flex justify-center">
+            {contactUrl ? (
+              <Link
+                href={contactUrl}
+                target="_blank"
+                className="inline-flex rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground"
+              >
+                Comprar pelo WhatsApp
+              </Link>
+            ) : (
+              <span className="inline-flex rounded-full border px-5 py-2 text-sm text-zinc-600">
+                Configure o WhatsApp para contato
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {posts.length > 0 ? (
-        <section className="grid gap-4 rounded-3xl border bg-white p-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-semibold">Novidades</h2>
-            <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Feed
-            </span>
-          </div>
-          <div className="grid gap-4">
-            {posts.map((post) => (
-              <article key={post.id} className="flex flex-col gap-3 rounded-2xl border p-4">
-                {post.imageUrl ? (
-                  <img
-                    src={post.imageUrl}
-                    alt={post.title}
-                    className="h-40 w-full rounded-2xl object-cover"
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
+        {carouselItems.length > 0 ? (
+          <StoreCarousel items={carouselItems} isAdmin={isAdmin} />
+        ) : null}
+        {isAdmin ? (
+          <div className="flex justify-center">
+            <StorePostAdminModal
+              error={searchParams?.error}
+              success={Boolean(searchParams?.success)}
+              initialOpen={Boolean(searchParams?.error || searchParams?.success)}
+              trigger={
+                <button
+                  type="button"
+                  className="w-full max-w-md rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-900 shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
+                >
+                  Adicionar imagem ao carrossel
+                </button>
+              }
+            >
+              <form action={createStorePost} className="grid gap-4">
+                <label className="flex flex-col gap-2 text-sm">
+                  <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
+                    Título
+                  </span>
+                  <input
+                    name="title"
+                    className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="Título da publicação"
                   />
-                ) : null}
-                <h3 className="text-sm font-semibold">{post.title}</h3>
-                {post.isPinned ? (
-                  <span className="text-xs text-muted-foreground">Publicação fixa</span>
-                ) : null}
-              </article>
-            ))}
+                </label>
+                <StorePostImageField />
+                <StorePostDurationFields />
+                <button
+                  type="submit"
+                  className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+                >
+                  Publicar
+                </button>
+              </form>
+            </StorePostAdminModal>
           </div>
-        </section>
-      ) : null}
+        ) : null}
+      </section>
 
     </div>
   )

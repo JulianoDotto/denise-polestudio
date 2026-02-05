@@ -611,6 +611,17 @@ export async function createStorePost(formData: FormData) {
   redirect('/loja?success=1')
 }
 
+export async function deleteStorePost(formData: FormData) {
+  await requireAdmin()
+  const id = String(formData.get('id') || '')
+  if (!id) redirect('/loja')
+
+  await prisma.storePost.delete({ where: { id } })
+
+  revalidatePath('/loja')
+  redirect('/loja?deleted=1')
+}
+
 export async function createCategory(formData: FormData) {
   await requireAdmin()
 
