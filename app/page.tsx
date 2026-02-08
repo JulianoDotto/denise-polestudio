@@ -1,23 +1,27 @@
 import Link from 'next/link'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 
 const banners = [
-  { label: 'Loja', href: '/loja' },
-  { label: 'Produtos digitais', href: '/produtos-digitais' },
-  { label: 'Aulas', href: '/aulas' },
-  { label: 'Workshops', href: '/workshops' },
-  { label: 'Eventos', href: '/eventos' },
+  { label: TEXTS.HOME_LINK_LOJA_TITLE_1, href: '/loja' },
+  { label: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1, href: '/produtos-digitais' },
+  { label: TEXTS.HOME_LINK_AULAS_TITLE_1, href: '/aulas' },
+  { label: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops' },
+  { label: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos' },
 ]
 
 export default async function Home() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10">
       <section className="soft-card flex flex-col gap-5 p-6 md:p-10">
-        <span className="tracking-caps text-[10px] text-white/60">Studio</span>
+        <span className="tracking-caps text-[10px] text-white/60">
+          {TEXTS.HOME_BADGE_1}
+        </span>
         <h1 className="font-display text-3xl uppercase tracking-[0.22em] text-white md:text-4xl">
-          Bem-vinda ao universo da Denise Garcia
+          {TEXTS.HOME_HERO_TITLE_1}
         </h1>
         <p className="text-sm text-white/70 md:max-w-2xl">
-          Encontre aulas, workshops, eventos e produtos digitais com atendimento direto pelo WhatsApp.
+          {TEXTS.HOME_HERO_DESCRIPTION_1}
         </p>
         <div className="grid gap-3 md:grid-cols-2">
           {banners.map((banner) => (
@@ -29,7 +33,9 @@ export default async function Home() {
               <span className="font-display text-sm tracking-[0.35em] text-white">
                 {banner.label}
               </span>
-              <span className="text-[10px] text-white/50 group-hover:text-white/80">Ver</span>
+              <span className="text-[10px] text-white/50 group-hover:text-white/80">
+                {TEXTS.HOME_BANNER_ACTION_1}
+              </span>
             </Link>
           ))}
         </div>
@@ -37,39 +43,38 @@ export default async function Home() {
 
       <section className="light-panel grid gap-6 p-6 md:grid-cols-[1fr_2fr]">
         <img
-          src="/images/placeholder.svg"
-          alt="Sobre Denise"
+          src={IMAGES.HOME_SECTION_IMAGE_1}
+          alt={TEXTS.HOME_SECTION_IMAGE_ALT_1}
           className="h-52 w-full rounded-2xl object-cover"
         />
         <div className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Sobre Denise Garcia</h2>
+          <h2 className="text-lg font-semibold">{TEXTS.HOME_ABOUT_TITLE_1}</h2>
           <p className="text-sm text-muted-foreground">
-            Professora e bailarina com foco em empoderamento feminino, expressão corporal
-            e bem-estar. Experiências presenciais e online para todos os níveis.
+            {TEXTS.HOME_ABOUT_TEXT_1}
           </p>
         </div>
       </section>
 
       <section className="grid gap-6">
         <h2 className="font-display text-lg uppercase tracking-[0.2em] text-white/80">
-          Experiências
+          {TEXTS.HOME_EXPERIENCES_TITLE_1}
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
           {[
             {
-              title: 'Aulas personalizadas',
-              description:
-                'Treinos presenciais e online com foco na sua evolução e segurança.',
+              title: TEXTS.HOME_EXPERIENCE_1_TITLE_1,
+              description: TEXTS.HOME_EXPERIENCE_1_DESC_1,
+              imageUrl: IMAGES.HOME_BUTTON_LINKS_1,
             },
             {
-              title: 'Workshops temáticos',
-              description:
-                'Encontros intensivos para explorar técnicas, sensualidade e expressão.',
+              title: TEXTS.HOME_EXPERIENCE_2_TITLE_1,
+              description: TEXTS.HOME_EXPERIENCE_2_DESC_1,
+              imageUrl: IMAGES.HOME_BUTTON_LINKS_2,
             },
           ].map((experience) => (
             <div key={experience.title} className="soft-card flex flex-col gap-3 p-6">
               <img
-                src="/images/placeholder.svg"
+                src={experience.imageUrl}
                 alt={experience.title}
                 className="h-40 w-full rounded-2xl object-cover"
               />

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { TEXTS } from '@/hardcoded/texts'
 
 const STORAGE_KEY = 'adultOk'
 const EXPIRY_DAYS = 7
@@ -58,15 +59,15 @@ export default function AdultGate({
       <Dialog open={open}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>+18 Warning</DialogTitle>
+            <DialogTitle>{TEXTS.SITE_ADULT_GATE_TITLE_1}</DialogTitle>
             <DialogDescription>
-              Este conteúdo é exclusivo para maiores de 18 anos.
+              {TEXTS.SITE_ADULT_GATE_DESCRIPTION_1}
             </DialogDescription>
           </DialogHeader>
           <div className="mt-6 flex flex-col gap-3">
-            <Button onClick={handleAccept}>Tenho mais de 18</Button>
+            <Button onClick={handleAccept}>{TEXTS.SITE_ADULT_GATE_ACCEPT_1}</Button>
             <Button variant="outline" onClick={handleReject}>
-              Menor de idade
+              {TEXTS.SITE_ADULT_GATE_REJECT_1}
             </Button>
           </div>
         </DialogContent>

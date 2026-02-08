@@ -3,6 +3,7 @@ import { ItemType } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default async function WorkshopsPage() {
   const phone = getWhatsAppPhone()
@@ -10,17 +11,16 @@ export default async function WorkshopsPage() {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
-      <h1 className="text-2xl font-semibold">Workshops</h1>
+      <h1 className="text-2xl font-semibold">{TEXTS.WORKSHOPS_PAGE_TITLE_1}</h1>
       <p className="text-sm text-muted-foreground">
-        Encontros intensivos para aprofundar técnicas, explorar temas específicos e viver
-        experiências únicas.
+        {TEXTS.WORKSHOPS_PAGE_DESCRIPTION_1}
       </p>
 
       <div className="grid gap-4">
         {workshops.map((workshop) => {
           const message =
             workshop.whatsappTextTemplate ||
-            `Olá, quero informações sobre o workshop ${workshop.title}.`
+            TEXTS.WORKSHOPS_WHATSAPP_TEMPLATE_1.replace('{title}', workshop.title)
           const url = phone ? buildWhatsAppUrl(phone, message) : ''
 
           return (
@@ -28,7 +28,7 @@ export default async function WorkshopsPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-semibold">{workshop.title}</h2>
                 <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  Workshop
+                  {TEXTS.WORKSHOPS_BADGE_1}
                 </span>
               </div>
               {workshop.coverUrl ? (
@@ -42,11 +42,11 @@ export default async function WorkshopsPage() {
               {url ? (
                 <Button asChild>
                   <a href={url} target="_blank" rel="noreferrer">
-                    QUERO PARTICIPAR
+                    {TEXTS.WORKSHOPS_BUTTON_1}
                   </a>
                 </Button>
               ) : (
-                <Button disabled>QUERO PARTICIPAR</Button>
+                <Button disabled>{TEXTS.WORKSHOPS_BUTTON_1}</Button>
               )}
             </div>
           )

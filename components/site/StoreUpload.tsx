@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { TEXTS } from '@/hardcoded/texts'
 
 type Preview = {
   id: string
@@ -33,9 +34,9 @@ export default function StoreUpload() {
   return (
     <div className="flex flex-col gap-4 rounded-3xl border bg-white p-6">
       <div>
-        <h2 className="text-base font-semibold">Fotos dos produtos</h2>
+        <h2 className="text-base font-semibold">{TEXTS.STORE_UPLOAD_TITLE_1}</h2>
         <p className="text-sm text-muted-foreground">
-          Faça upload de algumas imagens para mostrar o estilo e a qualidade dos produtos.
+          {TEXTS.STORE_UPLOAD_DESCRIPTION_1}
         </p>
       </div>
       <input
@@ -60,7 +61,7 @@ export default function StoreUpload() {
         </div>
       ) : (
         <p className="text-xs text-muted-foreground">
-          Nenhuma foto selecionada ainda.
+          {TEXTS.STORE_UPLOAD_EMPTY_1}
         </p>
       )}
     </div>
