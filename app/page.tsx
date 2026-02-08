@@ -35,7 +35,7 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-        <h2 className="text-center font-display text-base uppercase tracking-[0.4em] text-white">
+        <h2 className="text-center font-display uppercase tracking-[0.4em] text-white text-2xl">
           {TEXTS.HOME_HELP_TITLE_1}
         </h2>
         <div className="grid gap-4">

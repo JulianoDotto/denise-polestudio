@@ -20,7 +20,7 @@ export default function ImageLinkCard({
     >
       <img src={imageUrl} alt={title} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-black/45 transition group-hover:bg-black/55" />
-      <span className="relative z-10 font-display text-lg uppercase tracking-[0.35em] text-white">
+      <span className="relative z-10 font-display text-xl font-semibold uppercase tracking-[0.35em] text-white">
         {title}
       </span>
     </Link>
