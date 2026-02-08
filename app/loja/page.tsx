@@ -19,8 +19,9 @@ type LojaSearchParams = {
 export default async function LojaPage({
   searchParams,
 }: {
-  searchParams?: LojaSearchParams
+  searchParams?: Promise<LojaSearchParams> | LojaSearchParams
 }) {
+  const resolvedSearchParams = await searchParams
   const phone = getWhatsAppPhone()
   const contactUrl = phone
     ? buildWhatsAppUrl(phone, 'Olá, quero saber mais sobre os produtos da Denise.')
@@ -104,9 +105,11 @@ export default async function LojaPage({
         {isAdmin ? (
           <div className="flex justify-center">
             <StorePostAdminModal
-              error={searchParams?.error}
-              success={Boolean(searchParams?.success)}
-              initialOpen={Boolean(searchParams?.error || searchParams?.success)}
+              error={resolvedSearchParams?.error}
+              success={Boolean(resolvedSearchParams?.success)}
+              initialOpen={Boolean(
+                resolvedSearchParams?.error || resolvedSearchParams?.success,
+              )}
               trigger={
                 <button
                   type="button"
