@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default async function Header() {
   return (
@@ -8,7 +9,7 @@ export default async function Header() {
           href="/"
           className="font-display text-base uppercase tracking-[0.45em] text-white/90"
         >
-          Denise Garcia
+          {TEXTS.SITE_HEADER_LOGO_1}
         </Link>
       </div>
     </header>

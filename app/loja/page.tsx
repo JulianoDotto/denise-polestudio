@@ -8,6 +8,8 @@ import PageSection from '@/components/site/PageSection'
 import StorePostImageField from '@/components/site/StorePostImageField'
 import StorePostDurationFields from '@/components/site/StorePostDurationFields'
 import StoreCarousel from '@/components/site/StoreCarousel'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 import { createStorePost } from '@/lib/admin/actions'
 import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
@@ -26,7 +28,7 @@ export default async function LojaPage({
   const resolvedSearchParams = await searchParams
   const phone = getWhatsAppPhone()
   const contactUrl = phone
-    ? buildWhatsAppUrl(phone, 'Olá, quero saber mais sobre os produtos da Denise.')
+    ? buildWhatsAppUrl(phone, TEXTS.LOJA_WHATSAPP_MESSAGE_1)
     : ''
   const session = await getServerSession(authOptions)
   const isAdmin = session?.user?.role === 'ADMIN'
@@ -46,21 +48,25 @@ export default async function LojaPage({
   const carouselItems = posts.map((post) => ({
     id: post.id,
     title: post.title,
-    imageUrl: post.imageUrl || '/images/placeholder.svg',
+    imageUrl: post.imageUrl || IMAGES.SITE_PLACEHOLDER_1,
   }))
-  const heroImage = '/images/placeholder.svg'
+  const heroImage = IMAGES.LOJA_HERO_1
 
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
       <AgeGateModal />
 
-      <PageHero imageUrl={heroImage} title="Loja" eyebrow="Coleção" />
+      <PageHero
+        imageUrl={heroImage}
+        title={TEXTS.LOJA_HERO_TITLE_1}
+        eyebrow={TEXTS.LOJA_HERO_EYEBROW_1}
+      />
 
       <PageSection
-        title="Sobre a loja"
+        title={TEXTS.LOJA_SECTION_TITLE_1}
         paragraphs={[
-          'Produtos selecionados pela Denise, focados em bem-estar, sensualidade e autocuidado. Tudo pensado para complementar sua jornada nas aulas e experiências.',
-          'Se precisar de ajuda para escolher, fale direto pelo WhatsApp e receba recomendações personalizadas.',
+          TEXTS.LOJA_SECTION_P1_1,
+          TEXTS.LOJA_SECTION_P2_1,
         ]}
       >
         {contactUrl && (
@@ -70,7 +76,7 @@ export default async function LojaPage({
             size="lg"
             className="w-full max-w-md uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5 text-center"
           >
-            Comprar pelo WhatsApp
+            {TEXTS.LOJA_WHATSAPP_BUTTON_1}
           </ActionButton>
         )}
       </PageSection>
@@ -82,43 +88,43 @@ export default async function LojaPage({
         {isAdmin ? (
           <div className="flex justify-center">
             <AdminModal
-              title="Publicar no feed"
-              description="Use a publicação fixa para manter o post sem prazo."
+              title={TEXTS.LOJA_ADMIN_TITLE_1}
+              description={TEXTS.LOJA_ADMIN_DESCRIPTION_1}
               error={resolvedSearchParams?.error}
               success={Boolean(resolvedSearchParams?.success)}
               initialOpen={Boolean(
                 resolvedSearchParams?.error || resolvedSearchParams?.success,
               )}
               errorMessages={{
-                title: 'Informe um título para a publicação.',
-                expiresAt: 'Defina uma data de duração ou marque como publicação fixa.',
+                title: TEXTS.LOJA_ADMIN_ERROR_TITLE_1,
+                expiresAt: TEXTS.LOJA_ADMIN_ERROR_EXPIRES_1,
               }}
-              successMessage="Publicação criada com sucesso."
+              successMessage={TEXTS.LOJA_ADMIN_SUCCESS_1}
               trigger={
                 <ActionButton
                   type="button"
                   size="lg"
                   className="w-full max-w-md uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
                 >
-                  + Adicionar
+                  {TEXTS.LOJA_ADMIN_TRIGGER_1}
                 </ActionButton>
               }
             >
               <form action={createStorePost} className="grid gap-4">
                 <label className="flex flex-col gap-2 text-sm">
                   <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
-                    Título
+                    {TEXTS.LOJA_ADMIN_LABEL_TITLE_1}
                   </span>
                   <input
                     name="title"
                     className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
-                    placeholder="Título da publicação"
+                    placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_TITLE_1}
                   />
                 </label>
                 <StorePostImageField />
                 <StorePostDurationFields />
                 <ActionButton type="submit" size="sm" className="self-start">
-                  Publicar
+                  {TEXTS.LOJA_ADMIN_SUBMIT_1}
                 </ActionButton>
               </form>
             </AdminModal>

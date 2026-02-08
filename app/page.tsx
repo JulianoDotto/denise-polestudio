@@ -1,38 +1,34 @@
 import HomeHero from '@/components/site/HomeHero'
 import HomeIntro from '@/components/site/HomeIntro'
 import ImageLinkCard from '@/components/site/ImageLinkCard'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 
 const helpLinks = [
-  { title: 'Aulas', href: '/aulas', imageUrl: '/images/placeholder.svg' },
-  { title: 'Loja', href: '/loja', imageUrl: '/images/placeholder.svg' },
-  { title: 'E-books', href: '/ebooks', imageUrl: '/images/placeholder.svg' },
-  { title: 'Eventos', href: '/eventos', imageUrl: '/images/placeholder.svg' },
-  { title: 'Workshops', href: '/workshops', imageUrl: '/images/placeholder.svg' },
+  { title: TEXTS.HOME_LINK_AULAS_TITLE_1, href: '/aulas', imageUrl: IMAGES.HOME_BUTTON_LINKS_1 },
+  { title: TEXTS.HOME_LINK_LOJA_TITLE_1, href: '/loja', imageUrl: IMAGES.HOME_BUTTON_LINKS_2 },
+  { title: TEXTS.HOME_LINK_EBOOKS_TITLE_1, href: '/ebooks', imageUrl: IMAGES.HOME_BUTTON_LINKS_3 },
+  { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos', imageUrl: IMAGES.HOME_BUTTON_LINKS_4 },
+  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_BUTTON_LINKS_5 },
   {
-    title: 'Produtos digitais',
+    title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
     href: '/produtos-digitais',
-    imageUrl: '/images/placeholder.svg',
+    imageUrl: IMAGES.HOME_BUTTON_LINKS_6,
   },
 ]
 
 export default async function Home() {
   return (
     <div className="flex flex-col gap-10 bg-[#FDFDFD] pb-12">
-      <HomeHero
-        imageUrl="/images/placeholder.svg"
-        headline="Liberdade através da sensualidade"
-      />
+      <HomeHero imageUrl={IMAGES.HOME_HERO_1} headline={TEXTS.HOME_HERO_HEADLINE_1} />
 
-      <HomeIntro
-        title="Olá, sou Denise Garcia"
-        text="Adicionar bio de Denise Garcia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      />
+      <HomeIntro title={TEXTS.HOME_INTRO_TITLE_1} text={TEXTS.HOME_INTRO_TEXT_1} />
 
       <section className="w-full">
         <div className="overflow-hidden bg-black">
           <img
-            src="/images/placeholder.svg"
-            alt="Denise Garcia"
+            src={IMAGES.HOME_SECTION_IMAGE_1}
+            alt={TEXTS.HOME_INTRO_IMAGE_ALT_1}
             className="h-64 w-full object-cover sm:h-80"
           />
         </div>
@@ -40,7 +36,7 @@ export default async function Home() {
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6">
         <h2 className="text-center font-display text-base uppercase tracking-[0.4em] text-zinc-800">
-          Veja como posso te ajudar
+          {TEXTS.HOME_HELP_TITLE_1}
         </h2>
         <div className="grid gap-4">
           {helpLinks.map((item) => (

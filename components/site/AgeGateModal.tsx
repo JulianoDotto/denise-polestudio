@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { TEXTS } from '@/hardcoded/texts'
 
 const STORAGE_KEY = 'age_gate_loja_accepted'
 
@@ -43,10 +44,10 @@ export default function AgeGateModal() {
       >
         <div className="flex flex-col gap-3">
           <h2 id="age-gate-title" className="text-lg font-semibold">
-            Você tem mais de 18 anos?
+            {TEXTS.SITE_AGE_GATE_TITLE_1}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Este conteúdo é recomendado apenas para maiores de idade.
+            {TEXTS.SITE_AGE_GATE_DESCRIPTION_1}
           </p>
         </div>
         <div className="mt-6 flex flex-col gap-3">
@@ -55,14 +56,14 @@ export default function AgeGateModal() {
             onClick={handleConfirm}
             className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
           >
-            Sim, tenho 18+
+            {TEXTS.SITE_AGE_GATE_CONFIRM_1}
           </button>
           <button
             type="button"
             onClick={handleReject}
             className="rounded-full border px-4 py-2 text-sm text-muted-foreground"
           >
-            Não
+            {TEXTS.SITE_AGE_GATE_REJECT_1}
           </button>
         </div>
       </div>

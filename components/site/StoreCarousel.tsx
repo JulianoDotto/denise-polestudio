@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 
 import { deleteStorePost } from '@/lib/admin/actions'
+import { TEXTS } from '@/hardcoded/texts'
 import {
   Dialog,
   DialogClose,
@@ -87,16 +88,18 @@ export default function StoreCarousel({
                 <button
                   type="button"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white transition hover:border-white hover:bg-black/80"
-                  aria-label="Excluir publicação"
+                  aria-label={TEXTS.STORE_CAROUSEL_DELETE_ARIA_1}
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
               </DialogTrigger>
               <DialogContent className="max-w-sm rounded-3xl border bg-white p-6">
                 <DialogHeader className="text-left">
-                  <DialogTitle className="text-zinc-900">Excluir publicação</DialogTitle>
+                  <DialogTitle className="text-zinc-900">
+                    {TEXTS.STORE_CAROUSEL_DELETE_TITLE_1}
+                  </DialogTitle>
                   <DialogDescription className="text-sm text-zinc-600">
-                    Tem certeza que deseja excluir esta imagem do carrossel?
+                    {TEXTS.STORE_CAROUSEL_DELETE_DESCRIPTION_1}
                   </DialogDescription>
                 </DialogHeader>
                 <form action={deleteStorePost} className="mt-4 flex gap-3">
@@ -105,14 +108,14 @@ export default function StoreCarousel({
                     type="submit"
                     className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white"
                   >
-                    Excluir
+                    {TEXTS.STORE_CAROUSEL_DELETE_CONFIRM_1}
                   </button>
                   <DialogClose asChild>
                     <button
                       type="button"
                       className="flex-1 rounded-full border px-4 py-2 text-sm text-zinc-700"
                     >
-                      Cancelar
+                      {TEXTS.STORE_CAROUSEL_DELETE_CANCEL_1}
                     </button>
                   </DialogClose>
                 </form>
@@ -122,7 +125,9 @@ export default function StoreCarousel({
         ) : null}
         <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
           <div className="max-w-[70%] text-white">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">Feed</p>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">
+              {TEXTS.STORE_CAROUSEL_FEED_LABEL_1}
+            </p>
             <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.2em]">
               {activeSlide.title}
             </h3>
@@ -132,7 +137,7 @@ export default function StoreCarousel({
               type="button"
               onClick={() => goToSlide(activeIndex - 1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-white hover:bg-white/10"
-              aria-label="Imagem anterior"
+              aria-label={TEXTS.STORE_CAROUSEL_PREV_ARIA_1}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -140,7 +145,7 @@ export default function StoreCarousel({
               type="button"
               onClick={() => goToSlide(activeIndex + 1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-white hover:bg-white/10"
-              aria-label="Próxima imagem"
+              aria-label={TEXTS.STORE_CAROUSEL_NEXT_ARIA_1}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -162,7 +167,7 @@ export default function StoreCarousel({
               className={`h-2.5 w-2.5 rounded-full transition ${
                 index === activeIndex ? 'bg-white' : 'bg-white/30'
               }`}
-              aria-label={`Ir para ${slide.title}`}
+              aria-label={`${TEXTS.STORE_CAROUSEL_GOTO_PREFIX_1} ${slide.title}`}
             />
           ))}
         </div>

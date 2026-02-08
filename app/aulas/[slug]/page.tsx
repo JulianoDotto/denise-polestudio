@@ -5,6 +5,8 @@ import { ItemType } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { getItemBySlug } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default async function AulaPage({
   params,
@@ -15,13 +17,14 @@ export default async function AulaPage({
   const item = await getItemBySlug(slug)
   if (!item || item.type !== ItemType.CLASS) return notFound()
 
-  const imageUrl = item.coverUrl || item.images[0]?.url || '/images/placeholder.svg'
+  const imageUrl = item.coverUrl || item.images[0]?.url || IMAGES.AULA_DETAIL_PLACEHOLDER_1
   const phone = getWhatsAppPhone()
   const baseMessage =
-    item.whatsappTextTemplate || `Olá, quero agendar a aula ${item.title}.`
+    item.whatsappTextTemplate ||
+    TEXTS.AULAS_WHATSAPP_TEMPLATE_1.replace('{title}', item.title)
 
-  const onlineMessage = `${baseMessage} (Aula online)`
-  const presentialMessage = `${baseMessage} (Aula presencial)`
+  const onlineMessage = `${baseMessage} (${TEXTS.AULAS_WHATSAPP_ONLINE_SUFFIX_1})`
+  const presentialMessage = `${baseMessage} (${TEXTS.AULAS_WHATSAPP_PRESENTIAL_SUFFIX_1})`
 
   const onlineUrl = phone ? buildWhatsAppUrl(phone, onlineMessage) : ''
   const presentialUrl = phone ? buildWhatsAppUrl(phone, presentialMessage) : ''
@@ -37,27 +40,33 @@ export default async function AulaPage({
         <div>
           <h1 className="text-2xl font-semibold">{item.title}</h1>
           <p className="text-sm text-muted-foreground">
-            {item.description || 'Descrição detalhada da aula.'}
+            {item.description || TEXTS.AULA_DETAIL_DEFAULT_DESC_1}
           </p>
         </div>
 
         <div className="grid gap-4">
           <div className="rounded-3xl border bg-white p-5">
-            <h2 className="text-base font-semibold">Sobre a aula</h2>
+            <h2 className="text-base font-semibold">
+              {TEXTS.AULA_DETAIL_SECTION_ABOUT_TITLE_1}
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              {item.description || 'Descrição detalhada da aula.'}
+              {item.description || TEXTS.AULA_DETAIL_DEFAULT_DESC_1}
             </p>
           </div>
           <div className="rounded-3xl border bg-white p-5">
-            <h2 className="text-base font-semibold">Como funciona</h2>
+            <h2 className="text-base font-semibold">
+              {TEXTS.AULA_DETAIL_SECTION_HOW_TITLE_1}
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Aulas presenciais ou online, com acompanhamento personalizado e foco na sua evolução.
+              {TEXTS.AULA_DETAIL_SECTION_HOW_TEXT_1}
             </p>
           </div>
           <div className="rounded-3xl border bg-white p-5">
-            <h2 className="text-base font-semibold">Informações adicionais</h2>
+            <h2 className="text-base font-semibold">
+              {TEXTS.AULA_DETAIL_SECTION_INFO_TITLE_1}
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Entre em contato para horários, níveis disponíveis e valores promocionais.
+              {TEXTS.AULA_DETAIL_SECTION_INFO_TEXT_1}
             </p>
           </div>
         </div>
@@ -66,7 +75,7 @@ export default async function AulaPage({
           {item.hotmartUrl ? (
             <Button asChild>
               <Link href={item.hotmartUrl} target="_blank">
-                HOTMART
+                {TEXTS.AULA_DETAIL_HOTMART_LABEL_1}
               </Link>
             </Button>
           ) : null}
@@ -74,30 +83,30 @@ export default async function AulaPage({
           {onlineUrl ? (
             <Button asChild variant="outline">
               <Link href={onlineUrl} target="_blank">
-                AGENDAR AULA ONLINE
+                {TEXTS.AULA_DETAIL_BUTTON_ONLINE_1}
               </Link>
             </Button>
           ) : (
             <Button variant="outline" disabled>
-              AGENDAR AULA ONLINE
+              {TEXTS.AULA_DETAIL_BUTTON_ONLINE_1}
             </Button>
           )}
 
           {presentialUrl ? (
             <Button asChild variant="outline">
               <Link href={presentialUrl} target="_blank">
-                AGENDAR AULA PRESENCIAL
+                {TEXTS.AULA_DETAIL_BUTTON_PRESENTIAL_1}
               </Link>
             </Button>
           ) : (
             <Button variant="outline" disabled>
-              AGENDAR AULA PRESENCIAL
+              {TEXTS.AULA_DETAIL_BUTTON_PRESENTIAL_1}
             </Button>
           )}
 
           {!phone ? (
             <p className="text-xs text-muted-foreground">
-              Configure o WhatsApp em `.env` para ativar os botões.
+              {TEXTS.AULA_DETAIL_WHATSAPP_MISSING_1}
             </p>
           ) : null}
         </div>
