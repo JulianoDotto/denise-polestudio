@@ -37,7 +37,7 @@ export default function AulasAdminModal() {
           </span>
           <input
             name="title"
-            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
             placeholder={TEXTS.AULAS_ADMIN_TITLE_PLACEHOLDER_1}
           />
         </label>
@@ -48,7 +48,7 @@ export default function AulasAdminModal() {
           <textarea
             name="description"
             rows={4}
-            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
             placeholder={TEXTS.AULAS_ADMIN_DESCRIPTION_PLACEHOLDER_1}
           />
         </label>

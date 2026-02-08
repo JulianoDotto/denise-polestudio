@@ -10,6 +10,7 @@ export const IMAGES = {
   LOJA_HERO_1: '/images/placeholder.svg',
   EVENTOS_BANNER_1: '/images/placeholder.svg',
   PRODUTOS_DIGITAIS_PLACEHOLDER_1: '/images/placeholder.svg',
+  PRODUTOS_DIGITAIS_HERO_1: '/images/placeholder.svg',
   AULA_DETAIL_PLACEHOLDER_1: '/images/placeholder.svg',
   STORE_IMAGE_FIELD_PREVIEW_1: '/images/placeholder.svg',
   AULAS_COVER_FALLBACK_1: '/images/placeholder.svg',

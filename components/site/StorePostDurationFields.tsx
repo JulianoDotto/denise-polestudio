@@ -33,7 +33,7 @@ export default function StorePostDurationFields() {
           disabled={isPinned}
           onClick={handleOpenPicker}
           onFocus={handleOpenPicker}
-          className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 disabled:cursor-not-allowed disabled:bg-muted disabled:text-zinc-400"
+          className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 disabled:cursor-not-allowed disabled:bg-muted disabled:text-zinc-300"
         />
       </label>
     </div>

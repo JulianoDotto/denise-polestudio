@@ -24,7 +24,7 @@ export default async function Home() {
       <HomeIntro title={TEXTS.HOME_INTRO_TITLE_1} text={TEXTS.HOME_INTRO_TEXT_1} />
 
       <section className="w-full">
-        <div className="overflow-hidden bg-black">
+        <div className="overflow-hidden bg-stone-950">
           <img
             src={IMAGES.HOME_SECTION_IMAGE_1}
             alt={TEXTS.HOME_INTRO_IMAGE_ALT_1}
@@ -34,7 +34,7 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-        <h2 className="text-center font-display uppercase tracking-[0.4em] text-white text-2xl">
+        <h2 className="text-center font-display uppercase tracking-[0.4em] text-zinc-300 text-2xl">
           {TEXTS.HOME_HELP_TITLE_1}
         </h2>
         <div className="grid gap-4">

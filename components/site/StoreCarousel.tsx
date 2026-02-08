@@ -6,13 +6,13 @@ import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 import { deleteStorePost } from '@/lib/admin/actions'
 import { TEXTS } from '@/hardcoded/texts'
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 
 type StoreCarouselItem = {
@@ -70,7 +70,7 @@ export default function StoreCarousel({
   return (
     <div className="grid gap-4">
       <div
-        className="relative overflow-hidden rounded-[32px] bg-black"
+        className="relative overflow-hidden rounded-[32px] bg-stone-950"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -87,7 +87,7 @@ export default function StoreCarousel({
               <DialogTrigger asChild>
                 <button
                   type="button"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/60 text-white transition hover:border-white hover:bg-black/80"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-stone-950/60 text-zinc-300 transition hover:border-white hover:bg-stone-950/80"
                   aria-label={TEXTS.STORE_CAROUSEL_DELETE_ARIA_1}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -106,7 +106,7 @@ export default function StoreCarousel({
                   <input type="hidden" name="id" value={activeSlide.id} />
                   <button
                     type="submit"
-                    className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white"
+                    className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-zinc-300"
                   >
                     {TEXTS.STORE_CAROUSEL_DELETE_CONFIRM_1}
                   </button>
@@ -124,8 +124,8 @@ export default function StoreCarousel({
           </div>
         ) : null}
         <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
-          <div className="max-w-[70%] text-white">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">
+          <div className="max-w-[70%] text-zinc-300">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-300/70">
               {TEXTS.STORE_CAROUSEL_FEED_LABEL_1}
             </p>
             <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.2em]">
@@ -136,7 +136,7 @@ export default function StoreCarousel({
             <button
               type="button"
               onClick={() => goToSlide(activeIndex - 1)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-white hover:bg-white/10"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-zinc-300 transition hover:border-white hover:bg-white/10"
               aria-label={TEXTS.STORE_CAROUSEL_PREV_ARIA_1}
             >
               <ChevronLeft className="h-5 w-5" />
@@ -144,7 +144,7 @@ export default function StoreCarousel({
             <button
               type="button"
               onClick={() => goToSlide(activeIndex + 1)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition hover:border-white hover:bg-white/10"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-zinc-300 transition hover:border-white hover:bg-white/10"
               aria-label={TEXTS.STORE_CAROUSEL_NEXT_ARIA_1}
             >
               <ChevronRight className="h-5 w-5" />
@@ -153,7 +153,7 @@ export default function StoreCarousel({
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-white/60">
+      <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-zinc-300/60">
         <span>
           {String(activeIndex + 1).padStart(2, '0')} /{' '}
           {String(slides.length).padStart(2, '0')}

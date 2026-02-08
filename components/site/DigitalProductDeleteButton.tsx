@@ -4,34 +4,43 @@ import { useActionState } from 'react'
 import { Trash2 } from 'lucide-react'
 
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog'
-import { deleteClassInline } from '@/lib/admin/actions'
+import { deleteDigitalProductInline } from '@/lib/admin/actions'
 import { TEXTS } from '@/hardcoded/texts'
 
-type AulasDeleteButtonProps = {
+type DigitalProductDeleteButtonProps = {
   id: string
   title: string
+  tone?: 'dark' | 'light'
 }
 
 const initialState = { success: false, error: '' }
 
-export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps) {
-  const [state, formAction] = useActionState(deleteClassInline, initialState)
+export default function DigitalProductDeleteButton({
+  id,
+  title,
+  tone = 'dark',
+}: DigitalProductDeleteButtonProps) {
+  const [state, formAction] = useActionState(deleteDigitalProductInline, initialState)
+  const toneClasses =
+    tone === 'light'
+      ? 'border-white/70 bg-stone-950/70 text-white hover:bg-stone-950/90'
+      : 'border-zinc-300/70 bg-white/80 text-zinc-900 hover:bg-white'
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-stone-950/30 text-zinc-300 transition hover:bg-stone-950/50"
-          aria-label={TEXTS.AULAS_DELETE_ICON_ARIA_1}
+          className={`inline-flex h-9 w-9 items-center justify-center rounded-full border transition ${toneClasses}`}
+          aria-label={TEXTS.PRODUTOS_DIGITAIS_DELETE_ICON_ARIA_1}
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -39,15 +48,15 @@ export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps)
       <DialogContent className="max-w-sm rounded-3xl border bg-white p-6">
         <DialogHeader className="text-left">
           <DialogTitle className="text-zinc-900">
-            {TEXTS.AULAS_DELETE_TITLE_1}
+            {TEXTS.PRODUTOS_DIGITAIS_DELETE_TITLE_1}
           </DialogTitle>
           <DialogDescription className="text-sm text-zinc-600">
-            {TEXTS.AULAS_DELETE_DESCRIPTION_1.replace('{title}', title)}
+            {TEXTS.PRODUTOS_DIGITAIS_DELETE_DESCRIPTION_1.replace('{title}', title)}
           </DialogDescription>
         </DialogHeader>
         {state.error ? (
           <p className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
-            {TEXTS.AULAS_DELETE_ERROR_1}
+            {TEXTS.PRODUTOS_DIGITAIS_DELETE_ERROR_1}
           </p>
         ) : null}
         <form action={formAction} className="mt-4 flex gap-3">
@@ -56,14 +65,14 @@ export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps)
             type="submit"
             className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-zinc-300"
           >
-            {TEXTS.AULAS_DELETE_CONFIRM_1}
+            {TEXTS.PRODUTOS_DIGITAIS_DELETE_CONFIRM_1}
           </button>
           <DialogClose asChild>
             <button
               type="button"
               className="flex-1 rounded-full border px-4 py-2 text-sm text-zinc-700"
             >
-              {TEXTS.AULAS_DELETE_CANCEL_1}
+              {TEXTS.PRODUTOS_DIGITAIS_DELETE_CANCEL_1}
             </button>
           </DialogClose>
         </form>
