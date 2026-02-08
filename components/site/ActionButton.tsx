@@ -7,6 +7,7 @@ type ActionButtonBaseProps = {
   className?: string
   size?: 'sm' | 'md' | 'lg'
   variant?: 'solid' | 'outline'
+  tone?: 'dark' | 'light'
 }
 
 type ActionButtonLinkProps = ActionButtonBaseProps & {
@@ -24,13 +25,19 @@ type ActionButtonButtonProps = ActionButtonBaseProps & {
 
 const sizeClasses = {
   sm: 'px-4 py-2 text-sm',
-  md: 'px-5 py-2 text-sm',
-  lg: 'px-6 py-3 text-sm',
+  md: 'px-5 py-2 text-base',
+  lg: 'px-6 py-3 text-base',
 }
 
 const variantClasses = {
-  solid: 'bg-[#0E0E0E] text-white hover:bg-black',
-  outline: 'border border-zinc-300 text-zinc-700 hover:bg-zinc-100',
+  solid: {
+    dark: 'bg-[#0E0E0E] text-white hover:bg-black',
+    light: 'bg-white text-zinc-900 hover:bg-zinc-100',
+  },
+  outline: {
+    dark: 'border border-zinc-300 text-zinc-700 hover:bg-zinc-100',
+    light: 'border border-white/60 text-white hover:bg-white/10',
+  },
 }
 
 export default function ActionButton(
@@ -41,12 +48,13 @@ export default function ActionButton(
     className,
     size = 'md',
     variant = 'solid',
+    tone = 'dark',
   } = props
 
   const classes = cn(
     'inline-flex items-center justify-center rounded-full font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
     sizeClasses[size],
-    variantClasses[variant],
+    variantClasses[variant][tone],
     className,
   )
 

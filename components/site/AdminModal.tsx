@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   Dialog,
@@ -21,6 +21,7 @@ type AdminModalProps = {
   description?: string
   error?: string
   success?: boolean
+  closeOnSuccess?: boolean
   errorMessages?: Record<string, string>
   errorFallbackMessage?: string
   successMessage?: string
@@ -40,13 +41,23 @@ export default function AdminModal({
   successMessage = TEXTS.SITE_ADMIN_MODAL_SUCCESS_FALLBACK_1,
   initialOpen = false,
   closeLabel = TEXTS.SITE_ADMIN_MODAL_CLOSE_1,
+  closeOnSuccess = false,
 }: AdminModalProps) {
   const [open, setOpen] = useState(initialOpen)
+  const prevSuccess = useRef(success)
   const errorMessage = useMemo(() => {
     if (!error) return ''
     if (!errorMessages) return errorFallbackMessage
     return errorMessages[error] ?? errorFallbackMessage
   }, [error, errorMessages, errorFallbackMessage])
+
+  useEffect(() => {
+    if (!closeOnSuccess) return
+    if (!prevSuccess.current && success) {
+      setOpen(false)
+    }
+    prevSuccess.current = success
+  }, [closeOnSuccess, success])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
