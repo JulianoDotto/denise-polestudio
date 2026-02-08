@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react'
 
 import AdminModal from '@/components/site/AdminModal'
 import ActionButton from '@/components/site/ActionButton'
@@ -11,7 +11,7 @@ import { TEXTS } from '@/hardcoded/texts'
 const initialState = { success: false, error: '' }
 
 export default function AulasAdminModal() {
-  const [state, formAction] = useFormState(createClassInline, initialState)
+  const [state, formAction] = useActionState(createClassInline, initialState)
 
   return (
     <AdminModal

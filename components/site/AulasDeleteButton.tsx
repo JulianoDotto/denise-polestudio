@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormState } from 'react-dom'
+import { useActionState } from 'react'
 import { Trash2 } from 'lucide-react'
 
 import {
@@ -23,7 +23,7 @@ type AulasDeleteButtonProps = {
 const initialState = { success: false, error: '' }
 
 export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps) {
-  const [state, formAction] = useFormState(deleteClassInline, initialState)
+  const [state, formAction] = useActionState(deleteClassInline, initialState)
 
   return (
     <Dialog>
