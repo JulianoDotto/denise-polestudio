@@ -55,6 +55,12 @@ export const TEXTS = {
   HOME_ABOUT_TEXT_1:
     'Professora e bailarina com foco em empoderamento feminino, expressão corporal e bem-estar. Experiências presenciais e online para todos os níveis.',
   HOME_SECTION_IMAGE_ALT_1: 'Sobre Denise',
+  HOME_HERO_HEADLINE_1: 'Liberdade através da sensualidade',
+  HOME_INTRO_TITLE_1: 'Olá, sou Denise Garcia',
+  HOME_INTRO_TEXT_1:
+    'Adicionar bio de Denise Garcia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  HOME_INTRO_IMAGE_ALT_1: 'Denise Garcia',
+  HOME_HELP_TITLE_1: 'Veja como posso te ajudar',
   HOME_EXPERIENCES_TITLE_1: 'Experiências',
   HOME_EXPERIENCE_1_TITLE_1: 'Aulas personalizadas',
   HOME_EXPERIENCE_1_DESC_1:
