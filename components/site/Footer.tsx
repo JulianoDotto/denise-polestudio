@@ -4,7 +4,7 @@ import { Instagram, MapPin, Phone, MessageCircle } from 'lucide-react'
 export default function Footer() {
   return (
     <>
-      <footer className="border-t border-white/10 bg-[#5b1524] text-white">
+      <footer className="border-t border-white/10 bg-[#62192A] text-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 text-sm">
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
@@ -34,7 +34,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <div className="border-t border-white/10 bg-white/5 px-6 py-3 text-center text-xs text-white/70">
+        <div className="border-t border-black/10 bg-[#FDFDFD] px-6 py-3 text-center text-xs text-zinc-600">
           Copyright ©2025 • Todos os direitos reservados
         </div>
       </footer>

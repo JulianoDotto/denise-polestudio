@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${display.variable} ${body.variable} antialiased`}>
+      <body className={`${display.variable} ${body.variable} bg-[#FDFDFD] antialiased`}>
         <Header />
         <main className="min-h-[70vh]">{children}</main>
         <Footer />
