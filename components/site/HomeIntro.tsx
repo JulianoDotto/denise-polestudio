@@ -7,7 +7,7 @@ type HomeIntroProps = {
 export default function HomeIntro({ title, text, className }: HomeIntroProps) {
   return (
     <section
-      className={`mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-6 text-center ${className ?? ''}`.trim()}
+      className={`mx-auto flex w-full max-w-3xl flex-col items-center bg-[#FDFDFD] py-12 gap-4 px-6 text-center ${className ?? ''}`.trim()}
     >
       <h2 className="font-display text-base uppercase tracking-[0.4em] text-zinc-700">
         {title}

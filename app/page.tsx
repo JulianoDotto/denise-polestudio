@@ -19,7 +19,7 @@ const helpLinks = [
 
 export default async function Home() {
   return (
-    <div className="flex flex-col gap-10 bg-[#FDFDFD] pb-12">
+    <div className="pb-12">
       <HomeHero imageUrl={IMAGES.HOME_HERO_1} headline={TEXTS.HOME_HERO_HEADLINE_1} />
 
       <HomeIntro title={TEXTS.HOME_INTRO_TITLE_1} text={TEXTS.HOME_INTRO_TEXT_1} />
@@ -34,8 +34,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6">
-        <h2 className="text-center font-display text-base uppercase tracking-[0.4em] text-zinc-800">
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
+        <h2 className="text-center font-display text-base uppercase tracking-[0.4em] text-white">
           {TEXTS.HOME_HELP_TITLE_1}
         </h2>
         <div className="grid gap-4">
