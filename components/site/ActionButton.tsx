@@ -50,10 +50,14 @@ export default function ActionButton(
     className,
   )
 
-  if ('href' in props && props.href) {
-    const { href } = props
+  const isLink = (
+    value: ActionButtonLinkProps | ActionButtonButtonProps,
+  ): value is ActionButtonLinkProps => typeof (value as ActionButtonLinkProps).href === 'string'
+
+  if (isLink(props)) {
+    const { href, target, rel } = props
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} target={target} rel={rel} className={classes}>
         {children}
       </Link>
     )
