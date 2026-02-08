@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${display.variable} ${body.variable} bg-[#FDFDFD] antialiased`}>
         <Header />
-        <main className="min-h-[70vh]">{children}</main>
+        <main className="min-h-[70vh] w-full max-w-[738px] mx-auto">{children}</main>
         <Footer />
       </body>
     </html>
