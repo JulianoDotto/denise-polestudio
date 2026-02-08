@@ -55,7 +55,7 @@ export default async function EbooksPage() {
                     title={item.title}
                     description={item.description}
                     hotmartUrl={item.hotmartUrl}
-                    type={item.type}
+                    type={item.type as 'EBOOK' | 'VIDEO'}
                     tone="light"
                   />
                   <DigitalProductDeleteButton id={item.id} title={item.title} tone="light" />
