@@ -4,6 +4,8 @@ import { ItemType } from '@prisma/client'
 import { getItemsByType } from '@/lib/db'
 import { formatPrice } from '@/lib/format'
 import { buildItemMessage, buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default async function EbooksPage() {
   const ebooks = await getItemsByType(ItemType.EBOOK)
@@ -11,9 +13,9 @@ export default async function EbooksPage() {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
-      <h1 className="text-2xl font-semibold">Produtos digitais</h1>
+      <h1 className="text-2xl font-semibold">{TEXTS.PRODUTOS_DIGITAIS_PAGE_TITLE_1}</h1>
       <p className="text-sm text-muted-foreground">
-        Coleção que reúne e-books e aulas gravadas para você estudar no seu ritmo.
+        {TEXTS.PRODUTOS_DIGITAIS_DESCRIPTION_1}
       </p>
       <div className="grid gap-6">
         {ebooks.map((ebook) => {
@@ -23,7 +25,7 @@ export default async function EbooksPage() {
             <div key={ebook.id} className="flex flex-col gap-4 rounded-3xl border bg-white p-5">
               <div className="flex gap-4">
                 <img
-                  src={ebook.coverUrl || '/images/placeholder.svg'}
+                  src={ebook.coverUrl || IMAGES.PRODUTOS_DIGITAIS_PLACEHOLDER_1}
                   alt={ebook.title}
                   className="h-20 w-20 rounded-xl object-cover"
                 />
@@ -41,11 +43,11 @@ export default async function EbooksPage() {
                   target="_blank"
                   className="rounded-full bg-primary px-4 py-2 text-center text-sm font-semibold text-primary-foreground"
                 >
-                  COMPRAR
+                  {TEXTS.PRODUTOS_DIGITAIS_BUTTON_BUY_1}
                 </Link>
               ) : (
                 <span className="rounded-full border px-4 py-2 text-center text-sm text-muted-foreground">
-                  Configure o WhatsApp para comprar
+                  {TEXTS.PRODUTOS_DIGITAIS_WHATSAPP_MISSING_1}
                 </span>
               )}
             </div>

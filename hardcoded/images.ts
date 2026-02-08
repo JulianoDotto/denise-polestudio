@@ -1,0 +1,16 @@
+export const IMAGES = {
+  SITE_PLACEHOLDER_1: '/images/placeholder.svg',
+  HOME_HERO_1: '/images/placeholder.svg',
+  HOME_SECTION_IMAGE_1: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_1: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_2: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_3: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_4: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_5: '/images/placeholder.svg',
+  HOME_BUTTON_LINKS_6: '/images/placeholder.svg',
+  LOJA_HERO_1: '/images/placeholder.svg',
+  EVENTOS_BANNER_1: '/images/placeholder.svg',
+  PRODUTOS_DIGITAIS_PLACEHOLDER_1: '/images/placeholder.svg',
+  AULA_DETAIL_PLACEHOLDER_1: '/images/placeholder.svg',
+  STORE_IMAGE_FIELD_PREVIEW_1: '/images/placeholder.svg',
+} as const

@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default function StorePostImageField() {
   const [preview, setPreview] = useState('')
@@ -28,7 +30,7 @@ export default function StorePostImageField() {
     <div className="flex flex-col gap-3">
       <label className="flex flex-col gap-2 text-sm">
         <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
-          Foto
+          {TEXTS.STORE_IMAGE_FIELD_LABEL_1}
         </span>
         <input
           type="file"
@@ -40,16 +42,16 @@ export default function StorePostImageField() {
       <input type="hidden" name="imageUrl" value={preview} />
       <div className="flex flex-col gap-2 text-sm">
         <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
-          Preview
+          {TEXTS.STORE_IMAGE_FIELD_PREVIEW_LABEL_1}
         </span>
         <div className="flex items-center justify-between gap-3 rounded-2xl border bg-muted/40 px-4 py-3">
           <span className="text-xs text-zinc-600">
-            {fileName || 'Nenhuma imagem selecionada'}
+            {fileName || TEXTS.STORE_IMAGE_FIELD_EMPTY_1}
           </span>
         </div>
         <img
-          src={preview || '/images/placeholder.svg'}
-          alt="Preview"
+          src={preview || IMAGES.STORE_IMAGE_FIELD_PREVIEW_1}
+          alt={TEXTS.STORE_IMAGE_FIELD_PREVIEW_ALT_1}
           className="h-32 w-full rounded-2xl object-cover"
         />
       </div>

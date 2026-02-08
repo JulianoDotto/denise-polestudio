@@ -3,6 +3,7 @@ import { Playfair_Display, Work_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
+import { TEXTS } from "@/hardcoded/texts";
 
 const display = Playfair_Display({
   variable: "--font-display",
@@ -17,8 +18,8 @@ const body = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Denise Garcia",
-  description: "Aulas, produtos digitais e eventos com atendimento via WhatsApp.",
+  title: TEXTS.SITE_METADATA_TITLE_1,
+  description: TEXTS.SITE_METADATA_DESCRIPTION_1,
 };
 
 export default function RootLayout({

@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import ActionButton from '@/components/site/ActionButton'
+import { TEXTS } from '@/hardcoded/texts'
 
 type AdminModalProps = {
   children: React.ReactNode
@@ -35,10 +36,10 @@ export default function AdminModal({
   error,
   success,
   errorMessages,
-  errorFallbackMessage = 'Não foi possível salvar as informações.',
-  successMessage = 'Operação realizada com sucesso.',
+  errorFallbackMessage = TEXTS.SITE_ADMIN_MODAL_ERROR_FALLBACK_1,
+  successMessage = TEXTS.SITE_ADMIN_MODAL_SUCCESS_FALLBACK_1,
   initialOpen = false,
-  closeLabel = 'Fechar',
+  closeLabel = TEXTS.SITE_ADMIN_MODAL_CLOSE_1,
 }: AdminModalProps) {
   const [open, setOpen] = useState(initialOpen)
   const errorMessage = useMemo(() => {

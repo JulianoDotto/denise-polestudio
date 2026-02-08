@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Instagram, MapPin, Phone, MessageCircle } from 'lucide-react'
+import { TEXTS } from '@/hardcoded/texts'
 
 export default function Footer() {
   return (
@@ -12,37 +13,37 @@ export default function Footer() {
                 <MapPin className="h-4 w-4 text-white" />
               </div>
               <div className="leading-relaxed">
-                <p>Rua Rafael Citro, 42</p>
-                <p>Jardim Rafael, Caçapava/SP</p>
+                <p>{TEXTS.SITE_FOOTER_ADDRESS_LINE_1}</p>
+                <p>{TEXTS.SITE_FOOTER_ADDRESS_LINE_2}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="rounded-full bg-white/10 p-2">
                 <Phone className="h-4 w-4 text-white" />
               </div>
-              <p>(12) 98815-3159</p>
+              <p>{TEXTS.SITE_FOOTER_PHONE_1}</p>
             </div>
             <Link
-              href="https://www.instagram.com/denisegarcia.polestudio/"
+              href={TEXTS.SITE_FOOTER_INSTAGRAM_URL_1}
               target="_blank"
               className="flex items-center gap-3"
             >
               <div className="rounded-full bg-white/10 p-2">
                 <Instagram className="h-4 w-4 text-white" />
               </div>
-              <span>@denisegarcia.polestudio</span>
+              <span>{TEXTS.SITE_FOOTER_INSTAGRAM_HANDLE_1}</span>
             </Link>
           </div>
         </div>
         <div className="border-t border-black/10 bg-[#FDFDFD] px-6 py-3 text-center text-xs text-zinc-600">
-          Copyright ©2025 • Todos os direitos reservados
+          {TEXTS.SITE_FOOTER_COPYRIGHT_1}
         </div>
       </footer>
 
       <Link
-        href="https://wa.me/5512988153159"
+        href={TEXTS.SITE_FOOTER_WHATSAPP_URL_1}
         target="_blank"
-        aria-label="Abrir WhatsApp"
+        aria-label={TEXTS.SITE_FOOTER_WHATSAPP_ARIA_1}
         className="fixed bottom-6 right-6 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/25 transition hover:-translate-y-0.5"
       >
         <MessageCircle className="h-6 w-6" />
