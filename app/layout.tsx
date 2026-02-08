@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import { TEXTS } from "@/hardcoded/texts";
 
-const display = Playfair_Display({
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  src: "../public/fonts/Aboreto-Regular.ttf",
+  weight: "400",
+  display: "swap",
 });
 
-const body = Work_Sans({
+const body = localFont({
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  src: "../public/fonts/apple-sd-gothic-neo-regular.otf",
+  weight: "400",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
