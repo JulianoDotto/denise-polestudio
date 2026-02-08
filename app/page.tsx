@@ -7,14 +7,13 @@ import { TEXTS } from '@/hardcoded/texts'
 const helpLinks = [
   { title: TEXTS.HOME_LINK_AULAS_TITLE_1, href: '/aulas', imageUrl: IMAGES.HOME_BUTTON_LINKS_1 },
   { title: TEXTS.HOME_LINK_LOJA_TITLE_1, href: '/loja', imageUrl: IMAGES.HOME_BUTTON_LINKS_2 },
-  { title: TEXTS.HOME_LINK_EBOOKS_TITLE_1, href: '/ebooks', imageUrl: IMAGES.HOME_BUTTON_LINKS_3 },
-  { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos', imageUrl: IMAGES.HOME_BUTTON_LINKS_4 },
-  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_BUTTON_LINKS_5 },
   {
     title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
     href: '/produtos-digitais',
     imageUrl: IMAGES.HOME_BUTTON_LINKS_6,
   },
+  { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos', imageUrl: IMAGES.HOME_BUTTON_LINKS_4 },
+  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_BUTTON_LINKS_5 },
 ]
 
 export default async function Home() {

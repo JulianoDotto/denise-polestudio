@@ -70,7 +70,6 @@ export const TEXTS = {
     'Encontros intensivos para explorar técnicas, sensualidade e expressão.',
   HOME_LINK_AULAS_TITLE_1: 'Aulas',
   HOME_LINK_LOJA_TITLE_1: 'Loja',
-  HOME_LINK_EBOOKS_TITLE_1: 'E-books',
   HOME_LINK_EVENTOS_TITLE_1: 'Eventos',
   HOME_LINK_WORKSHOPS_TITLE_1: 'Workshops',
   HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1: 'Produtos digitais',
