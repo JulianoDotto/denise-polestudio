@@ -31,12 +31,12 @@ const sizeClasses = {
 
 const variantClasses = {
   solid: {
-    dark: 'bg-[#0E0E0E] text-white hover:bg-black',
+    dark: 'bg-[#0E0E0E] text-zinc-300 hover:bg-stone-950',
     light: 'bg-white text-zinc-900 hover:bg-zinc-100',
   },
   outline: {
     dark: 'border border-zinc-300 text-zinc-700 hover:bg-zinc-100',
-    light: 'border border-white/60 text-white hover:bg-white/10',
+    light: 'border border-white/60 text-zinc-300 hover:bg-white/10',
   },
 }
 

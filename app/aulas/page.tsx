@@ -29,13 +29,13 @@ export default async function AulasPage() {
 
           return (
             <section key={aula.id} className="w-full">
-              <div className="relative h-64 w-full overflow-hidden bg-black sm:h-80">
+              <div className="relative h-64 w-full overflow-hidden bg-stone-950 sm:h-80">
                 <img
                   src={aula.coverUrl || IMAGES.AULAS_COVER_FALLBACK_1}
                   alt={aula.title}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/35" />
+                <div className="absolute inset-0 bg-stone-950/35" />
               </div>
               <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-6">
                 <div className="flex items-start justify-between gap-4">
@@ -52,7 +52,7 @@ export default async function AulasPage() {
                     </div>
                   ) : null}
                 </div>
-                <p className="text-base text-muted-foreground text-white">
+                <p className="text-base text-muted-foreground text-zinc-300">
                   {aula.description || TEXTS.AULAS_DEFAULT_DESC_1}
                 </p>
                 {contactUrl && (

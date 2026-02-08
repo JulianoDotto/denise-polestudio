@@ -102,7 +102,7 @@ export default async function AdminCategoriesPage({
                   <div className="flex items-center gap-2">
                     <span>{category.title}</span>
                     {category.isAdult ? (
-                      <span className="rounded-full bg-neutral-900 px-2 py-0.5 text-[10px] uppercase tracking-[0.2em] text-white">
+                      <span className="rounded-full bg-neutral-900 px-2 py-0.5 text-[10px] uppercase tracking-[0.2em] text-zinc-300">
                         +18
                       </span>
                     ) : null}

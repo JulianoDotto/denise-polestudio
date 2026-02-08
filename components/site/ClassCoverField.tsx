@@ -40,7 +40,7 @@ export default function ClassCoverField({
           type="file"
           accept="image/*"
           onChange={handleChange}
-          className="cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-black file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
+          className="cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-stone-950 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-zinc-300"
         />
       </label>
       <input type="hidden" name="coverUrl" value={preview || initialUrl} />

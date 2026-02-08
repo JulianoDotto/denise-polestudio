@@ -35,7 +35,7 @@ export default function AgeGateModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/60 px-4">
       <div
         role="dialog"
         aria-modal="true"

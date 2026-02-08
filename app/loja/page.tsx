@@ -117,7 +117,7 @@ export default async function LojaPage({
                   </span>
                   <input
                     name="title"
-                    className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                    className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
                     placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_TITLE_1}
                   />
                 </label>

@@ -18,7 +18,7 @@ export default function PageHero({
   return (
     <section
       className={cn(
-        'relative isolate h-[520px] overflow-hidden bg-black sm:h-[640px]',
+        'relative isolate h-[520px] overflow-hidden bg-stone-950 sm:h-[640px]',
         className,
       )}
     >
@@ -35,9 +35,9 @@ export default function PageHero({
         )}
       >
         {eyebrow ? (
-          <p className="text-xs uppercase tracking-[0.5em] text-white/70">{eyebrow}</p>
+          <p className="text-xs uppercase tracking-[0.5em] text-zinc-300/70">{eyebrow}</p>
         ) : null}
-        <h1 className="mt-3 font-display text-4xl uppercase tracking-[0.35em] text-white sm:text-5xl">
+        <h1 className="mt-3 font-display text-4xl uppercase tracking-[0.35em] text-zinc-300 sm:text-5xl">
           {title}
         </h1>
       </div>

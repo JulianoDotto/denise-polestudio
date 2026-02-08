@@ -32,6 +32,13 @@ export async function getItemsByType(type: ItemType) {
   })
 }
 
+export async function getItemsByTypes(types: ItemType[]) {
+  return prisma.item.findMany({
+    where: { type: { in: types }, isActive: true },
+    orderBy: { order: 'asc' },
+  })
+}
+
 export async function getItemBySlug(slug: string) {
   if (!slug) return null
   return prisma.item.findFirst({

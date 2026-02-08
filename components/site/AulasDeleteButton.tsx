@@ -4,13 +4,13 @@ import { useActionState } from 'react'
 import { Trash2 } from 'lucide-react'
 
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
 import { deleteClassInline } from '@/lib/admin/actions'
 import { TEXTS } from '@/hardcoded/texts'
@@ -30,7 +30,7 @@ export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps)
       <DialogTrigger asChild>
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white transition hover:bg-black/50"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-stone-950/30 text-zinc-300 transition hover:bg-stone-950/50"
           aria-label={TEXTS.AULAS_DELETE_ICON_ARIA_1}
         >
           <Trash2 className="h-4 w-4" />
@@ -54,7 +54,7 @@ export default function AulasDeleteButton({ id, title }: AulasDeleteButtonProps)
           <input type="hidden" name="id" value={id} />
           <button
             type="submit"
-            className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white"
+            className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-zinc-300"
           >
             {TEXTS.AULAS_DELETE_CONFIRM_1}
           </button>

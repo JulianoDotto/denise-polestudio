@@ -38,7 +38,7 @@ export default function AulasEditModal({
       trigger={
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white transition hover:bg-black/50"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/40 bg-stone-950/30 text-zinc-300 transition hover:bg-stone-950/50"
           aria-label={TEXTS.AULAS_EDIT_ICON_ARIA_1}
         >
           <Pencil className="h-4 w-4" />
@@ -55,7 +55,7 @@ export default function AulasEditModal({
           <input
             name="title"
             defaultValue={title}
-            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
             placeholder={TEXTS.AULAS_ADMIN_TITLE_PLACEHOLDER_1}
           />
         </label>
@@ -67,14 +67,14 @@ export default function AulasEditModal({
             name="description"
             rows={4}
             defaultValue={description ?? ''}
-            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
             placeholder={TEXTS.AULAS_ADMIN_DESCRIPTION_PLACEHOLDER_1}
           />
         </label>
         <ClassCoverField initialUrl={coverUrl ?? ''} />
         <button
           type="submit"
-          className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-semibold text-white transition hover:bg-black"
+          className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:bg-stone-950"
         >
           {TEXTS.AULAS_ADMIN_SUBMIT_1}
         </button>
