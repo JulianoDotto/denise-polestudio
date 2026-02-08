@@ -431,6 +431,60 @@ export async function deleteClassInline(
   return { success: true }
 }
 
+export async function updateDigitalProductInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const hotmartUrl = String(formData.get('hotmartUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const type = String(formData.get('type') || '').trim()
+
+  if (!title) {
+    return { success: false, error: 'title' }
+  }
+  if (type !== 'EBOOK' && type !== 'VIDEO') {
+    return { success: false, error: 'type' }
+  }
+
+  await prisma.item.update({
+    where: { id },
+    data: {
+      title,
+      slug,
+      description,
+      hotmartUrl,
+      isActive,
+      type,
+    },
+  })
+
+  revalidatePath('/produtos-digitais')
+  return { success: true }
+}
+
+export async function deleteDigitalProductInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  await prisma.item.delete({ where: { id } })
+
+  revalidatePath('/produtos-digitais')
+  return { success: true }
+}
+
 export async function createWorkshop(formData: FormData) {
   await requireAdmin()
 
