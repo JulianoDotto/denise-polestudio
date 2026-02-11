@@ -3,21 +3,29 @@ import { getServerSession } from 'next-auth'
 import { ItemType } from '@prisma/client'
 import ActionButton from '@/components/site/ActionButton'
 import EventAdminModal from '@/components/site/EventAdminModal'
+import EventDeleteButton from '@/components/site/EventDeleteButton'
+import EventEditModal from '@/components/site/EventEditModal'
 import PageHero from '@/components/site/PageHero'
 import { prisma } from '@/lib/prisma'
 import { authOptions } from '@/lib/auth/authOptions'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
-import { formatDateShort } from '@/lib/format'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 
-function splitEvent(description?: string | null) {
-  if (!description) return { date: '', title: '' }
-  const parts = description.split(' - ')
-  if (parts.length >= 2) {
-    return { date: parts[0], title: parts.slice(1).join(' - ') }
+function getEventDateParts(date?: Date | null) {
+  if (!date || Number.isNaN(date.getTime())) {
+    return { day: '--', month: '---', year: '----' }
   }
-  return { date: '', title: description }
+
+  const day = String(date.getUTCDate()).padStart(2, '0')
+  const month = new Intl.DateTimeFormat('pt-BR', { month: 'short', timeZone: 'UTC' })
+    .format(date)
+    .replace('.', '')
+    .toUpperCase()
+    .slice(0, 3)
+    .padEnd(3, '-')
+  const year = String(date.getUTCFullYear())
+  return { day, month, year }
 }
 
 export default async function EventosPage() {
@@ -43,7 +51,6 @@ export default async function EventosPage() {
       <PageHero
         imageUrl={IMAGES.EVENTOS_BANNER_1}
         title={TEXTS.EVENTOS_PAGE_TITLE_1}
-        eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}
       />
 
       <section className="mx-auto w-full max-w-5xl px-4">
@@ -94,48 +101,87 @@ export default async function EventosPage() {
 
         {events.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2">
-            {events.map((event, index) => {
-              const { date, title } = splitEvent(event.description || '')
-              const dateLabel =
-                formatDateShort(event.eventDate) || date || TEXTS.EVENTOS_DATE_FALLBACK_1
-              const details = title || event.description || TEXTS.EVENTOS_CARD_DESCRIPTION_FALLBACK_1
-              const typeLabel = eventTypes[index % eventTypes.length]
+            {events.map((event) => {
+              const { day, month, year } = getEventDateParts(event.eventDate)
+              const details = event.description
               const cardMessage = event.whatsappTextTemplate
                 ? event.whatsappTextTemplate
                 : TEXTS.EVENTOS_WHATSAPP_ITEM_MESSAGE_1.replace('{title}', event.title)
               const eventContactUrl = phone ? buildWhatsAppUrl(phone, cardMessage) : ''
+              const dateA11yLabel = event.eventDate
+                ? new Intl.DateTimeFormat('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                    timeZone: 'UTC',
+                  }).format(event.eventDate)
+                : TEXTS.EVENTOS_DATE_FALLBACK_1
 
               return (
                 <article
                   key={event.id}
-                  className="overflow-hidden rounded-[2rem] border border-[#3a1a26]/20 bg-white shadow-[0_20px_45px_-35px_rgba(27,6,11,0.55)]"
+                  className="rounded-[2rem] border border-[#3a1a26]/20 bg-white p-6 shadow-[0_20px_45px_-35px_rgba(27,6,11,0.55)]"
                 >
-                  <div className="relative h-52 w-full overflow-hidden bg-stone-950">
-                    <img
-                      src={event.coverUrl || IMAGES.EVENTOS_BANNER_1}
-                      alt={event.title}
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
-                    <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
-                      <span className="rounded-full border border-white/35 bg-black/45 px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-300">
-                        {dateLabel}
-                      </span>
-                      {index === 0 ? (
-                        <span className="rounded-full border border-white/35 bg-black/45 px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-300">
-                          {TEXTS.EVENTOS_NEXT_BADGE_1}
-                        </span>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-end gap-2">
+                      {isAdmin ? (
+                        <div className="flex items-center gap-2">
+                          <EventEditModal
+                            id={event.id}
+                            title={event.title}
+                            description={event.description}
+                            coverUrl={event.coverUrl}
+                            eventDate={
+                              event.eventDate ? event.eventDate.toISOString().slice(0, 10) : ''
+                            }
+                            isActive={event.isActive}
+                          />
+                          <EventDeleteButton id={event.id} title={event.title} />
+                        </div>
                       ) : null}
                     </div>
-                  </div>
 
-                  <div className="grid gap-4 p-6">
-                    <span className="w-fit rounded-full border border-[#3a1a26]/25 px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-600">
-                      {typeLabel || TEXTS.EVENTOS_CARD_BADGE_1}
-                    </span>
-                    <h3 className="text-xl font-semibold">{event.title}</h3>
-                    <p className="text-sm leading-relaxed text-zinc-600">{details}</p>
-                    {eventContactUrl ? (
+                    <div className="flex items-center gap-5">
+                      <div
+                        role="text"
+                        aria-label={`Data do evento: ${dateA11yLabel}`}
+                        className="grid w-[64px] shrink-0 grid-cols-12 gap-y-1"
+                      >
+                        {day.split('').map((char, idx) => (
+                          <span
+                            key={`day-${event.id}-${idx}`}
+                            aria-hidden="true"
+                            className="col-span-6 text-center text-4xl font-display tabular-nums text-zinc-900"
+                          >
+                            {char}
+                          </span>
+                        ))}
+                        {month.split('').map((char, idx) => (
+                          <span
+                            key={`month-${event.id}-${idx}`}
+                            aria-hidden="true"
+                            className="col-span-4 font-bold text-center text-base font-display uppercase text-[#3a1a26]/80"
+                          >
+                            {char}
+                          </span>
+                        ))}
+                        {year.split('').map((char, idx) => (
+                          <span
+                            key={`year-${event.id}-${idx}`}
+                            aria-hidden="true"
+                            className="col-span-3 text-center text-base font-display text-[#3a1a26]/80"
+                          >
+                            {char}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex min-w-0 flex-1 flex-col gap-2">
+                        <h3 className="text-xl font-semibold">{event.title}</h3>
+                        <p className="text-sm leading-relaxed text-zinc-600">{details}</p>
+                      </div>
+                    </div>
+
+                    {eventContactUrl && (
                       <ActionButton
                         href={eventContactUrl}
                         target="_blank"
@@ -144,10 +190,6 @@ export default async function EventosPage() {
                       >
                         {TEXTS.EVENTOS_CARD_BUTTON_1}
                       </ActionButton>
-                    ) : (
-                      <span className="rounded-full border px-4 py-2 text-center text-sm text-muted-foreground">
-                        {TEXTS.EVENTOS_WHATSAPP_MISSING_1}
-                      </span>
                     )}
                   </div>
                 </article>
