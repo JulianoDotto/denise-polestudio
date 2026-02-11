@@ -188,7 +188,7 @@ export const TEXTS = {
   PRODUTOS_DIGITAIS_ADMIN_TYPE_EBOOK_1: 'E-book',
   PRODUTOS_DIGITAIS_ADMIN_TYPE_VIDEO_1: 'Aula digital',
   PRODUTOS_DIGITAIS_ADMIN_SUBMIT_1: 'Salvar produto digital',
-  PRODUTOS_DIGITAIS_ADMIN_TRIGGER_1: 'Adicionar produto digital',
+  PRODUTOS_DIGITAIS_ADMIN_TRIGGER_1: '+ ADICIONAR',
   PRODUTOS_DIGITAIS_ADMIN_ERROR_TITLE_1: 'Informe um título para o produto.',
   PRODUTOS_DIGITAIS_ADMIN_ERROR_TYPE_1: 'Selecione um tipo válido.',
   PRODUTOS_DIGITAIS_EDIT_MODAL_TITLE_1: 'Editar produto digital',

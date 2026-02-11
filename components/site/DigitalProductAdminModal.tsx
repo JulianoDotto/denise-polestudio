@@ -24,7 +24,7 @@ export default function DigitalProductAdminModal() {
         type: TEXTS.PRODUTOS_DIGITAIS_ADMIN_ERROR_TYPE_1,
       }}
       trigger={
-        <ActionButton type="button" size="lg" tone="light" className="w-full max-w-md">
+        <ActionButton type="button" size="lg" className="w-full max-w-md">
           {TEXTS.PRODUTOS_DIGITAIS_ADMIN_TRIGGER_1}
         </ActionButton>
       }

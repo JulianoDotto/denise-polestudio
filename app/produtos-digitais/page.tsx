@@ -20,7 +20,7 @@ export default async function EbooksPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900">
+    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
       <PageHero
         imageUrl={IMAGES.PRODUTOS_DIGITAIS_HERO_1}
         title={TEXTS.PRODUTOS_DIGITAIS_HERO_TITLE_1}
@@ -30,7 +30,6 @@ export default async function EbooksPage() {
       <PageSection
         title={TEXTS.PRODUTOS_DIGITAIS_SECTION_TITLE_1}
         paragraphs={[TEXTS.PRODUTOS_DIGITAIS_SECTION_P1_1, TEXTS.PRODUTOS_DIGITAIS_SECTION_P2_1]}
-        fontTone="light"
       />
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
@@ -47,7 +46,7 @@ export default async function EbooksPage() {
           const targetUrl = item.hotmartUrl || fallbackUrl
 
           return (
-            <div key={item.id} className="relative flex flex-col gap-4 rounded-3xl border bg-stone-950 p-6">
+            <div key={item.id} className="relative flex flex-col gap-4 rounded-3xl border bg-vinho-gradient p-6">
               {isAdmin ? (
                 <div className="absolute right-4 top-4 flex items-center gap-2">
                   <DigitalProductEditModal
@@ -64,8 +63,8 @@ export default async function EbooksPage() {
               <span className="w-fit rounded-full bg-[#FDFDFD] border px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-600">
                 {badge}
               </span>
-              <h2 className="text-lg font-semibold text-zinc-400">{item.title}</h2>
-              <p className="text-sm text-muted-foreground text-zinc-300">
+              <h2 className="text-lg font-semibold text-zinc-300">{item.title}</h2>
+              <p className="text-sm text-muted-foreground text-zinc-200">
                 {item.description || TEXTS.PRODUTOS_DIGITAIS_DESCRIPTION_1}
               </p>
               {targetUrl ? (
