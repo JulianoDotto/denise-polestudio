@@ -52,7 +52,7 @@ export default function ActionButton(
   } = props
 
   const classes = cn(
-    'inline-flex items-center justify-center rounded-full font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
+    'inline-flex items-center justify-center rounded-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
     sizeClasses[size],
     variantClasses[variant][tone],
     className,
