@@ -124,14 +124,13 @@ export async function createProduct(formData: FormData) {
     coverUrl = images[0]
   }
 
-  const item = await prisma.item.create({
-    data: {
+  const item = await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       priceCents,
       isActive,
-      storeSectionId,
+      storeSection: storeSectionId ? { connect: { id: storeSectionId } } : undefined,
       coverUrl,
       whatsappTextTemplate,
       type: 'PRODUCT',
@@ -143,7 +142,8 @@ export async function createProduct(formData: FormData) {
         })),
       },
     },
-  })
+    slug,
+  )
 
   revalidatePath('/admin')
   revalidatePath('/admin')
@@ -182,7 +182,7 @@ export async function updateProduct(formData: FormData) {
       description,
       priceCents,
       isActive,
-      storeSectionId,
+      storeSection: storeSectionId ? { connect: { id: storeSectionId } } : undefined,
       coverUrl,
       whatsappTextTemplate,
       type: 'PRODUCT',
@@ -248,10 +248,9 @@ export async function createClass(formData: FormData) {
 
   if (!title) redirect('/admin/aulas/new?error=1')
 
-  await prisma.item.create({
-    data: {
+  await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       coverUrl,
       isActive,
@@ -261,7 +260,8 @@ export async function createClass(formData: FormData) {
       whatsappTextTemplate,
       type: 'CLASS',
     },
-  })
+    slug,
+  )
 
   revalidatePath('/admin')
   revalidatePath('/admin/aulas')
@@ -292,10 +292,9 @@ export async function createClassInline(
     return { success: false, error: 'title' }
   }
 
-  await prisma.item.create({
-    data: {
+  await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       coverUrl,
       isActive,
@@ -305,7 +304,8 @@ export async function createClassInline(
       whatsappTextTemplate,
       type: 'CLASS',
     },
-  })
+    slug,
+  )
 
   revalidatePath('/aulas')
   return { success: true }
@@ -545,17 +545,17 @@ export async function createWorkshop(formData: FormData) {
 
   if (!title) redirect('/admin/workshops/new?error=1')
 
-  await prisma.item.create({
-    data: {
+  await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       coverUrl,
       isActive,
       whatsappTextTemplate,
       type: 'WORKSHOP',
     },
-  })
+    slug,
+  )
 
   revalidatePath('/admin')
   revalidatePath('/admin/workshops')
@@ -638,10 +638,9 @@ export async function createEbook(formData: FormData) {
 
   if (!title || !digitalUrl) redirect('/admin/produtos-digitais/new?error=1')
 
-  await prisma.item.create({
-    data: {
+  await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       coverUrl,
       priceCents,
@@ -650,7 +649,8 @@ export async function createEbook(formData: FormData) {
       whatsappTextTemplate,
       type: 'EBOOK',
     },
-  })
+    slug,
+  )
 
   revalidatePath('/admin')
   revalidatePath('/admin/produtos-digitais')
@@ -741,10 +741,9 @@ export async function createEvent(formData: FormData) {
 
   if (!title) redirect('/admin/eventos/new?error=1')
 
-  await prisma.item.create({
-    data: {
+  await createItemWithUniqueSlug(
+    {
       title,
-      slug,
       description,
       coverUrl,
       eventDate,
@@ -752,7 +751,8 @@ export async function createEvent(formData: FormData) {
       whatsappTextTemplate,
       type: 'EVENT',
     },
-  })
+    slug,
+  )
 
   revalidatePath('/admin')
   revalidatePath('/admin/eventos')
