@@ -680,6 +680,58 @@ export async function deleteEbook(formData: FormData) {
   redirect('/admin/produtos-digitais?deleted=1')
 }
 
+export async function createEventInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const eventDate = parseDate(formData.get('eventDate'))
+  const whatsappTextTemplate =
+    String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  if (!title) {
+    return { success: false, error: 'title' }
+  }
+
+  const baseSlug = slugify(slug) || `evento-${Date.now()}`
+  const maxAttempts = 20
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const currentSlug = attempt === 0 ? baseSlug : `${baseSlug}-${attempt + 1}`
+    try {
+      await prisma.item.create({
+        data: {
+          title,
+          description,
+          coverUrl,
+          eventDate,
+          isActive,
+          whatsappTextTemplate,
+          type: 'EVENT',
+          slug: currentSlug,
+        },
+      })
+      revalidatePath('/eventos')
+      revalidatePath('/admin/eventos')
+      return { success: true }
+    } catch (error) {
+      const prismaError = error as { code?: string }
+      if (prismaError.code !== 'P2002') {
+        throw error
+      }
+    }
+  }
+
+  return { success: false, error: 'slug' }
+}
+
 export async function createEvent(formData: FormData) {
   await requireAdmin()
 
