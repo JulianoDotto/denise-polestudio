@@ -32,7 +32,14 @@ function parseLines(value: FormDataEntryValue | null) {
 
 function parseDate(value: FormDataEntryValue | null) {
   if (!value) return null
-  const date = new Date(`${value.toString()}T00:00:00`)
+  const input = value.toString().trim()
+  const match = input.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!match) return null
+
+  const year = Number(match[1])
+  const month = Number(match[2])
+  const day = Number(match[3])
+  const date = new Date(Date.UTC(year, month - 1, day))
   if (Number.isNaN(date.getTime())) return null
   return date
 }
@@ -726,6 +733,58 @@ export async function deleteEbook(formData: FormData) {
   redirect('/admin/produtos-digitais?deleted=1')
 }
 
+export async function createEventInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const eventDate = parseDate(formData.get('eventDate'))
+  const whatsappTextTemplate =
+    String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  if (!title) {
+    return { success: false, error: 'title' }
+  }
+
+  const baseSlug = slugify(slug) || `evento-${Date.now()}`
+  const maxAttempts = 20
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const currentSlug = attempt === 0 ? baseSlug : `${baseSlug}-${attempt + 1}`
+    try {
+      await prisma.item.create({
+        data: {
+          title,
+          description,
+          coverUrl,
+          eventDate,
+          isActive,
+          whatsappTextTemplate,
+          type: 'EVENT',
+          slug: currentSlug,
+        },
+      })
+      revalidatePath('/eventos')
+      revalidatePath('/admin/eventos')
+      return { success: true }
+    } catch (error) {
+      const prismaError = error as { code?: string }
+      if (prismaError.code !== 'P2002') {
+        throw error
+      }
+    }
+  }
+
+  return { success: false, error: 'slug' }
+}
+
 export async function createEvent(formData: FormData) {
   await requireAdmin()
 
@@ -794,6 +853,56 @@ export async function updateEvent(formData: FormData) {
   redirect('/admin/eventos?success=1')
 }
 
+export async function updateEventInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
+  const slugInput = String(formData.get('slug') || '').trim()
+  const slug = slugInput || slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+  const eventDate = parseDate(formData.get('eventDate'))
+  const whatsappTextTemplate =
+    String(formData.get('whatsappTextTemplate') || '').trim() || null
+
+  if (!title) {
+    return { success: false, error: 'title' }
+  }
+
+  try {
+    await prisma.item.update({
+      where: { id },
+      data: {
+        title,
+        slug,
+        description,
+        coverUrl,
+        eventDate,
+        isActive,
+        whatsappTextTemplate,
+        type: 'EVENT',
+      },
+    })
+  } catch (error) {
+    const prismaError = error as { code?: string }
+    if (prismaError.code === 'P2002') {
+      return { success: false, error: 'slug' }
+    }
+    throw error
+  }
+
+  revalidatePath('/eventos')
+  revalidatePath('/admin/eventos')
+  return { success: true }
+}
+
 export async function toggleEventStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
@@ -808,6 +917,21 @@ export async function toggleEventStatus(formData: FormData) {
   revalidatePath('/admin')
   revalidatePath('/admin/eventos')
   redirect('/admin/eventos?success=1')
+}
+
+export async function deleteEventInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  await prisma.item.delete({ where: { id } })
+
+  revalidatePath('/eventos')
+  revalidatePath('/admin/eventos')
+  return { success: true }
 }
 
 export async function deleteEvent(formData: FormData) {
