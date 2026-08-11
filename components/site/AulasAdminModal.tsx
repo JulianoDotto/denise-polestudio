@@ -19,6 +19,7 @@ export default function AulasAdminModal() {
       description={TEXTS.AULAS_ADMIN_MODAL_DESCRIPTION_1}
       error={state.error}
       success={state.success}
+      actionState={state}
       closeOnSuccess
       errorMessages={{
         title: TEXTS.AULAS_ADMIN_ERROR_TITLE_1,

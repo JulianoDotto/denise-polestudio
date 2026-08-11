@@ -18,6 +18,7 @@ export default function EventAdminModal() {
       description={TEXTS.EVENTOS_ADMIN_MODAL_DESCRIPTION_1}
       error={state.error}
       success={state.success}
+      actionState={state}
       closeOnSuccess
       errorMessages={{
         title: TEXTS.EVENTOS_ADMIN_ERROR_TITLE_1,
