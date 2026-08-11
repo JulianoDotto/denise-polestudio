@@ -1,8 +1,16 @@
 import { Suspense } from 'react'
+import { redirect } from 'next/navigation'
 
+import { getCurrentUser } from '@/lib/auth/getCurrentUser'
 import LoginForm from './LoginForm'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const user = await getCurrentUser()
+
+  if (user) {
+    redirect('/')
+  }
+
   return (
     <Suspense
       fallback={
