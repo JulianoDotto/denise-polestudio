@@ -63,16 +63,6 @@ export default function EventAdminModal() {
             className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900"
           />
         </label>
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
-            {TEXTS.EVENTOS_ADMIN_IMAGE_LABEL_1}
-          </span>
-          <input
-            name="coverUrl"
-            className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
-            placeholder={TEXTS.EVENTOS_ADMIN_IMAGE_PLACEHOLDER_1}
-          />
-        </label>
         <ActionButton type="submit" size="sm" className="self-start">
           {TEXTS.EVENTOS_ADMIN_SUBMIT_1}
         </ActionButton>

@@ -79,7 +79,7 @@ export default async function EventosPage() {
               href={contactUrl}
               target="_blank"
               size="lg"
-              className="w-full max-w-md uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
+              className="w-full max-w-md text-center leading-none uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
             >
               {TEXTS.EVENTOS_CONTACT_BUTTON_1}
             </ActionButton>
@@ -130,7 +130,6 @@ export default async function EventosPage() {
                             id={event.id}
                             title={event.title}
                             description={event.description}
-                            coverUrl={event.coverUrl}
                             eventDate={
                               event.eventDate ? event.eventDate.toISOString().slice(0, 10) : ''
                             }

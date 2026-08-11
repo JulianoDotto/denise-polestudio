@@ -172,8 +172,6 @@ export const TEXTS = {
   EVENTOS_ADMIN_DESCRIPTION_LABEL_1: 'Descrição',
   EVENTOS_ADMIN_DESCRIPTION_PLACEHOLDER_1: 'Detalhes rápidos do evento',
   EVENTOS_ADMIN_DATE_LABEL_1: 'Data do evento',
-  EVENTOS_ADMIN_IMAGE_LABEL_1: 'Imagem (URL)',
-  EVENTOS_ADMIN_IMAGE_PLACEHOLDER_1: 'https://',
   EVENTOS_ADMIN_SUBMIT_1: 'Salvar evento',
   EVENTOS_ADMIN_TRIGGER_1: '+ Adicionar evento',
   EVENTOS_ADMIN_ERROR_TITLE_1: 'Informe um título para o evento.',

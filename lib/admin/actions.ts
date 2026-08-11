@@ -744,7 +744,6 @@ export async function createEventInline(
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
-  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
@@ -766,7 +765,6 @@ export async function createEventInline(
         data: {
           title,
           description,
-          coverUrl,
           eventDate,
           isActive,
           whatsappTextTemplate,
@@ -867,7 +865,6 @@ export async function updateEventInline(
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
-  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
@@ -886,7 +883,6 @@ export async function updateEventInline(
         title,
         slug,
         description,
-        coverUrl,
         eventDate,
         isActive,
         whatsappTextTemplate,
