@@ -572,6 +572,38 @@ export async function createWorkshop(formData: FormData) {
   redirect('/workshops?success=1')
 }
 
+export async function createWorkshopInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const isActive = parseCheckbox(formData.get('isActive'))
+
+  if (!title) {
+    return { success: false, error: 'title' }
+  }
+
+  try {
+    await createItemWithUniqueSlug(
+      {
+        title,
+        description,
+        isActive,
+        type: 'WORKSHOP',
+      },
+      title,
+    )
+  } catch {
+    return { success: false, error: 'create' }
+  }
+
+  revalidatePath('/workshops')
+  return { success: true }
+}
+
 export async function updateWorkshop(formData: FormData) {
   await requireAdmin()
 
@@ -603,6 +635,58 @@ export async function updateWorkshop(formData: FormData) {
   revalidatePath('/')
   revalidatePath('/workshops')
   redirect('/workshops?success=1')
+}
+
+export async function updateWorkshopInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  const title = String(formData.get('title') || '').trim()
+  const description = String(formData.get('description') || '').trim() || null
+  const slug = slugify(title)
+  const isActive = parseCheckbox(formData.get('isActive'))
+
+  if (!title) return { success: false, error: 'title' }
+
+  try {
+    await prisma.item.update({
+      where: { id },
+      data: { title, slug, description, isActive, type: 'WORKSHOP' },
+    })
+  } catch (error) {
+    const prismaError = error as { code?: string }
+    return {
+      success: false,
+      error: prismaError.code === 'P2002' ? 'slug' : 'update',
+    }
+  }
+
+  revalidatePath('/workshops')
+  return { success: true }
+}
+
+export async function deleteWorkshopInline(
+  _prevState: { success: boolean; error?: string },
+  formData: FormData,
+) {
+  await requireAdmin()
+
+  const id = String(formData.get('id') || '')
+  if (!id) return { success: false, error: 'id' }
+
+  try {
+    await prisma.item.delete({ where: { id } })
+  } catch {
+    return { success: false, error: 'delete' }
+  }
+
+  revalidatePath('/workshops')
+  return { success: true }
 }
 
 export async function toggleWorkshopStatus(formData: FormData) {
