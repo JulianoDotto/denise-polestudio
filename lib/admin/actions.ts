@@ -9,6 +9,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/auth/requireAdmin'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth/authOptions'
+import { normalizeExternalUrl } from '@/lib/externalUrl'
 import { slugify } from './slug'
 
 function parseCheckbox(value: FormDataEntryValue | null) {
@@ -326,7 +327,8 @@ export async function createDigitalProductInline(
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
-  const hotmartUrl = String(formData.get('hotmartUrl') || '').trim() || null
+  const hotmartUrl =
+    normalizeExternalUrl(String(formData.get('hotmartUrl') || '')) || null
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
@@ -495,7 +497,8 @@ export async function updateDigitalProductInline(
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
-  const hotmartUrl = String(formData.get('hotmartUrl') || '').trim() || null
+  const hotmartUrl =
+    normalizeExternalUrl(String(formData.get('hotmartUrl') || '')) || null
   const slugInput = String(formData.get('slug') || '').trim()
   const slug = slugInput || slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))

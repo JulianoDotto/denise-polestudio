@@ -64,6 +64,16 @@ export default function ActionButton(
 
   if (isLink(props)) {
     const { href, target, rel } = props
+    const isExternal = /^https?:\/\//i.test(href)
+
+    if (isExternal) {
+      return (
+        <a href={href} target={target} rel={rel} className={classes}>
+          {children}
+        </a>
+      )
+    }
+
     return (
       <Link href={href} target={target} rel={rel} className={classes}>
         {children}

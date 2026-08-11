@@ -10,6 +10,7 @@ import PageSection from '@/components/site/PageSection'
 import { getItemsByTypes } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
+import { normalizeExternalUrl } from '@/lib/externalUrl'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 
@@ -43,7 +44,9 @@ export default async function EbooksPage() {
             item.title,
           )
           const fallbackUrl = phone ? buildWhatsAppUrl(phone, message) : ''
-          const targetUrl = item.hotmartUrl || fallbackUrl
+          const targetUrl = item.hotmartUrl
+            ? normalizeExternalUrl(item.hotmartUrl)
+            : fallbackUrl
 
           return (
             <div key={item.id} className="relative flex flex-col gap-4 rounded-3xl border bg-vinho-gradient p-6">
@@ -68,7 +71,13 @@ export default async function EbooksPage() {
                 {item.description || TEXTS.PRODUTOS_DIGITAIS_DESCRIPTION_1}
               </p>
               {targetUrl ? (
-                <ActionButton href={targetUrl} target="_blank" tone="light" size="sm">
+                <ActionButton
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tone="light"
+                  size="sm"
+                >
                   {TEXTS.PRODUTOS_DIGITAIS_CARD_BUTTON_1}
                 </ActionButton>
               ) : (
