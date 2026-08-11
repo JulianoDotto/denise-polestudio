@@ -52,7 +52,7 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         className="w-full max-w-md rounded-3xl border bg-background p-6"
       >
-        <h1 className="text-2xl font-semibold">Área administrativa</h1>
+        <h1 className="text-2xl font-semibold">Acesso ao site</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Acesso restrito para administradores.
         </p>

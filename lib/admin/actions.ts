@@ -122,7 +122,7 @@ export async function createProduct(formData: FormData) {
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
   if (!title) {
-    redirect('/admin/products/new?error=1')
+    redirect('/loja/new?error=1')
   }
 
   const galleryUrls = parseLines(formData.get('galleryUrls'))
@@ -152,17 +152,17 @@ export async function createProduct(formData: FormData) {
     slug,
   )
 
-  revalidatePath('/admin')
-  revalidatePath('/admin')
-  revalidatePath('/admin/products')
-  redirect(`/admin/products?success=1&id=${item.id}`)
+  revalidatePath('/')
+  revalidatePath('/')
+  revalidatePath('/loja')
+  redirect(`/loja?success=1&id=${item.id}`)
 }
 
 export async function updateProduct(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/products')
+  if (!id) redirect('/loja')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
@@ -204,36 +204,36 @@ export async function updateProduct(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/products')
-  redirect('/admin/products?success=1')
+  revalidatePath('/')
+  revalidatePath('/loja')
+  redirect('/loja?success=1')
 }
 
 export async function toggleProductStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/products')
+  if (!id) redirect('/loja')
 
   await prisma.item.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/products')
-  redirect('/admin/products?success=1')
+  revalidatePath('/')
+  revalidatePath('/loja')
+  redirect('/loja?success=1')
 }
 
 export async function deleteProduct(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/products')
+  if (!id) redirect('/loja')
 
   await prisma.item.delete({ where: { id } })
 
-  revalidatePath('/admin/products')
-  redirect('/admin/products?deleted=1')
+  revalidatePath('/loja')
+  redirect('/loja?deleted=1')
 }
 
 export async function createClass(formData: FormData) {
@@ -253,7 +253,7 @@ export async function createClass(formData: FormData) {
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
-  if (!title) redirect('/admin/aulas/new?error=1')
+  if (!title) redirect('/aulas/new?error=1')
 
   await createItemWithUniqueSlug(
     {
@@ -270,9 +270,9 @@ export async function createClass(formData: FormData) {
     slug,
   )
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/aulas')
-  redirect('/admin/aulas?success=1')
+  revalidatePath('/')
+  revalidatePath('/aulas')
+  redirect('/aulas?success=1')
 }
 
 export async function createClassInline(
@@ -358,7 +358,7 @@ export async function updateClass(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/aulas')
+  if (!id) redirect('/aulas')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
@@ -390,9 +390,9 @@ export async function updateClass(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/aulas')
-  redirect('/admin/aulas?success=1')
+  revalidatePath('/')
+  revalidatePath('/aulas')
+  redirect('/aulas?success=1')
 }
 
 export async function updateClassInline(
@@ -446,28 +446,28 @@ export async function toggleClassStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/aulas')
+  if (!id) redirect('/aulas')
 
   await prisma.item.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/aulas')
-  redirect('/admin/aulas?success=1')
+  revalidatePath('/')
+  revalidatePath('/aulas')
+  redirect('/aulas?success=1')
 }
 
 export async function deleteClass(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/aulas')
+  if (!id) redirect('/aulas')
 
   await prisma.item.delete({ where: { id } })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/aulas')
-  redirect('/admin/aulas?deleted=1')
+  revalidatePath('/')
+  revalidatePath('/aulas')
+  redirect('/aulas?deleted=1')
 }
 
 export async function deleteClassInline(
@@ -550,7 +550,7 @@ export async function createWorkshop(formData: FormData) {
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
-  if (!title) redirect('/admin/workshops/new?error=1')
+  if (!title) redirect('/workshops/new?error=1')
 
   await createItemWithUniqueSlug(
     {
@@ -564,16 +564,16 @@ export async function createWorkshop(formData: FormData) {
     slug,
   )
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/workshops')
-  redirect('/admin/workshops?success=1')
+  revalidatePath('/')
+  revalidatePath('/workshops')
+  redirect('/workshops?success=1')
 }
 
 export async function updateWorkshop(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/workshops')
+  if (!id) redirect('/workshops')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
@@ -597,36 +597,36 @@ export async function updateWorkshop(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/workshops')
-  redirect('/admin/workshops?success=1')
+  revalidatePath('/')
+  revalidatePath('/workshops')
+  redirect('/workshops?success=1')
 }
 
 export async function toggleWorkshopStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/workshops')
+  if (!id) redirect('/workshops')
 
   await prisma.item.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/workshops')
-  redirect('/admin/workshops?success=1')
+  revalidatePath('/')
+  revalidatePath('/workshops')
+  redirect('/workshops?success=1')
 }
 
 export async function deleteWorkshop(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/workshops')
+  if (!id) redirect('/workshops')
 
   await prisma.item.delete({ where: { id } })
 
-  revalidatePath('/admin/workshops')
-  redirect('/admin/workshops?deleted=1')
+  revalidatePath('/workshops')
+  redirect('/workshops?deleted=1')
 }
 
 export async function createEbook(formData: FormData) {
@@ -643,7 +643,7 @@ export async function createEbook(formData: FormData) {
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
-  if (!title || !digitalUrl) redirect('/admin/produtos-digitais/new?error=1')
+  if (!title || !digitalUrl) redirect('/produtos-digitais/new?error=1')
 
   await createItemWithUniqueSlug(
     {
@@ -659,16 +659,16 @@ export async function createEbook(formData: FormData) {
     slug,
   )
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/produtos-digitais')
-  redirect('/admin/produtos-digitais?success=1')
+  revalidatePath('/')
+  revalidatePath('/produtos-digitais')
+  redirect('/produtos-digitais?success=1')
 }
 
 export async function updateEbook(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/produtos-digitais')
+  if (!id) redirect('/produtos-digitais')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
@@ -682,7 +682,7 @@ export async function updateEbook(formData: FormData) {
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
   if (!title || !digitalUrl) {
-    redirect(`/admin/produtos-digitais/${id}/edit?error=1`)
+    redirect(`/produtos-digitais/${id}/edit?error=1`)
   }
 
   await prisma.item.update({
@@ -700,37 +700,37 @@ export async function updateEbook(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/produtos-digitais')
-  redirect('/admin/produtos-digitais?success=1')
+  revalidatePath('/')
+  revalidatePath('/produtos-digitais')
+  redirect('/produtos-digitais?success=1')
 }
 
 export async function toggleEbookStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/produtos-digitais')
+  if (!id) redirect('/produtos-digitais')
 
   await prisma.item.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/produtos-digitais')
-  redirect('/admin/produtos-digitais?success=1')
+  revalidatePath('/')
+  revalidatePath('/produtos-digitais')
+  redirect('/produtos-digitais?success=1')
 }
 
 export async function deleteEbook(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/produtos-digitais')
+  if (!id) redirect('/produtos-digitais')
 
   await prisma.item.delete({ where: { id } })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/produtos-digitais')
-  redirect('/admin/produtos-digitais?deleted=1')
+  revalidatePath('/')
+  revalidatePath('/produtos-digitais')
+  redirect('/produtos-digitais?deleted=1')
 }
 
 export async function createEventInline(
@@ -772,7 +772,7 @@ export async function createEventInline(
         },
       })
       revalidatePath('/eventos')
-      revalidatePath('/admin/eventos')
+      revalidatePath('/eventos')
       return { success: true }
     } catch (error) {
       const prismaError = error as { code?: string }
@@ -798,7 +798,7 @@ export async function createEvent(formData: FormData) {
   const whatsappTextTemplate =
     String(formData.get('whatsappTextTemplate') || '').trim() || null
 
-  if (!title) redirect('/admin/eventos/new?error=1')
+  if (!title) redirect('/eventos/new?error=1')
 
   await createItemWithUniqueSlug(
     {
@@ -813,16 +813,16 @@ export async function createEvent(formData: FormData) {
     slug,
   )
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/eventos')
-  redirect('/admin/eventos?success=1')
+  revalidatePath('/')
+  revalidatePath('/eventos')
+  redirect('/eventos?success=1')
 }
 
 export async function updateEvent(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/eventos')
+  if (!id) redirect('/eventos')
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
@@ -848,9 +848,9 @@ export async function updateEvent(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/eventos')
-  redirect('/admin/eventos?success=1')
+  revalidatePath('/')
+  revalidatePath('/eventos')
+  redirect('/eventos?success=1')
 }
 
 export async function updateEventInline(
@@ -899,7 +899,7 @@ export async function updateEventInline(
   }
 
   revalidatePath('/eventos')
-  revalidatePath('/admin/eventos')
+  revalidatePath('/eventos')
   return { success: true }
 }
 
@@ -907,16 +907,16 @@ export async function toggleEventStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/eventos')
+  if (!id) redirect('/eventos')
 
   await prisma.item.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/eventos')
-  redirect('/admin/eventos?success=1')
+  revalidatePath('/')
+  revalidatePath('/eventos')
+  redirect('/eventos?success=1')
 }
 
 export async function deleteEventInline(
@@ -930,20 +930,20 @@ export async function deleteEventInline(
   await prisma.item.delete({ where: { id } })
 
   revalidatePath('/eventos')
-  revalidatePath('/admin/eventos')
+  revalidatePath('/eventos')
   return { success: true }
 }
 
 export async function deleteEvent(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/eventos')
+  if (!id) redirect('/eventos')
 
   await prisma.item.delete({ where: { id } })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/eventos')
-  redirect('/admin/eventos?deleted=1')
+  revalidatePath('/')
+  revalidatePath('/eventos')
+  redirect('/eventos?deleted=1')
 }
 
 export async function createStorePost(formData: FormData) {
@@ -997,7 +997,7 @@ export async function createCategory(formData: FormData) {
   const isActive = parseCheckbox(formData.get('isActive'))
   const order = parseNumber(formData.get('order')) ?? 0
 
-  if (!title) redirect('/admin/categories/new?error=1')
+  if (!title) redirect('//new?error=1')
 
   await prisma.storeSection.create({
     data: {
@@ -1010,16 +1010,16 @@ export async function createCategory(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/categories')
-  redirect('/admin/categories?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function updateCategory(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/categories')
+  if (!id) redirect('/')
 
   const title = String(formData.get('title') || '').trim()
   const slugInput = String(formData.get('slug') || '').trim()
@@ -1041,37 +1041,37 @@ export async function updateCategory(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/categories')
-  redirect('/admin/categories?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function toggleCategoryStatus(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/categories')
+  if (!id) redirect('/')
 
   await prisma.storeSection.update({
     where: { id },
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/categories')
-  redirect('/admin/categories?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function deleteCategory(formData: FormData) {
   await requireAdmin()
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/categories')
+  if (!id) redirect('/')
 
   await prisma.storeSection.delete({ where: { id } })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/categories')
-  redirect('/admin/categories?deleted=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?deleted=1')
 }
 
 export async function createUser(formData: FormData) {
@@ -1083,7 +1083,7 @@ export async function createUser(formData: FormData) {
   const isActive = parseCheckbox(formData.get('isActive'))
   const password = String(formData.get('password') || '').trim()
 
-  if (!email || !password) redirect('/admin/users/new?error=1')
+  if (!email || !password) redirect('//new?error=1')
 
   const passwordHash = await hash(password, 10)
 
@@ -1097,16 +1097,16 @@ export async function createUser(formData: FormData) {
     },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/users')
-  redirect('/admin/users?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function updateUser(formData: FormData) {
   await requireAdmin()
 
   const id = String(formData.get('id') || '')
-  if (!id) redirect('/admin/users')
+  if (!id) redirect('/')
 
   const email = String(formData.get('email') || '').trim().toLowerCase()
   const name = String(formData.get('name') || '').trim() || null
@@ -1119,11 +1119,11 @@ export async function updateUser(formData: FormData) {
   const primaryEmail = (process.env.ADMIN_EMAIL || '').toLowerCase()
 
   if (primaryEmail && email === primaryEmail && role !== 'ADMIN') {
-    redirect('/admin/users?error=primary')
+    redirect('/?error=primary')
   }
 
   if (isSelf && role !== 'ADMIN') {
-    redirect('/admin/users?error=self')
+    redirect('/?error=self')
   }
 
   const data: Prisma.UserUpdateInput = {
@@ -1142,9 +1142,9 @@ export async function updateUser(formData: FormData) {
     data,
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/users')
-  redirect('/admin/users?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function toggleUserStatus(formData: FormData) {
@@ -1152,19 +1152,19 @@ export async function toggleUserStatus(formData: FormData) {
 
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'true') === 'true'
-  if (!id) redirect('/admin/users')
+  if (!id) redirect('/')
 
   const session = await getServerSession(authOptions)
   if (session?.user?.id === id && !next) {
-    redirect('/admin/users?error=self')
+    redirect('/?error=self')
   }
 
   const user = await prisma.user.findUnique({ where: { id } })
-  if (!user) redirect('/admin/users')
+  if (!user) redirect('/')
 
   const primaryEmail = (process.env.ADMIN_EMAIL || '').toLowerCase()
   if (primaryEmail && user.email.toLowerCase() === primaryEmail && !next) {
-    redirect('/admin/users?error=primary')
+    redirect('/?error=primary')
   }
 
   await prisma.user.update({
@@ -1172,9 +1172,9 @@ export async function toggleUserStatus(formData: FormData) {
     data: { isActive: next },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/users')
-  redirect('/admin/users?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }
 
 export async function toggleUserRole(formData: FormData) {
@@ -1182,19 +1182,19 @@ export async function toggleUserRole(formData: FormData) {
 
   const id = String(formData.get('id') || '')
   const next = String(formData.get('next') || 'USER')
-  if (!id) redirect('/admin/users')
+  if (!id) redirect('/')
 
   const session = await getServerSession(authOptions)
   if (session?.user?.id === id && next !== 'ADMIN') {
-    redirect('/admin/users?error=self')
+    redirect('/?error=self')
   }
 
   const user = await prisma.user.findUnique({ where: { id } })
-  if (!user) redirect('/admin/users')
+  if (!user) redirect('/')
 
   const primaryEmail = (process.env.ADMIN_EMAIL || '').toLowerCase()
   if (primaryEmail && user.email.toLowerCase() === primaryEmail && next !== 'ADMIN') {
-    redirect('/admin/users?error=primary')
+    redirect('/?error=primary')
   }
 
   await prisma.user.update({
@@ -1202,7 +1202,7 @@ export async function toggleUserRole(formData: FormData) {
     data: { role: next === 'ADMIN' ? 'ADMIN' : 'USER' },
   })
 
-  revalidatePath('/admin')
-  revalidatePath('/admin/users')
-  redirect('/admin/users?success=1')
+  revalidatePath('/')
+  revalidatePath('/')
+  redirect('/?success=1')
 }

@@ -50,10 +50,9 @@ Acesse `http://localhost:3000`.
 
 ## Admin
 
-- Acesse `http://localhost:3000/admin/login`
+- Acesse `http://localhost:3000/login`
 - Use `ADMIN_EMAIL` e `ADMIN_PASSWORD` do `.env`
-- Apenas usuários com role `ADMIN` acessam `/admin/*`
-- Menus: Dashboard, Produtos, Aulas, Ebooks, Eventos, Categorias, Usuários
+- Usuários com role `ADMIN` podem editar o conteúdo diretamente nas páginas públicas.
 
 ## Scripts úteis
 
@@ -65,7 +64,7 @@ Acesse `http://localhost:3000`.
 ## Estrutura
 
 - `app/` – páginas (Home, Lojas, Produtos, Aulas, Ebooks, Eventos)
-- `app/(admin)/admin` – painel admin + CRUDs
+- `app/login` e `app/logout` – entrada e saída de administradores
 - `components/` – UI, carrinho, header/footer
 - `lib/` – acesso a dados, auth e helpers
 - `prisma/` – schema + seed
