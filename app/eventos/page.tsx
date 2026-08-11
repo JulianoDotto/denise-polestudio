@@ -95,7 +95,7 @@ export default async function EventosPage() {
         <div className="flex items-end justify-between gap-3">
           <h2 className="text-2xl font-semibold">{TEXTS.EVENTOS_SECTION_UPCOMING_1}</h2>
           <span className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-            {events.length} agenda
+            {events.length === 1 ? '1 evento na agenda' : `${events.length} eventos na agenda`}
           </span>
         </div>
 

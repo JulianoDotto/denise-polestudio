@@ -28,7 +28,7 @@ export default function DeleteButton({
     <form
       action={action}
       onSubmit={(event) => {
-        if (!window.confirm('Tem certeza que deseja excluir?')) {
+        if (!window.confirm('Excluir este item? Essa ação não pode ser desfeita.')) {
           event.preventDefault()
         }
       }}

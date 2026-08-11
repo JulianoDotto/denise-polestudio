@@ -15,7 +15,7 @@ export default function LoginForm() {
   useEffect(() => {
     const urlError = searchParams.get('error')
     if (urlError) {
-      setError('Credenciais inválidas ou sem permissão.')
+      setError('Usuário ou senha incorretos, ou acesso não autorizado.')
     }
   }, [searchParams])
 
@@ -39,7 +39,7 @@ export default function LoginForm() {
     setLoading(false)
 
     if (result?.error) {
-      setError('Credenciais inválidas ou sem permissão.')
+      setError('Usuário ou senha incorretos, ou acesso não autorizado.')
       return
     }
 
@@ -52,7 +52,7 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         className="w-full max-w-md rounded-3xl border bg-background p-6"
       >
-        <h1 className="text-2xl font-semibold">Login</h1>
+        <h1 className="text-2xl font-semibold">Área administrativa</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Acesso restrito para administradores.
         </p>
@@ -60,7 +60,7 @@ export default function LoginForm() {
         <div className="mt-6 flex flex-col gap-4">
           <label className="flex flex-col gap-2 text-sm">
             <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Username
+              Usuário
             </span>
             <input
               type="text"
@@ -85,7 +85,7 @@ export default function LoginForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword((current) => !current)}
-                aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                 aria-pressed={showPassword}
                 className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >

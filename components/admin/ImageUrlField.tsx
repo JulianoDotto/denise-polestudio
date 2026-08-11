@@ -55,7 +55,7 @@ export default function ImageUrlField({
         ) : null}
         <img
           src={value || '/images/placeholder.svg'}
-          alt="Preview"
+          alt="Prévia da imagem"
           className="h-32 w-full rounded-2xl object-cover"
         />
       </div>
