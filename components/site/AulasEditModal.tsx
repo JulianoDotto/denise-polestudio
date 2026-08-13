@@ -74,7 +74,7 @@ export default function AulasEditModal({
         <ClassCoverField initialUrl={coverUrl ?? ''} />
         <button
           type="submit"
-          className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:bg-stone-950"
+          className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-stone-950"
         >
           {TEXTS.AULAS_ADMIN_SUBMIT_1}
         </button>

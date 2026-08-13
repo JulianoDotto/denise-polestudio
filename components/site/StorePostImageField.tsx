@@ -36,7 +36,7 @@ export default function StorePostImageField() {
           type="file"
           accept="image/*"
           onChange={handleChange}
-          className="cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-semibold file:text-primary-foreground"
+          className="cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-medium file:text-primary-foreground"
         />
       </label>
       <input type="hidden" name="imageUrl" value={preview} />

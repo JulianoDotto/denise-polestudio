@@ -58,7 +58,7 @@ export default function WorkshopDeleteButton({ id, title }: WorkshopDeleteButton
           <button
             type="submit"
             disabled={pending}
-            className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-zinc-300 disabled:opacity-60"
+            className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-zinc-300 disabled:opacity-60"
           >
             {pending
               ? TEXTS.WORKSHOPS_DELETE_PENDING_1

@@ -106,7 +106,7 @@ export default function StoreCarousel({
                   <input type="hidden" name="id" value={activeSlide.id} />
                   <button
                     type="submit"
-                    className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-zinc-300"
+                    className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-zinc-300"
                   >
                     {TEXTS.STORE_CAROUSEL_DELETE_CONFIRM_1}
                   </button>

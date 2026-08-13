@@ -54,7 +54,7 @@ export default function AgeGateModal() {
           <button
             type="button"
             onClick={handleConfirm}
-            className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+            className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           >
             {TEXTS.SITE_AGE_GATE_CONFIRM_1}
           </button>

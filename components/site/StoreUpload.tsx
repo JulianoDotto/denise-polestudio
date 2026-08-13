@@ -44,7 +44,7 @@ export default function StoreUpload() {
         multiple
         accept="image/*"
         onChange={handleChange}
-        className="cursor-pointer rounded-2xl border px-4 py-3 text-sm text-muted-foreground file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-semibold file:text-primary-foreground"
+        className="cursor-pointer rounded-2xl border px-4 py-3 text-sm text-muted-foreground file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-medium file:text-primary-foreground"
       />
       {hasPreviews ? (
         <div className="grid gap-4 sm:grid-cols-3">
