@@ -12,12 +12,19 @@ MVP em **Next.js (App Router)** + **Prisma** + **Tailwind** + **shadcn/ui** para
 1. Crie o arquivo `.env` na raiz (ou edite o existente):
 
 ```bash
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB"
+# Banco local sem SSL
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/DB?sslmode=disable"
 WHATSAPP_PHONE="553591397374"
 NEXT_PUBLIC_WHATSAPP_PHONE="553591397374"
 ADMIN_EMAIL="admin@local"
 ADMIN_PASSWORD="admin123"
 AUTH_SECRET="change-me"
+```
+
+Para bancos remotos, use TLS com verificação completa do certificado e do hostname:
+
+```bash
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB?sslmode=verify-full"
 ```
 
 2. Instale dependências:
