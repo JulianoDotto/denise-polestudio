@@ -1,6 +1,6 @@
 export const IMAGES = {
   SITE_PLACEHOLDER_1: '/images/placeholder.svg',
-  HOME_HERO_1: '/images/home/home_hero.png',
+  HOME_HERO_1: '/images/home/home_hero_2.jpeg',
   HOME_SECTION_IMAGE_1: '/images/home/home_about.png',
   HOME_BUTTON_LINKS_1: '/images/home/home_button_1.png',
   HOME_BUTTON_LINKS_2: '/images/home/home_button_2.png',
