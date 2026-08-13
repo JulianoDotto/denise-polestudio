@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Work_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/site/Header";
@@ -12,10 +13,10 @@ const display = localFont({
   display: "swap",
 });
 
-const body = localFont({
+const body = Work_Sans({
   variable: "--font-body",
-  src: "../public/fonts/apple-sd-gothic-neo-regular.otf",
-  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
