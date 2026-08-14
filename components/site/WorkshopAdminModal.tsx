@@ -1,39 +1,71 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
 
 import ActionButton from '@/components/site/ActionButton'
 import AdminModal from '@/components/site/AdminModal'
 import { TEXTS } from '@/hardcoded/texts'
 import { createWorkshopInline } from '@/lib/admin/actions'
 
-const initialState = { success: false, error: '' }
+const initialState = { success: false, error: '', requestId: '' }
 
 export default function WorkshopAdminModal() {
-  const [state, formAction, pending] = useActionState(
-    createWorkshopInline,
-    initialState,
-  )
+  const [state, setState] = useState(initialState)
+  const [requestId, setRequestId] = useState('')
+  const [pending, startTransition] = useTransition()
+  const submitting = useRef(false)
+
+  useEffect(() => setRequestId(crypto.randomUUID()), [])
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (submitting.current || !requestId) return
+
+    const formData = new FormData(event.currentTarget)
+    submitting.current = true
+    setState(initialState)
+    startTransition(async () => {
+      try {
+        const result = await createWorkshopInline(state, formData)
+        setState(result)
+        if (result.success) setRequestId(crypto.randomUUID())
+      } catch {
+        setState({ success: false, error: 'network', requestId: '' })
+      } finally {
+        submitting.current = false
+      }
+    })
+  }
 
   return (
     <AdminModal
       title={TEXTS.WORKSHOPS_ADMIN_MODAL_TITLE_1}
       description={TEXTS.WORKSHOPS_ADMIN_MODAL_DESCRIPTION_1}
       error={state.error}
-      success={state.success}
+      success={state.success && !pending}
       actionState={state}
-      closeOnSuccess
       errorMessages={{
         title: TEXTS.WORKSHOPS_ADMIN_ERROR_TITLE_1,
         create: TEXTS.WORKSHOPS_ADMIN_ERROR_CREATE_1,
+        request: TEXTS.WORKSHOPS_ADMIN_ERROR_REQUEST_1,
+        network: TEXTS.WORKSHOPS_ADMIN_ERROR_NETWORK_1,
       }}
+      successMessage={TEXTS.WORKSHOPS_ADMIN_SUCCESS_1}
       trigger={
         <ActionButton type="button" size="lg" className="w-full max-w-md">
           {TEXTS.WORKSHOPS_ADMIN_TRIGGER_1}
         </ActionButton>
       }
     >
-      <form action={formAction} className="grid gap-4">
+      <form
+        key={requestId}
+        onSubmit={handleSubmit}
+        onInput={() => {
+          if (state.success) setState(initialState)
+        }}
+        className="grid gap-4"
+      >
+        <input type="hidden" name="requestId" value={requestId} />
         <input type="hidden" name="isActive" value="on" />
         <label className="flex flex-col gap-2 text-sm">
           <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
@@ -57,7 +89,12 @@ export default function WorkshopAdminModal() {
             placeholder={TEXTS.WORKSHOPS_ADMIN_DESCRIPTION_PLACEHOLDER_1}
           />
         </label>
-        <ActionButton type="submit" size="sm" disabled={pending} className="self-start">
+        <ActionButton
+          type="submit"
+          size="sm"
+          disabled={pending || !requestId}
+          className="self-start"
+        >
           {pending
             ? TEXTS.WORKSHOPS_ADMIN_SUBMIT_PENDING_1
             : TEXTS.WORKSHOPS_ADMIN_SUBMIT_1}

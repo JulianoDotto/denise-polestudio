@@ -11,6 +11,10 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth/authOptions'
 import { normalizeExternalUrl } from '@/lib/externalUrl'
 import { validateClassCoverUrl } from '@/lib/admin/class-cover'
+import {
+  persistWorkshopCreation,
+  WorkshopRequestConflictError,
+} from '@/lib/admin/workshop-persistence'
 import { slugify } from './slug'
 import { parseFeedCategory } from './feed-category'
 import {
@@ -596,27 +600,56 @@ export async function createWorkshopInline(
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
   const isActive = parseCheckbox(formData.get('isActive'))
+  const requestId = String(formData.get('requestId') || '').trim()
 
   if (!title) {
-    return { success: false, error: 'title' }
+    return { success: false, error: 'title', requestId: '' }
+  }
+  if (!requestId || requestId.length > 100) {
+    return { success: false, error: 'request', requestId: '' }
   }
 
   try {
-    await createItemWithUniqueSlug(
+    await persistWorkshopCreation(
       {
-        title,
-        description,
-        isActive,
-        type: 'WORKSHOP',
+        findByRequestId: async (id) => {
+          const item = await prisma.item.findUnique({ where: { id } })
+          if (!item || item.type !== 'WORKSHOP') return null
+          return {
+            id: item.id,
+            requestId: item.id,
+            title: item.title,
+            description: item.description,
+            isActive: item.isActive,
+          }
+        },
+        create: async (creation) => {
+          const item = await createItemWithUniqueSlug(
+            {
+              id: creation.requestId,
+              title: creation.title,
+              description: creation.description,
+              isActive: creation.isActive,
+              type: 'WORKSHOP',
+            },
+            creation.title,
+          )
+          return { ...creation, id: item.id }
+        },
       },
-      title,
+      { requestId, title, description, isActive },
     )
-  } catch {
-    return { success: false, error: 'create' }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof WorkshopRequestConflictError ? 'request' : 'create',
+      requestId: '',
+    }
   }
 
+  revalidatePath('/')
   revalidatePath('/workshops')
-  return { success: true }
+  return { success: true, error: '', requestId }
 }
 
 export async function updateWorkshop(formData: FormData) {
