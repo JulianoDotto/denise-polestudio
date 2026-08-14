@@ -8,12 +8,14 @@ import PageSection from '@/components/site/PageSection'
 import StorePostImageField from '@/components/site/StorePostImageField'
 import StorePostDurationFields from '@/components/site/StorePostDurationFields'
 import StoreCarousel from '@/components/site/StoreCarousel'
+import FeedCategoryField from '@/components/site/FeedCategoryField'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 import { createStorePost } from '@/lib/admin/actions'
 import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
+import { groupFeedPostsByCategory } from '@/lib/feed-groups'
 
 type LojaSearchParams = {
   error?: string
@@ -44,12 +46,25 @@ export default async function LojaPage({
       { isPinned: 'desc' },
       { createdAt: 'desc' },
     ],
+    include: {
+      storeSection: {
+        select: { id: true, title: true, order: true },
+      },
+    },
   })
-  const carouselItems = posts.map((post) => ({
-    id: post.id,
-    title: post.title,
-    imageUrl: post.imageUrl || IMAGES.SITE_PLACEHOLDER_1,
-  }))
+  let categories: { id: string; title: string }[] = []
+  let categoriesError = false
+  if (isAdmin) {
+    try {
+      categories = await prisma.storeSection.findMany({
+        orderBy: { title: 'asc' },
+        select: { id: true, title: true },
+      })
+    } catch {
+      categoriesError = true
+    }
+  }
+  const feedGroups = groupFeedPostsByCategory(posts, IMAGES.SITE_PLACEHOLDER_1)
   const heroImage = IMAGES.LOJA_HERO_1
 
   return (
@@ -82,9 +97,14 @@ export default async function LojaPage({
       </PageSection>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
-        {carouselItems.length > 0 ? (
-          <StoreCarousel items={carouselItems} isAdmin={isAdmin} />
-        ) : null}
+        {feedGroups.map((group) => (
+          <div key={group.id} className="grid gap-4">
+            <h2 className="font-display text-xl uppercase tracking-[0.3em] text-zinc-800 sm:text-2xl">
+              {group.title}
+            </h2>
+            <StoreCarousel items={group.items} isAdmin={isAdmin} />
+          </div>
+        ))}
         {isAdmin ? (
           <div className="flex justify-center">
             <AdminModal
@@ -98,6 +118,11 @@ export default async function LojaPage({
               errorMessages={{
                 title: TEXTS.LOJA_ADMIN_ERROR_TITLE_1,
                 expiresAt: TEXTS.LOJA_ADMIN_ERROR_EXPIRES_1,
+                categoryName: 'Informe um nome válido para a nova categoria.',
+                categoryDuplicate: 'Já existe uma categoria com esse nome.',
+                category: 'A categoria selecionada não está mais disponível.',
+                categoryLoad: 'Não foi possível carregar as categorias existentes.',
+                persistence: 'Não foi possível publicar no feed. Tente novamente.',
               }}
               successMessage={TEXTS.LOJA_ADMIN_SUCCESS_1}
               trigger={
@@ -121,6 +146,12 @@ export default async function LojaPage({
                     placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_TITLE_1}
                   />
                 </label>
+                <FeedCategoryField categories={categories} />
+                {categoriesError ? (
+                  <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+                    Não foi possível carregar as categorias existentes.
+                  </p>
+                ) : null}
                 <StorePostImageField />
                 <StorePostDurationFields />
                 <ActionButton type="submit" size="sm" className="self-start">

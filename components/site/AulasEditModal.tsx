@@ -1,6 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
+import { useFormStatus } from 'react-dom'
 import { Pencil } from 'lucide-react'
 
 import AdminModal from '@/components/site/AdminModal'
@@ -16,6 +17,20 @@ type AulasEditModalProps = {
 }
 
 const initialState = { success: false, error: '' }
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-stone-950 disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {pending ? TEXTS.AULAS_ADMIN_SAVING_1 : TEXTS.AULAS_ADMIN_SUBMIT_1}
+    </button>
+  )
+}
 
 export default function AulasEditModal({
   id,
@@ -34,6 +49,10 @@ export default function AulasEditModal({
       closeOnSuccess
       errorMessages={{
         title: TEXTS.AULAS_ADMIN_ERROR_TITLE_1,
+        imageType: TEXTS.AULAS_ADMIN_ERROR_IMAGE_TYPE_1,
+        imageSize: TEXTS.AULAS_ADMIN_ERROR_IMAGE_SIZE_1,
+        imageData: TEXTS.AULAS_ADMIN_ERROR_IMAGE_DATA_1,
+        persistence: TEXTS.AULAS_ADMIN_ERROR_PERSISTENCE_1,
       }}
       trigger={
         <button
@@ -72,12 +91,7 @@ export default function AulasEditModal({
           />
         </label>
         <ClassCoverField initialUrl={coverUrl ?? ''} />
-        <button
-          type="submit"
-          className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-stone-950"
-        >
-          {TEXTS.AULAS_ADMIN_SUBMIT_1}
-        </button>
+        <SubmitButton />
       </form>
     </AdminModal>
   )

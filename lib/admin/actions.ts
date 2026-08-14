@@ -10,7 +10,14 @@ import { requireAdmin } from '@/lib/auth/requireAdmin'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth/authOptions'
 import { normalizeExternalUrl } from '@/lib/externalUrl'
+import { validateClassCoverUrl } from '@/lib/admin/class-cover'
 import { slugify } from './slug'
+import { parseFeedCategory } from './feed-category'
+import {
+  persistFeedPostWithCategory,
+  FeedCategoryDuplicateError,
+  FeedCategoryNotFoundError,
+} from './feed-persistence'
 
 function parseCheckbox(value: FormDataEntryValue | null) {
   return value === 'on'
@@ -424,21 +431,29 @@ export async function updateClassInline(
     return { success: false, error: 'title' }
   }
 
-  await prisma.item.update({
-    where: { id },
-    data: {
-      title,
-      slug,
-      description,
-      coverUrl,
-      isActive,
-      hotmartUrl,
-      scheduleOnlineUrl,
-      schedulePresentialUrl,
-      whatsappTextTemplate,
-      type: 'CLASS',
-    },
-  })
+  const coverError = validateClassCoverUrl(coverUrl)
+  if (coverError) return { success: false, error: coverError }
+
+  try {
+    await prisma.item.update({
+      where: { id },
+      data: {
+        title,
+        slug,
+        description,
+        coverUrl,
+        isActive,
+        hotmartUrl,
+        scheduleOnlineUrl,
+        schedulePresentialUrl,
+        whatsappTextTemplate,
+        type: 'CLASS',
+      },
+    })
+  } catch (error) {
+    console.error('Failed to update class', error)
+    return { success: false, error: 'persistence' }
+  }
 
   revalidatePath('/aulas')
   return { success: true }
@@ -1036,6 +1051,10 @@ export async function createStorePost(formData: FormData) {
   const imageUrl = String(formData.get('imageUrl') || '').trim() || null
   const isPinned = parseCheckbox(formData.get('isPinned'))
   const expiresAt = isPinned ? null : parseDateTime(formData.get('expiresAt'))
+  const category = parseFeedCategory(
+    formData.get('storeSectionId'),
+    formData.get('newCategoryName'),
+  )
 
   if (!title) {
     redirect('/loja?error=title')
@@ -1044,15 +1063,50 @@ export async function createStorePost(formData: FormData) {
   if (!isPinned && !expiresAt) {
     redirect('/loja?error=expiresAt')
   }
+  if ('error' in category) {
+    redirect(`/loja?error=${category.error}`)
+  }
 
-  await prisma.storePost.create({
-    data: {
-      title,
-      imageUrl,
-      isPinned,
-      expiresAt,
-    },
-  })
+  try {
+    await persistFeedPostWithCategory(
+      {
+        createFeedPost: async (data) => {
+          await prisma.storePost.create({
+            data: {
+              title: data.title,
+              imageUrl: data.imageUrl,
+              isPinned: data.isPinned,
+              expiresAt: data.expiresAt,
+              storeSection:
+                data.category.type === 'existing'
+                  ? { connect: { id: data.category.id } }
+                  : data.category.type === 'new'
+                    ? {
+                        create: {
+                          title: data.category.title,
+                          slug: data.category.slug,
+                        },
+                      }
+                    : undefined,
+            },
+          })
+        },
+        isUniqueViolation: (error) =>
+          error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002',
+        isMissingRelation: (error) =>
+          error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025',
+      },
+      { title, imageUrl, isPinned, expiresAt, category },
+    )
+  } catch (error) {
+    if (error instanceof FeedCategoryNotFoundError) {
+      redirect('/loja?error=category')
+    }
+    if (error instanceof FeedCategoryDuplicateError) {
+      redirect('/loja?error=categoryDuplicate')
+    }
+    redirect('/loja?error=persistence')
+  }
 
   revalidatePath('/loja')
   redirect('/loja?success=1')

@@ -28,8 +28,6 @@ export default function StoreCarousel({
   items: StoreCarouselItem[]
   isAdmin?: boolean
 }) {
-  if (items.length === 0) return null
-
   const slides = items
 
   const [activeIndex, setActiveIndex] = useState(0)
@@ -44,6 +42,8 @@ export default function StoreCarousel({
 
   const activeSlide = slides[activeIndex]
   const canDelete = isAdmin && items.length > 0
+
+  if (!activeSlide) return null
 
   function handleTouchStart(event: React.TouchEvent<HTMLDivElement>) {
     touchStartX.current = event.touches[0]?.clientX ?? null
