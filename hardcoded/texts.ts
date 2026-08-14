@@ -59,6 +59,8 @@ export const TEXTS = {
   HOME_INTRO_TITLE_1: 'Olá, sou Denise Garcia',
   HOME_INTRO_TEXT_1:
     'Sou mentora de autoestima feminina, instrutora de Pole Dance e artes sensuais e graduada em Educação Física. Desde 2017, acompanho mulheres que desejam se movimentar, se expressar e construir uma relação mais confiante com o próprio corpo — cada uma no seu ritmo.',
+  HOME_INTRO_TEXT_2:
+    'Desejo que você encontre nesse site as ferramentas para se sentir mais magnética, poderosa, confiante e melhorar sua autoestima e bem estar.',
   HOME_INTRO_IMAGE_ALT_1: 'Denise Garcia',
   HOME_HELP_TITLE_1: 'Encontre sua experiência',
   HOME_EXPERIENCES_TITLE_1: 'Experiências',

@@ -1,10 +1,11 @@
 type HomeIntroProps = {
   title: string
   text: string
+  additionalText?: string
   className?: string
 }
 
-export default function HomeIntro({ title, text, className }: HomeIntroProps) {
+export default function HomeIntro({ title, text, additionalText, className }: HomeIntroProps) {
   return (
     <section
       className={`mx-auto flex w-full max-w-3xl flex-col items-center bg-[#FDFDFD] py-12 gap-4 px-6 text-center ${className ?? ''}`.trim()}
@@ -13,6 +14,9 @@ export default function HomeIntro({ title, text, className }: HomeIntroProps) {
         {title}
       </h2>
       <p className="text-base leading-relaxed text-zinc-600">{text}</p>
+      {additionalText ? (
+        <p className="text-base leading-relaxed text-zinc-600">{additionalText}</p>
+      ) : null}
     </section>
   )
 }

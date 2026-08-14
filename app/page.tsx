@@ -21,7 +21,11 @@ export default async function Home() {
     <div className="pb-12">
       <HomeHero imageUrl={IMAGES.HOME_HERO_1} headline={TEXTS.HOME_HERO_HEADLINE_1} />
 
-      <HomeIntro title={TEXTS.HOME_INTRO_TITLE_1} text={TEXTS.HOME_INTRO_TEXT_1} />
+      <HomeIntro
+        title={TEXTS.HOME_INTRO_TITLE_1}
+        text={TEXTS.HOME_INTRO_TEXT_1}
+        additionalText={TEXTS.HOME_INTRO_TEXT_2}
+      />
 
       <section className="w-full">
         <div className="overflow-hidden bg-stone-950">
