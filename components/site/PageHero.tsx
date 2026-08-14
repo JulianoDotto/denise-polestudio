@@ -5,6 +5,7 @@ type PageHeroProps = {
   title: string
   eyebrow?: string
   className?: string
+  imagePosition?: React.CSSProperties['objectPosition']
   contentClassName?: string
 }
 
@@ -13,6 +14,7 @@ export default function PageHero({
   title,
   eyebrow,
   className,
+  imagePosition,
   contentClassName,
 }: PageHeroProps) {
   return (
@@ -26,6 +28,7 @@ export default function PageHero({
         src={imageUrl}
         alt={title}
         className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: imagePosition }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
       <div

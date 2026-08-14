@@ -75,6 +75,7 @@ export default async function LojaPage({
         imageUrl={heroImage}
         title={TEXTS.LOJA_HERO_TITLE_1}
         eyebrow={TEXTS.LOJA_HERO_EYEBROW_1}
+        imagePosition="40% 50%"
       />
 
       <PageSection

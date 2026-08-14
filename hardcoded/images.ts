@@ -7,7 +7,7 @@ export const IMAGES = {
   HOME_BUTTON_LINKS_4: '/images/home/home_button_4.png',
   HOME_BUTTON_LINKS_5: '/images/home/home_button_1.png',
   HOME_BUTTON_LINKS_6: '/images/home/home_button_3.png',
-  LOJA_HERO_1: '/images/placeholder.svg',
+  LOJA_HERO_1: '/images/loja/loja_hero_studio.png',
   EVENTOS_BANNER_1: '/images/placeholder.svg',
   PRODUTOS_DIGITAIS_PLACEHOLDER_1: '/images/placeholder.svg',
   PRODUTOS_DIGITAIS_HERO_1: '/images/placeholder.svg',
