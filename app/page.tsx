@@ -10,10 +10,10 @@ const helpLinks = [
   {
     title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
     href: '/produtos-digitais',
-    imageUrl: IMAGES.HOME_BUTTON_LINKS_6,
+    imageUrl: IMAGES.HOME_BUTTON_LINKS_5,
   },
   { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos', imageUrl: IMAGES.HOME_BUTTON_LINKS_4 },
-  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_BUTTON_LINKS_5 },
+  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_BUTTON_LINKS_6 },
 ]
 
 export default async function Home() {
