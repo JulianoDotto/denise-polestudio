@@ -182,10 +182,9 @@ export const TEXTS = {
   EVENTOS_DESCRIPTION_1:
     'Encontros, apresentações e experiências para viver a dança e a sensualidade em boa companhia. Consulte a programação e os detalhes de cada evento.',
   EVENTOS_TYPES_TITLE_1: 'Tipos de eventos',
-  EVENTOS_TYPE_1: 'Eventos corporativos',
-  EVENTOS_TYPE_2: 'Aulas especiais para grupos',
-  EVENTOS_TYPE_3: 'Experiências sensoriais',
-  EVENTOS_TYPE_4: 'Apresentações e performances',
+  EVENTOS_TYPES_CAROUSEL_LABEL_1: 'Tipos de eventos',
+  EVENTOS_TYPES_PREV_ARIA_1: 'Ver tipo de evento anterior',
+  EVENTOS_TYPES_NEXT_ARIA_1: 'Ver próximo tipo de evento',
   EVENTOS_CONTACT_BUTTON_1: 'CONSULTAR PRÓXIMOS EVENTOS',
   EVENTOS_CONTACT_BUTTON_2: 'FALAR NO WHATSAPP',
   EVENTOS_WHATSAPP_MISSING_1: 'Configure o WhatsApp para contato',

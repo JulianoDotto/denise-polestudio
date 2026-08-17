@@ -5,6 +5,7 @@ import ActionButton from '@/components/site/ActionButton'
 import EventAdminModal from '@/components/site/EventAdminModal'
 import EventDeleteButton from '@/components/site/EventDeleteButton'
 import EventEditModal from '@/components/site/EventEditModal'
+import EventTypesCarousel from '@/components/site/EventTypesCarousel'
 import PageHero from '@/components/site/PageHero'
 import { prisma } from '@/lib/prisma'
 import { authOptions } from '@/lib/auth/authOptions'
@@ -39,13 +40,6 @@ export default async function EventosPage() {
   const contactUrl = phone
     ? buildWhatsAppUrl(phone, TEXTS.EVENTOS_WHATSAPP_MESSAGE_1)
     : ''
-  const eventTypes = [
-    TEXTS.EVENTOS_TYPE_1,
-    TEXTS.EVENTOS_TYPE_2,
-    TEXTS.EVENTOS_TYPE_3,
-    TEXTS.EVENTOS_TYPE_4,
-  ]
-
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
       <PageHero
@@ -63,16 +57,7 @@ export default async function EventosPage() {
         <p className="mt-4 text-base leading-relaxed text-zinc-700">
           {TEXTS.EVENTOS_SECTION_P2_1}
         </p>
-        <div className="mt-6 grid gap-2 sm:grid-cols-2">
-          {eventTypes.map((type) => (
-            <div
-              key={type}
-              className="rounded-full border border-[#3a1a26]/20 bg-white px-4 py-2 text-sm text-zinc-700"
-            >
-              {type}
-            </div>
-          ))}
-        </div>
+        <EventTypesCarousel />
         <div className="mt-6">
           {contactUrl ? (
             <ActionButton
