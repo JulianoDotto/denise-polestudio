@@ -95,6 +95,8 @@ model StorePost {
   id        String   @id @default(cuid())
   title     String
   imageUrl  String?
+  description String?
+  priceCents  Int?
   isPinned  Boolean  @default(false)
   expiresAt DateTime?
   storeSectionId String?
