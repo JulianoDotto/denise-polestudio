@@ -1,7 +1,7 @@
 import { ItemType } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 
-import { Button } from '@/components/ui/button'
+import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import WorkshopCreateModal from '@/components/admin/WorkshopCreateModal'
@@ -67,13 +67,13 @@ export default async function WorkshopsPage() {
               ) : null}
               <p className="text-sm text-muted-foreground">{workshop.description}</p>
               {url ? (
-                <Button asChild>
-                  <a href={url} target="_blank" rel="noreferrer">
-                    {TEXTS.WORKSHOPS_BUTTON_1}
-                  </a>
-                </Button>
+                <ActionButton href={url} target="_blank" rel="noreferrer" className="self-start">
+                  {TEXTS.WORKSHOPS_BUTTON_1}
+                </ActionButton>
               ) : (
-                <Button disabled>{TEXTS.WORKSHOPS_BUTTON_1}</Button>
+                <ActionButton disabled className="self-start">
+                  {TEXTS.WORKSHOPS_BUTTON_1}
+                </ActionButton>
               )}
             </div>
           )

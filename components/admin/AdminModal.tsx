@@ -91,7 +91,6 @@ export default function AdminModal({
               <ActionButton
                 variant="outline"
                 size="sm"
-                className="uppercase tracking-[0.2em]"
                 type="button"
               >
                 {closeLabel}

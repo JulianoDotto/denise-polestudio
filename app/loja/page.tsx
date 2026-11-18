@@ -90,7 +90,7 @@ export default async function LojaPage({
             href={contactUrl}
             target="_blank"
             size="lg"
-            className="w-full max-w-md uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5 text-center"
+            className="w-full max-w-md text-center"
           >
             {TEXTS.LOJA_WHATSAPP_BUTTON_1}
           </ActionButton>
@@ -131,7 +131,7 @@ export default async function LojaPage({
                 <ActionButton
                   type="button"
                   size="lg"
-                  className="w-full max-w-md uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
+                  className="w-full max-w-md"
                 >
                   {TEXTS.LOJA_ADMIN_TRIGGER_1}
                 </ActionButton>

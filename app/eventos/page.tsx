@@ -63,7 +63,7 @@ export default async function EventosPage() {
               href={contactUrl}
               target="_blank"
               size="lg"
-              className="w-full max-w-md text-center leading-none uppercase tracking-[0.2em] shadow-lg shadow-black/20 transition hover:-translate-y-0.5"
+              className="w-full max-w-md text-center leading-none"
             >
               {TEXTS.EVENTOS_CONTACT_BUTTON_1}
             </ActionButton>
@@ -173,7 +173,7 @@ export default async function EventosPage() {
                         href={eventContactUrl}
                         target="_blank"
                         size="sm"
-                        className="w-full uppercase tracking-[0.2em]"
+                        className="w-full"
                       >
                         {TEXTS.EVENTOS_CARD_BUTTON_1}
                       </ActionButton>
@@ -192,7 +192,7 @@ export default async function EventosPage() {
                 href={contactUrl}
                 target="_blank"
                 size="sm"
-                className="mt-5 uppercase tracking-[0.2em]"
+                className="mt-5"
               >
                 {TEXTS.EVENTOS_CONTACT_BUTTON_2}
               </ActionButton>

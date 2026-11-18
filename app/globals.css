@@ -2,6 +2,10 @@
 @import "tw-animate-css";
 
 @theme inline {
+  --color-vinho: #5a1a2a;
+  --color-vinho-hover: #6e2235;
+  --color-marfim: #f3ece2;
+  --color-tinta: #0e0b0b;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
