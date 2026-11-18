@@ -4,6 +4,7 @@ import test from 'node:test'
 import {
   IMAGE_UPLOAD_MAX_BYTES,
   buildImagePath,
+  canRemoveBlob,
   fitWithin,
   isBlobUrl,
   parseImageBytes,
@@ -64,4 +65,15 @@ test('keeps development files apart', () => {
   assert.equal(buildImagePath('aulas', 'webp', 'production'), 'aulas/foto.webp')
   assert.equal(buildImagePath('loja', 'jpg', 'development'), 'dev/loja/foto.jpg')
   assert.equal(buildImagePath('loja', 'jpg', undefined), 'dev/loja/foto.jpg')
+})
+
+test('local and preview environments only remove dev blobs', () => {
+  const prod = 'https://a.public.blob.vercel-storage.com/aulas/foto-x.webp'
+  const dev = 'https://a.public.blob.vercel-storage.com/dev/aulas/foto-x.webp'
+  assert.equal(canRemoveBlob(prod, 'production'), true)
+  assert.equal(canRemoveBlob(prod, 'development'), false)
+  assert.equal(canRemoveBlob(prod, undefined), false)
+  assert.equal(canRemoveBlob(dev, 'development'), true)
+  assert.equal(canRemoveBlob(dev, 'preview'), true)
+  assert.equal(canRemoveBlob('https://example.com/dev/foto.webp', 'development'), false)
 })

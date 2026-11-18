@@ -104,6 +104,7 @@ export async function createStorePost(formData: FormData) {
     if (error instanceof FeedCategoryDuplicateError) {
       redirect('/loja?error=categoryDuplicate')
     }
+    console.error('Failed to save store post', error)
     redirect('/loja?error=persistence')
   }
 

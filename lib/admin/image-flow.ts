@@ -42,6 +42,7 @@ export async function persistWithImage<T>(
   try {
     newUrl = await store.upload(input.folder, input.image)
   } catch (error) {
+    console.error('Failed to upload image', error)
     throw new ImageUploadError({ cause: error })
   }
 

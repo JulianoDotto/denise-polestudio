@@ -68,3 +68,10 @@ export function buildImagePath(folder: 'aulas' | 'loja', extension: string, node
   const base = `${folder}/foto.${extension}`
   return nodeEnv === 'production' ? base : `dev/${base}`
 }
+
+// Only production may delete production photos; other environments only touch their own dev/ folder.
+export function canRemoveBlob(url: string, environment: string | undefined) {
+  if (!isBlobUrl(url)) return false
+  if (environment === 'production') return true
+  return new URL(url).pathname.startsWith('/dev/')
+}

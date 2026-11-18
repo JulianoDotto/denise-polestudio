@@ -98,10 +98,14 @@ test('reports a failed upload without saving', async () => {
   const store = fakeStore()
   store.upload = async () => { throw new Error('blob') }
   let saved = false
-  await assert.rejects(
-    persistWithImage(store, { folder: 'aulas', image, persist: async () => { saved = true } }),
-    ImageUploadError,
-  )
+  await silenceConsoleError(async (calls) => {
+    await assert.rejects(
+      persistWithImage(store, { folder: 'aulas', image, persist: async () => { saved = true } }),
+      ImageUploadError,
+    )
+    assert.equal(calls.length, 1)
+    assert.equal(calls[0][0], 'Failed to upload image')
+  })
   assert.equal(saved, false)
 })
 

@@ -14,22 +14,26 @@ function toBlob(canvas: HTMLCanvasElement, type: string) {
 }
 
 export async function resizeImageFile(file: File): Promise<File> {
-  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' })
+  // An <img> applies EXIF orientation in every browser, unlike createImageBitmap on Safari.
+  const objectUrl = URL.createObjectURL(file)
+  const canvas = document.createElement('canvas')
   try {
-    const { width, height } = fitWithin(bitmap.width, bitmap.height)
-    const canvas = document.createElement('canvas')
+    const image = new Image()
+    image.src = objectUrl
+    await image.decode()
+    const { width, height } = fitWithin(image.naturalWidth, image.naturalHeight)
     canvas.width = width
     canvas.height = height
     const context = canvas.getContext('2d')
     if (!context) throw new Error('Canvas is not available')
 
-    context.drawImage(bitmap, 0, 0, width, height)
+    context.drawImage(image, 0, 0, width, height)
     let blob = await toBlob(canvas, 'image/webp')
     if (blob?.type !== 'image/webp') {
       // Browsers without WebP encoding fall back to PNG, so redraw on white and use JPEG.
       context.fillStyle = '#fff'
       context.fillRect(0, 0, width, height)
-      context.drawImage(bitmap, 0, 0, width, height)
+      context.drawImage(image, 0, 0, width, height)
       blob = await toBlob(canvas, 'image/jpeg')
     }
     if (!blob) throw new Error('Image could not be encoded')
@@ -38,6 +42,9 @@ export async function resizeImageFile(file: File): Promise<File> {
     const base = file.name.replace(/\.[^./\\]+$/, '') || 'foto'
     return new File([blob], `${base}.${EXTENSIONS[blob.type] ?? 'jpg'}`, { type: blob.type })
   } finally {
-    bitmap.close()
+    URL.revokeObjectURL(objectUrl)
+    // Release canvas memory on iOS.
+    canvas.width = 0
+    canvas.height = 0
   }
 }
