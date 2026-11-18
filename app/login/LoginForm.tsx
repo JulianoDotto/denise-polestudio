@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
@@ -8,20 +8,16 @@ import { Eye, EyeOff } from 'lucide-react'
 export default function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [error, setError] = useState('')
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  useEffect(() => {
-    const urlError = searchParams.get('error')
-    if (urlError) {
-      setError('Usuário ou senha incorretos, ou acesso não autorizado.')
-    }
-  }, [searchParams])
+  const authErrorMessage = 'Usuário ou senha incorretos, ou acesso não autorizado.'
+  const error = submitError ?? (searchParams.get('error') ? authErrorMessage : '')
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setError('')
+    setSubmitError('')
     setLoading(true)
 
     const formData = new FormData(event.currentTarget)
@@ -39,7 +35,7 @@ export default function LoginForm() {
     setLoading(false)
 
     if (result?.error) {
-      setError('Usuário ou senha incorretos, ou acesso não autorizado.')
+      setSubmitError(authErrorMessage)
       return
     }
 

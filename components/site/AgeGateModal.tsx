@@ -1,25 +1,39 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { TEXTS } from '@/hardcoded/texts'
 
 const STORAGE_KEY = 'age_gate_loja_accepted'
+const listeners = new Set<() => void>()
+let acceptedInSession = false
+
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+function getIsAccepted() {
+  if (acceptedInSession) return true
+  try {
+    return localStorage.getItem(STORAGE_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+// Before hydration the modal stays closed, matching the previous initial state.
+function getServerIsAccepted() {
+  return true
+}
 
 export default function AgeGateModal() {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
+  const isAccepted = useSyncExternalStore(subscribe, getIsAccepted, getServerIsAccepted)
 
-  useEffect(() => {
-    try {
-      const accepted = localStorage.getItem(STORAGE_KEY)
-      setIsOpen(accepted !== 'true')
-    } catch {
-      setIsOpen(true)
-    }
-  }, [])
-
-  if (!isOpen) return null
+  if (isAccepted) return null
 
   function handleConfirm() {
     try {
@@ -27,7 +41,8 @@ export default function AgeGateModal() {
     } catch {
       // ignore storage errors
     }
-    setIsOpen(false)
+    acceptedInSession = true
+    listeners.forEach((listener) => listener())
   }
 
   function handleReject() {
