@@ -11,13 +11,17 @@ import ContentFields, {
 } from '@/components/admin/ContentFields'
 import {
   createClassInline,
-  createDigitalProductInline,
-  createEventInline,
   updateClassInline,
+} from '@/lib/admin/actions/classes'
+import {
+  createDigitalProductInline,
   updateDigitalProductInline,
+} from '@/lib/admin/actions/digital-products'
+import {
+  createEventInline,
   updateEventInline,
-  updateWorkshopInline,
-} from '@/lib/admin/actions'
+} from '@/lib/admin/actions/events'
+import { updateWorkshopInline } from '@/lib/admin/actions/workshops'
 import {
   CONTENT_FORMS,
   type ContentKind,

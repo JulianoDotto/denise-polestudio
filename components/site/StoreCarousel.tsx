@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 
-import { deleteStorePost } from '@/lib/admin/actions'
+import { deleteStorePost } from '@/lib/admin/actions/store-posts'
 import { TEXTS } from '@/hardcoded/texts'
 import { formatPrice } from '@/lib/format'
 import {

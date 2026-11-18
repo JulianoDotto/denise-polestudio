@@ -16,12 +16,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import {
-  deleteClassInline,
-  deleteDigitalProductInline,
-  deleteEventInline,
-  deleteWorkshopInline,
-} from '@/lib/admin/actions'
+import { deleteClassInline } from '@/lib/admin/actions/classes'
+import { deleteDigitalProductInline } from '@/lib/admin/actions/digital-products'
+import { deleteEventInline } from '@/lib/admin/actions/events'
+import { deleteWorkshopInline } from '@/lib/admin/actions/workshops'
 import { CONTENT_FORMS, type ContentKind } from '@/lib/admin/content-forms'
 
 const initialState = { success: false, error: '' }

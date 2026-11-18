@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useTransition } from 'react'
 import ActionButton from '@/components/site/ActionButton'
 import AdminModal from '@/components/admin/AdminModal'
 import ContentFields from '@/components/admin/ContentFields'
-import { createWorkshopInline } from '@/lib/admin/actions'
+import { createWorkshopInline } from '@/lib/admin/actions/workshops'
 import { CONTENT_FORMS } from '@/lib/admin/content-forms'
 
 const initialState = { success: false, error: '', requestId: '' }
