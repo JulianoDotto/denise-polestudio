@@ -18,7 +18,6 @@ export type ContentValues = {
   hotmartUrl?: string | null
   type?: 'EBOOK' | 'VIDEO'
   eventDate?: string
-  isActive?: boolean
 }
 
 type FormLabels = {

@@ -19,20 +19,15 @@ export async function createClassInline(
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
   const coverUrl = String(formData.get('coverUrl') || '').trim() || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
+  const slug = slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
-  const hotmartUrl = String(formData.get('hotmartUrl') || '').trim() || null
-  const scheduleOnlineUrl =
-    String(formData.get('scheduleOnlineUrl') || '').trim() || null
-  const schedulePresentialUrl =
-    String(formData.get('schedulePresentialUrl') || '').trim() || null
-  const whatsappTextTemplate =
-    String(formData.get('whatsappTextTemplate') || '').trim() || null
 
   if (!title) {
     return { success: false, error: 'title' }
   }
+
+  const coverError = validateClassCoverUrl(coverUrl)
+  if (coverError) return { success: false, error: coverError }
 
   await createItemWithUniqueSlug(
     {
@@ -40,10 +35,6 @@ export async function createClassInline(
       description,
       coverUrl,
       isActive,
-      hotmartUrl,
-      scheduleOnlineUrl,
-      schedulePresentialUrl,
-      whatsappTextTemplate,
       type: 'CLASS',
     },
     slug,
@@ -87,7 +78,12 @@ export async function deleteClassInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  await prisma.item.delete({ where: { id } })
+  try {
+    await prisma.item.delete({ where: { id } })
+  } catch (error) {
+    console.error('Failed to delete item', error)
+    return { success: false, error: 'delete' }
+  }
 
   revalidatePath('/aulas')
   return { success: true }

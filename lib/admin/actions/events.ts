@@ -20,12 +20,9 @@ export async function createEventInline(
 
   const title = String(formData.get('title') || '').trim()
   const description = String(formData.get('description') || '').trim() || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
+  const slug = slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
   const eventDate = parseDate(formData.get('eventDate'))
-  const whatsappTextTemplate =
-    String(formData.get('whatsappTextTemplate') || '').trim() || null
 
   if (!title) {
     return { success: false, error: 'title' }
@@ -38,7 +35,6 @@ export async function createEventInline(
         description,
         eventDate,
         isActive,
-        whatsappTextTemplate,
         type: 'EVENT',
       },
       slug,
@@ -80,7 +76,12 @@ export async function deleteEventInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  await prisma.item.delete({ where: { id } })
+  try {
+    await prisma.item.delete({ where: { id } })
+  } catch (error) {
+    console.error('Failed to delete item', error)
+    return { success: false, error: 'delete' }
+  }
 
   revalidatePath('/eventos')
   return { success: true }

@@ -96,7 +96,6 @@ export default function ContentFormModal(props: ContentFormModalProps) {
 
   const { values } = props
   const showPending = pending && Boolean(config.edit.pending)
-  const isActive = kind === 'event' ? (values.isActive ?? true) : true
 
   return (
     <AdminModal
@@ -119,7 +118,6 @@ export default function ContentFormModal(props: ContentFormModalProps) {
     >
       <form action={formAction} className="grid gap-4">
         <input type="hidden" name="id" value={values.id ?? ''} />
-        <input type="hidden" name="isActive" value={isActive ? 'on' : ''} />
         <ContentFields kind={kind} values={values} />
         {kind === 'workshop' ? (
           <ActionButton type="submit" size="sm" disabled={pending} className="self-start">

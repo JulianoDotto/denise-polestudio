@@ -120,7 +120,6 @@ export default async function EventosPage() {
                               eventDate: event.eventDate
                                 ? event.eventDate.toISOString().slice(0, 10)
                                 : '',
-                              isActive: event.isActive,
                             }}
                           />
                           <ContentDeleteButton kind="event" id={event.id} title={event.title} />

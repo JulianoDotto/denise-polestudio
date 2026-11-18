@@ -20,8 +20,7 @@ export async function createDigitalProductInline(
   const description = String(formData.get('description') || '').trim() || null
   const hotmartUrl =
     normalizeExternalUrl(String(formData.get('hotmartUrl') || '')) || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
+  const slug = slugify(title)
   const isActive = parseCheckbox(formData.get('isActive'))
   const type = String(formData.get('type') || '').trim()
 
@@ -73,7 +72,12 @@ export async function deleteDigitalProductInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  await prisma.item.delete({ where: { id } })
+  try {
+    await prisma.item.delete({ where: { id } })
+  } catch (error) {
+    console.error('Failed to delete item', error)
+    return { success: false, error: 'delete' }
+  }
 
   revalidatePath('/produtos-digitais')
   return { success: true }
