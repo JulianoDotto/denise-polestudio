@@ -119,6 +119,7 @@ export default async function LojaPage({
               errorMessages={{
                 title: TEXTS.LOJA_ADMIN_ERROR_TITLE_1,
                 expiresAt: TEXTS.LOJA_ADMIN_ERROR_EXPIRES_1,
+                price: TEXTS.LOJA_ADMIN_ERROR_PRICE_1,
                 categoryName: 'Informe um nome válido para a nova categoria.',
                 categoryDuplicate: 'Já existe uma categoria com esse nome.',
                 category: 'A categoria selecionada não está mais disponível.',
@@ -145,6 +146,28 @@ export default async function LojaPage({
                     name="title"
                     className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
                     placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_TITLE_1}
+                  />
+                </label>
+                <label className="flex flex-col gap-2 text-sm">
+                  <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
+                    {TEXTS.LOJA_ADMIN_LABEL_DESCRIPTION_1}
+                  </span>
+                  <textarea
+                    name="description"
+                    rows={4}
+                    className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
+                    placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_DESCRIPTION_1}
+                  />
+                </label>
+                <label className="flex flex-col gap-2 text-sm">
+                  <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">
+                    {TEXTS.LOJA_ADMIN_LABEL_PRICE_1}
+                  </span>
+                  <input
+                    name="price"
+                    inputMode="decimal"
+                    className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300"
+                    placeholder={TEXTS.LOJA_ADMIN_PLACEHOLDER_PRICE_1}
                   />
                 </label>
                 <FeedCategoryField categories={categories} />

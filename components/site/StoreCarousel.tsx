@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 
 import { deleteStorePost } from '@/lib/admin/actions'
 import { TEXTS } from '@/hardcoded/texts'
+import { formatPrice } from '@/lib/format'
 import {
     Dialog,
     DialogClose,
@@ -19,6 +20,8 @@ type StoreCarouselItem = {
   id: string
   title: string
   imageUrl: string
+  description: string | null
+  priceCents: number | null
 }
 
 export default function StoreCarousel({
@@ -42,6 +45,7 @@ export default function StoreCarousel({
 
   const activeSlide = slides[activeIndex]
   const canDelete = isAdmin && items.length > 0
+  const price = formatPrice(activeSlide?.priceCents)
 
   if (!activeSlide) return null
 
@@ -152,6 +156,19 @@ export default function StoreCarousel({
           </div>
         </div>
       </div>
+
+      {price || activeSlide.description ? (
+        <div className="grid gap-2">
+          {price ? (
+            <p className="font-display text-xl tracking-[0.1em] text-zinc-900">{price}</p>
+          ) : null}
+          {activeSlide.description ? (
+            <p className="whitespace-pre-line text-base leading-relaxed text-zinc-700">
+              {activeSlide.description}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-zinc-300/60">
         <span>

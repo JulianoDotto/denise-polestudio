@@ -2,6 +2,8 @@ export type FeedPostForGrouping = {
   id: string
   title: string
   imageUrl: string | null
+  description: string | null
+  priceCents: number | null
   storeSection: {
     id: string
     title: string
@@ -16,6 +18,8 @@ export type FeedCategoryGroup = {
     id: string
     title: string
     imageUrl: string
+    description: string | null
+    priceCents: number | null
   }>
 }
 
@@ -39,6 +43,8 @@ export function groupFeedPostsByCategory(
       id: post.id,
       title: post.title,
       imageUrl: post.imageUrl || fallbackImageUrl,
+      description: post.description,
+      priceCents: post.priceCents,
     })
     groups.set(group.id, group)
   }

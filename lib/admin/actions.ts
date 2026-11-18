@@ -21,6 +21,7 @@ import {
   parseWorkshopUpdate,
 } from './item-updates'
 import { parseFeedCategory } from './feed-category'
+import { parseStorePostDetails } from './store-post-details'
 import {
   persistFeedPostWithCategory,
   FeedCategoryDuplicateError,
@@ -444,6 +445,10 @@ export async function createStorePost(formData: FormData) {
   if ('error' in category) {
     redirect(`/loja?error=${category.error}`)
   }
+  const details = parseStorePostDetails(formData)
+  if ('error' in details) {
+    redirect(`/loja?error=${details.error}`)
+  }
 
   try {
     await persistFeedPostWithCategory(
@@ -455,6 +460,8 @@ export async function createStorePost(formData: FormData) {
               imageUrl: data.imageUrl,
               isPinned: data.isPinned,
               expiresAt: data.expiresAt,
+              description: data.description,
+              priceCents: data.priceCents,
               storeSection:
                 data.category.type === 'existing'
                   ? { connect: { id: data.category.id } }
@@ -474,7 +481,7 @@ export async function createStorePost(formData: FormData) {
         isMissingRelation: (error) =>
           error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025',
       },
-      { title, imageUrl, isPinned, expiresAt, category },
+      { title, imageUrl, isPinned, expiresAt, category, ...details.data },
     )
   } catch (error) {
     if (error instanceof FeedCategoryNotFoundError) {
@@ -500,4 +507,4 @@ export async function deleteStorePost(formData: FormData) {
   revalidatePath('/loja')
   redirect('/loja?deleted=1')
 }
-
+

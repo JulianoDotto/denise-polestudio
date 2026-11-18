@@ -8,6 +8,8 @@ export type FeedPersistenceInput = {
   imageUrl: string | null
   isPinned: boolean
   expiresAt: Date | null
+  description: string | null
+  priceCents: number | null
   category: FeedCategorySelection
 }
 

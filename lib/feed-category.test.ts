@@ -12,6 +12,7 @@ import {
 
 const feedInput: Omit<FeedPersistenceInput, 'category'> = {
   title: 'Publicação teste', imageUrl: null, isPinned: true, expiresAt: null,
+  description: null, priceCents: null,
 }
 
 function createHarness(options?: {

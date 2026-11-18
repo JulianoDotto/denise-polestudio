@@ -8,9 +8,9 @@ const categoryB = { id: 'b', title: 'Categoria B', order: 1 }
 
 test('groups posts without mixing or duplicating category items', () => {
   const groups = groupFeedPostsByCategory([
-    { id: 'a-1', title: 'A 1', imageUrl: '/a1.png', storeSection: categoryA },
-    { id: 'b-1', title: 'B 1', imageUrl: '/b1.png', storeSection: categoryB },
-    { id: 'a-2', title: 'A 2', imageUrl: '/a2.png', storeSection: categoryA },
+    { id: 'a-1', title: 'A 1', imageUrl: '/a1.png', description: null, priceCents: null, storeSection: categoryA },
+    { id: 'b-1', title: 'B 1', imageUrl: '/b1.png', description: null, priceCents: null, storeSection: categoryB },
+    { id: 'a-2', title: 'A 2', imageUrl: '/a2.png', description: null, priceCents: null, storeSection: categoryA },
   ], '/fallback.svg')
 
   assert.deepEqual(groups.map((group) => group.id), ['b', 'a'])
@@ -20,8 +20,8 @@ test('groups posts without mixing or duplicating category items', () => {
 
 test('omits uncategorized legacy posts and does not create empty categories', () => {
   const groups = groupFeedPostsByCategory([
-    { id: 'legacy', title: 'Legado', imageUrl: null, storeSection: null },
-    { id: 'a-1', title: 'A 1', imageUrl: null, storeSection: categoryA },
+    { id: 'legacy', title: 'Legado', imageUrl: null, description: null, priceCents: null, storeSection: null },
+    { id: 'a-1', title: 'A 1', imageUrl: null, description: null, priceCents: null, storeSection: categoryA },
   ], '/fallback.svg')
 
   assert.equal(groups.length, 1)
@@ -32,6 +32,24 @@ test('omits uncategorized legacy posts and does not create empty categories', ()
 test('returns an empty state when there are no categorized active posts', () => {
   assert.deepEqual(groupFeedPostsByCategory([], '/fallback.svg'), [])
   assert.deepEqual(groupFeedPostsByCategory([
-    { id: 'legacy', title: 'Legado', imageUrl: null, storeSection: null },
+    { id: 'legacy', title: 'Legado', imageUrl: null, description: null, priceCents: null, storeSection: null },
   ], '/fallback.svg'), [])
+})
+
+test('carries description and price into the group items', () => {
+  const groups = groupFeedPostsByCategory([
+    {
+      id: 'a-1', title: 'A 1', imageUrl: '/a1.png', storeSection: categoryA,
+      description: 'Detalhes', priceCents: 2500,
+    },
+    {
+      id: 'a-2', title: 'A 2', imageUrl: '/a2.png', storeSection: categoryA,
+      description: null, priceCents: null,
+    },
+  ], '/fallback.svg')
+
+  assert.equal(groups[0]?.items[0]?.description, 'Detalhes')
+  assert.equal(groups[0]?.items[0]?.priceCents, 2500)
+  assert.equal(groups[0]?.items[1]?.description, null)
+  assert.equal(groups[0]?.items[1]?.priceCents, null)
 })
