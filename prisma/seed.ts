@@ -4,10 +4,13 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
 import { hash } from 'bcryptjs'
 import { getPostgresConnectionString } from '../lib/postgres'
+import { assertLocalDatabase } from '../lib/seed-guard'
 
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is not set')
 }
+
+assertLocalDatabase(process.env.DATABASE_URL)
 
 const pool = new Pool({
   connectionString: getPostgresConnectionString(process.env.DATABASE_URL),
