@@ -26,5 +26,17 @@ test('outline keeps the pill shape', () => {
 test('disabled buttons are dimmed and not clickable-looking', () => {
   const classes = getActionButtonClasses({ size: 'md', variant: 'solid', tone: 'dark' })
   assert.ok(classes.includes('disabled:opacity-50'))
-  assert.ok(classes.includes('disabled:cursor-not-allowed'))
+  assert.ok(classes.includes('disabled:pointer-events-none'))
+  assert.ok(!classes.includes('disabled:cursor-not-allowed'))
+})
+
+test('motion is switched off for reduced-motion users', () => {
+  const classes = getActionButtonClasses({ size: 'md', variant: 'solid', tone: 'dark' })
+  for (const name of [
+    'motion-reduce:transition-none',
+    'motion-reduce:hover:translate-y-0',
+    'motion-reduce:active:scale-100',
+  ]) {
+    assert.ok(classes.includes(name), name)
+  }
 })

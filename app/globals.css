@@ -188,4 +188,12 @@
     animation: none;
     transition: none;
   }
+  .image-link-card:hover .image-link-card-photo,
+  .image-link-card:focus-visible .image-link-card-photo {
+    transform: none;
+  }
+  .image-link-card:hover .image-link-card-title,
+  .image-link-card:focus-visible .image-link-card-title {
+    letter-spacing: 0.35em;
+  }
 }
