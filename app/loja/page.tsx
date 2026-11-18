@@ -5,7 +5,8 @@ import AdminModal from '@/components/admin/AdminModal'
 import ActionButton from '@/components/site/ActionButton'
 import PageHero from '@/components/site/PageHero'
 import PageSection from '@/components/site/PageSection'
-import StorePostImageField from '@/components/admin/StorePostImageField'
+import ImageUploadField from '@/components/admin/ImageUploadField'
+import StorePostSubmitButton from '@/components/admin/StorePostSubmitButton'
 import StorePostDurationFields from '@/components/admin/StorePostDurationFields'
 import StoreCarousel from '@/components/site/StoreCarousel'
 import FeedCategoryField from '@/components/admin/FeedCategoryField'
@@ -124,6 +125,9 @@ export default async function LojaPage({
                 categoryDuplicate: 'Já existe uma categoria com esse nome.',
                 category: 'A categoria selecionada não está mais disponível.',
                 categoryLoad: 'Não foi possível carregar as categorias existentes.',
+                imageType: TEXTS.AULAS_ADMIN_ERROR_IMAGE_TYPE_1,
+                imageSize: TEXTS.AULAS_ADMIN_ERROR_IMAGE_SIZE_1,
+                imageUpload: TEXTS.ADMIN_ERROR_IMAGE_UPLOAD_1,
                 persistence: 'Não foi possível publicar no feed. Tente novamente.',
               }}
               successMessage={TEXTS.LOJA_ADMIN_SUCCESS_1}
@@ -176,11 +180,16 @@ export default async function LojaPage({
                     Não foi possível carregar as categorias existentes.
                   </p>
                 ) : null}
-                <StorePostImageField />
+                <ImageUploadField
+                  name="imageFile"
+                  label={TEXTS.STORE_IMAGE_FIELD_LABEL_1}
+                  previewLabel={TEXTS.STORE_IMAGE_FIELD_PREVIEW_LABEL_1}
+                  emptyLabel={TEXTS.STORE_IMAGE_FIELD_EMPTY_1}
+                  previewAlt={TEXTS.STORE_IMAGE_FIELD_PREVIEW_ALT_1}
+                  fallbackUrl={IMAGES.STORE_IMAGE_FIELD_PREVIEW_1}
+                />
                 <StorePostDurationFields />
-                <ActionButton type="submit" size="sm" className="self-start">
-                  {TEXTS.LOJA_ADMIN_SUBMIT_1}
-                </ActionButton>
+                <StorePostSubmitButton />
               </form>
             </AdminModal>
           </div>

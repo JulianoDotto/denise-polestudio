@@ -13,13 +13,15 @@ import {
   FeedCategoryNotFoundError,
 } from '@/lib/admin/feed-persistence'
 import { parseCheckbox, parseDateTime } from '@/lib/admin/form-values'
+import { readImageField } from '@/lib/admin/image-file'
+import { ImageUploadError, persistWithImage, removeStoredImage } from '@/lib/admin/image-flow'
+import { blobImageStore } from '@/lib/admin/image-store'
 import { parseStorePostDetails } from '@/lib/admin/store-post-details'
 
 export async function createStorePost(formData: FormData) {
   await requireAdmin()
 
   const title = String(formData.get('title') || '').trim()
-  const imageUrl = String(formData.get('imageUrl') || '').trim() || null
   const isPinned = parseCheckbox(formData.get('isPinned'))
   const expiresAt = isPinned ? null : parseDateTime(formData.get('expiresAt'))
   const category = parseFeedCategory(
@@ -42,40 +44,60 @@ export async function createStorePost(formData: FormData) {
     redirect(`/loja?error=${details.error}`)
   }
 
+  const upload = await readImageField(formData, 'imageFile')
+  if ('error' in upload) {
+    redirect(`/loja?error=${upload.error}`)
+  }
+
   try {
-    await persistFeedPostWithCategory(
-      {
-        createFeedPost: async (data) => {
-          await prisma.storePost.create({
-            data: {
-              title: data.title,
-              imageUrl: data.imageUrl,
-              isPinned: data.isPinned,
-              expiresAt: data.expiresAt,
-              description: data.description,
-              priceCents: data.priceCents,
-              storeSection:
-                data.category.type === 'existing'
-                  ? { connect: { id: data.category.id } }
-                  : data.category.type === 'new'
-                    ? {
-                        create: {
-                          title: data.category.title,
-                          slug: data.category.slug,
-                        },
-                      }
-                    : undefined,
+    await persistWithImage(blobImageStore, {
+      folder: 'loja',
+      image: upload.image,
+      persist: (newUrl) =>
+        persistFeedPostWithCategory(
+          {
+            createFeedPost: async (data) => {
+              await prisma.storePost.create({
+                data: {
+                  title: data.title,
+                  imageUrl: data.imageUrl,
+                  isPinned: data.isPinned,
+                  expiresAt: data.expiresAt,
+                  description: data.description,
+                  priceCents: data.priceCents,
+                  storeSection:
+                    data.category.type === 'existing'
+                      ? { connect: { id: data.category.id } }
+                      : data.category.type === 'new'
+                        ? {
+                            create: {
+                              title: data.category.title,
+                              slug: data.category.slug,
+                            },
+                          }
+                        : undefined,
+                },
+              })
             },
-          })
-        },
-        isUniqueViolation: (error) =>
-          error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002',
-        isMissingRelation: (error) =>
-          error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025',
-      },
-      { title, imageUrl, isPinned, expiresAt, category, ...details.data },
-    )
+            isUniqueViolation: (error) =>
+              error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002',
+            isMissingRelation: (error) =>
+              error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025',
+          },
+          {
+            title,
+            imageUrl: newUrl,
+            isPinned,
+            expiresAt,
+            category,
+            ...details.data,
+          },
+        ),
+    })
   } catch (error) {
+    if (error instanceof ImageUploadError) {
+      redirect('/loja?error=imageUpload')
+    }
     if (error instanceof FeedCategoryNotFoundError) {
       redirect('/loja?error=category')
     }
@@ -94,8 +116,12 @@ export async function deleteStorePost(formData: FormData) {
   const id = String(formData.get('id') || '')
   if (!id) redirect('/loja')
 
-  await prisma.storePost.delete({ where: { id } })
+  const deleted = await prisma.storePost.delete({
+    where: { id },
+    select: { imageUrl: true },
+  })
 
+  await removeStoredImage(blobImageStore, deleted.imageUrl)
   revalidatePath('/loja')
   redirect('/loja?deleted=1')
 }
