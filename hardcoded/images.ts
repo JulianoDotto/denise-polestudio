@@ -9,9 +9,7 @@ export const IMAGES = {
   HOME_BUTTON_LINKS_6: '/images/home/home_button_3.png',
   LOJA_HERO_1: '/images/loja/loja_hero_studio.png',
   EVENTOS_BANNER_1: '/images/placeholder.svg',
-  PRODUTOS_DIGITAIS_PLACEHOLDER_1: '/images/placeholder.svg',
   PRODUTOS_DIGITAIS_HERO_1: '/images/placeholder.svg',
-  AULA_DETAIL_PLACEHOLDER_1: '/images/placeholder.svg',
   STORE_IMAGE_FIELD_PREVIEW_1: '/images/placeholder.svg',
   AULAS_COVER_FALLBACK_1: '/images/placeholder.svg',
 } as const

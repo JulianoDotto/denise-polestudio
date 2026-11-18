@@ -1,6 +1,6 @@
 # Denise Pole Studio – Catálogo com WhatsApp
 
-MVP em **Next.js (App Router)** + **Prisma** + **Tailwind** + **shadcn/ui** para catálogo de produtos, aulas, ebooks e eventos com redirecionamento para WhatsApp.
+Site em **Next.js (App Router)** + **Prisma** + **Tailwind** + **shadcn/ui** com aulas, workshops, eventos, produtos digitais e loja, com redirecionamento para WhatsApp.
 
 ## Requisitos
 
@@ -67,11 +67,14 @@ Acesse `http://localhost:3000`.
 - `npm run db:migrate` – cria e aplica migrations
 - `npm run db:push` – sincroniza schema sem migrations
 - `npm run db:seed` – popula dados fake
+- `npm test` – roda os testes de `lib/`
+- `npm run lint` – roda o ESLint
+- `npm run build` – gera o build de produção
 
 ## Estrutura
 
-- `app/` – páginas (Home, Lojas, Produtos, Aulas, Ebooks, Eventos)
+- `app/` – páginas (Home, Aulas, Workshops, Eventos, Produtos digitais, Loja)
 - `app/login` e `app/logout` – entrada e saída de administradores
-- `components/` – UI, carrinho, header/footer
+- `components/` – UI, componentes do site, header/footer
 - `lib/` – acesso a dados, auth e helpers
 - `prisma/` – schema + seed
