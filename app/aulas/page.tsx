@@ -2,9 +2,8 @@ import { getServerSession } from 'next-auth'
 import { ItemType } from '@prisma/client'
 
 import ActionButton from '@/components/site/ActionButton'
-import AulasAdminModal from '@/components/site/AulasAdminModal'
-import AulasDeleteButton from '@/components/site/AulasDeleteButton'
-import AulasEditModal from '@/components/site/AulasEditModal'
+import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
+import ContentFormModal from '@/components/admin/ContentFormModal'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
@@ -42,13 +41,17 @@ export default async function AulasPage() {
                   <h2 className="text-2xl font-semibold">{aula.title}</h2>
                   {isAdmin ? (
                     <div className="flex items-center gap-2">
-                      <AulasEditModal
-                        id={aula.id}
-                        title={aula.title}
-                        description={aula.description}
-                        coverUrl={aula.coverUrl}
+                      <ContentFormModal
+                        kind="class"
+                        mode="edit"
+                        values={{
+                          id: aula.id,
+                          title: aula.title,
+                          description: aula.description,
+                          coverUrl: aula.coverUrl,
+                        }}
                       />
-                      <AulasDeleteButton id={aula.id} title={aula.title} />
+                      <ContentDeleteButton kind="class" id={aula.id} title={aula.title} />
                     </div>
                   ) : null}
                 </div>
@@ -68,7 +71,7 @@ export default async function AulasPage() {
 
       {isAdmin ? (
         <div className="flex justify-center px-6">
-          <AulasAdminModal />
+          <ContentFormModal kind="class" mode="create" />
         </div>
       ) : null}
     </div>

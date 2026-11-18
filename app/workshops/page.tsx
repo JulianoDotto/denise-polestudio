@@ -2,9 +2,9 @@ import { ItemType } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 
 import { Button } from '@/components/ui/button'
-import WorkshopAdminModal from '@/components/site/WorkshopAdminModal'
-import WorkshopDeleteButton from '@/components/site/WorkshopDeleteButton'
-import WorkshopEditModal from '@/components/site/WorkshopEditModal'
+import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
+import ContentFormModal from '@/components/admin/ContentFormModal'
+import WorkshopCreateModal from '@/components/admin/WorkshopCreateModal'
 import { authOptions } from '@/lib/auth/authOptions'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
@@ -40,12 +40,20 @@ export default async function WorkshopsPage() {
                   </span>
                   {isAdmin ? (
                     <>
-                      <WorkshopEditModal
+                      <ContentFormModal
+                        kind="workshop"
+                        mode="edit"
+                        values={{
+                          id: workshop.id,
+                          title: workshop.title,
+                          description: workshop.description,
+                        }}
+                      />
+                      <ContentDeleteButton
+                        kind="workshop"
                         id={workshop.id}
                         title={workshop.title}
-                        description={workshop.description}
                       />
-                      <WorkshopDeleteButton id={workshop.id} title={workshop.title} />
                     </>
                   ) : null}
                 </div>
@@ -74,7 +82,7 @@ export default async function WorkshopsPage() {
 
       {isAdmin ? (
         <div className="flex justify-center">
-          <WorkshopAdminModal />
+          <WorkshopCreateModal />
         </div>
       ) : null}
     </div>

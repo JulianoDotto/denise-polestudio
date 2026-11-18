@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useTransition } from 'react'
 
 import ActionButton from '@/components/site/ActionButton'
-import AdminModal from '@/components/site/AdminModal'
+import AdminModal from '@/components/admin/AdminModal'
 import ContentFields from '@/components/admin/ContentFields'
 import { createWorkshopInline } from '@/lib/admin/actions'
 import { CONTENT_FORMS } from '@/lib/admin/content-forms'

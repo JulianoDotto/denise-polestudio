@@ -4,7 +4,7 @@ import { useActionState } from 'react'
 import { Pencil } from 'lucide-react'
 
 import ActionButton from '@/components/site/ActionButton'
-import AdminModal from '@/components/site/AdminModal'
+import AdminModal from '@/components/admin/AdminModal'
 import ContentFields, {
   contentIconButtonClass,
   type ContentTone,

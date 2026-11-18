@@ -1,6 +1,6 @@
 'use client'
 
-import ClassCoverField from '@/components/site/ClassCoverField'
+import ClassCoverField from '@/components/admin/ClassCoverField'
 import {
   CONTENT_FORMS,
   type ContentKind,

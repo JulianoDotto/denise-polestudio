@@ -2,9 +2,8 @@ import { getServerSession } from 'next-auth'
 
 import { ItemType } from '@prisma/client'
 import ActionButton from '@/components/site/ActionButton'
-import EventAdminModal from '@/components/site/EventAdminModal'
-import EventDeleteButton from '@/components/site/EventDeleteButton'
-import EventEditModal from '@/components/site/EventEditModal'
+import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
+import ContentFormModal from '@/components/admin/ContentFormModal'
 import EventTypesCarousel from '@/components/site/EventTypesCarousel'
 import PageHero from '@/components/site/PageHero'
 import { prisma } from '@/lib/prisma'
@@ -111,16 +110,20 @@ export default async function EventosPage() {
                     <div className="flex items-center justify-end gap-2">
                       {isAdmin ? (
                         <div className="flex items-center gap-2">
-                          <EventEditModal
-                            id={event.id}
-                            title={event.title}
-                            description={event.description}
-                            eventDate={
-                              event.eventDate ? event.eventDate.toISOString().slice(0, 10) : ''
-                            }
-                            isActive={event.isActive}
+                          <ContentFormModal
+                            kind="event"
+                            mode="edit"
+                            values={{
+                              id: event.id,
+                              title: event.title,
+                              description: event.description,
+                              eventDate: event.eventDate
+                                ? event.eventDate.toISOString().slice(0, 10)
+                                : '',
+                              isActive: event.isActive,
+                            }}
                           />
-                          <EventDeleteButton id={event.id} title={event.title} />
+                          <ContentDeleteButton kind="event" id={event.id} title={event.title} />
                         </div>
                       ) : null}
                     </div>
@@ -199,7 +202,7 @@ export default async function EventosPage() {
 
         {isAdmin ? (
           <div className="flex justify-center">
-            <EventAdminModal />
+            <ContentFormModal kind="event" mode="create" />
           </div>
         ) : null}
       </section>
