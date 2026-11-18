@@ -34,16 +34,19 @@ export default function StoreCarousel({
   const slides = items
 
   const [activeIndex, setActiveIndex] = useState(0)
+  const [deleteOpenFor, setDeleteOpenFor] = useState<string | null>(null)
   const touchStartX = useRef<number | null>(null)
   const touchDeltaX = useRef(0)
 
   function goToSlide(nextIndex: number) {
     const total = slides.length
+    if (total === 0) return
     const normalized = (nextIndex + total) % total
     setActiveIndex(normalized)
   }
 
-  const activeSlide = slides[activeIndex]
+  const safeIndex = Math.min(activeIndex, slides.length - 1)
+  const activeSlide = slides[safeIndex]
   const canDelete = isAdmin && items.length > 0
   const price = formatPrice(activeSlide?.priceCents)
 
@@ -63,9 +66,9 @@ export default function StoreCarousel({
     if (touchStartX.current === null) return
     const threshold = 40
     if (touchDeltaX.current > threshold) {
-      goToSlide(activeIndex - 1)
+      goToSlide(safeIndex - 1)
     } else if (touchDeltaX.current < -threshold) {
-      goToSlide(activeIndex + 1)
+      goToSlide(safeIndex + 1)
     }
     touchStartX.current = null
     touchDeltaX.current = 0
@@ -87,7 +90,10 @@ export default function StoreCarousel({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
         {canDelete ? (
           <div className="absolute right-4 top-4">
-            <Dialog>
+            <Dialog
+              open={deleteOpenFor === activeSlide.id}
+              onOpenChange={(open) => setDeleteOpenFor(open ? activeSlide.id : null)}
+            >
               <DialogTrigger asChild>
                 <button
                   type="button"
@@ -139,7 +145,7 @@ export default function StoreCarousel({
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => goToSlide(activeIndex - 1)}
+              onClick={() => goToSlide(safeIndex - 1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-zinc-300 transition hover:border-white hover:bg-white/10"
               aria-label={TEXTS.STORE_CAROUSEL_PREV_ARIA_1}
             >
@@ -147,7 +153,7 @@ export default function StoreCarousel({
             </button>
             <button
               type="button"
-              onClick={() => goToSlide(activeIndex + 1)}
+              onClick={() => goToSlide(safeIndex + 1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-zinc-300 transition hover:border-white hover:bg-white/10"
               aria-label={TEXTS.STORE_CAROUSEL_NEXT_ARIA_1}
             >
@@ -172,7 +178,7 @@ export default function StoreCarousel({
 
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-zinc-300/60">
         <span>
-          {String(activeIndex + 1).padStart(2, '0')} /{' '}
+          {String(safeIndex + 1).padStart(2, '0')} /{' '}
           {String(slides.length).padStart(2, '0')}
         </span>
         <div className="flex gap-2">
@@ -182,7 +188,7 @@ export default function StoreCarousel({
               type="button"
               onClick={() => goToSlide(index)}
               className={`h-2.5 w-2.5 rounded-full transition ${
-                index === activeIndex ? 'bg-white' : 'bg-white/30'
+                index === safeIndex ? 'bg-white' : 'bg-white/30'
               }`}
               aria-label={`${TEXTS.STORE_CAROUSEL_GOTO_PREFIX_1} ${slide.title}`}
             />
