@@ -32,9 +32,28 @@ export default function ImageUploadField({
   const readSequence = useRef(0)
   const previewUrl = useRef('')
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
-    return () => {
+    const input = inputRef.current
+    const form = input?.form
+    function handleReset() {
+      // React resets the form after every action, so the state must follow the emptied input.
+      readSequence.current += 1
+      input?.setCustomValidity('')
       if (previewUrl.current) URL.revokeObjectURL(previewUrl.current)
+      previewUrl.current = ''
+      setPreview('')
+      setFileName('')
+      setError('')
+      setIsReading(false)
+    }
+    form?.addEventListener('reset', handleReset)
+    return () => {
+      form?.removeEventListener('reset', handleReset)
+      readSequence.current += 1
+      if (previewUrl.current) URL.revokeObjectURL(previewUrl.current)
+      previewUrl.current = ''
     }
   }, [])
 
@@ -46,7 +65,7 @@ export default function ImageUploadField({
 
   function fail(input: HTMLInputElement, message: string) {
     input.value = ''
-    input.setCustomValidity('')
+    input.setCustomValidity(message)
     replacePreview('')
     setFileName('')
     setError(message)
@@ -102,6 +121,7 @@ export default function ImageUploadField({
         <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">{label}</span>
         <input
           type="file"
+          ref={inputRef}
           name={name}
           accept="image/jpeg,image/png,image/webp"
           onChange={handleChange}
