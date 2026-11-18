@@ -23,6 +23,11 @@ test('rejects values that are not a price', () => {
   }
 })
 
+test('rejects prices above the 32-bit cents limit', () => {
+  assert.equal(parsePriceToCents('21474836,47'), 2147483647)
+  assert.equal(parsePriceToCents('21474836,48'), 'invalid')
+})
+
 test('store post details trim the description and keep line breaks', () => {
   const form = new FormData()
   form.set('description', '  Linha 1\nLinha 2  ')

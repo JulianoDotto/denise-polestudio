@@ -1,3 +1,4 @@
+const MAX_PRICE_CENTS = 2147483647
 const PRICE_PATTERN = /^(\d{1,3}(?:\.\d{3})+|\d+)(?:,(\d{1,2}))?$/
 
 export function parsePriceToCents(value: string): number | null | 'invalid' {
@@ -10,7 +11,7 @@ export function parsePriceToCents(value: string): number | null | 'invalid' {
   const reais = Number(match[1].replace(/\./g, ''))
   const cents = Number((match[2] ?? '').padEnd(2, '0') || '0')
   const total = reais * 100 + cents
-  return Number.isSafeInteger(total) ? total : 'invalid'
+  return Number.isSafeInteger(total) && total <= MAX_PRICE_CENTS ? total : 'invalid'
 }
 
 export function parseStorePostDetails(

@@ -12,6 +12,14 @@ test('rejects remote hosts', () => {
   assert.throws(() => assertLocalDatabase('postgresql://u:p@ep-x.sa-east-1.aws.neon.tech/db'))
 })
 
+test('rejects urls that override the host by query parameter', () => {
+  for (const param of ['host', 'hostaddr']) {
+    assert.throws(() =>
+      assertLocalDatabase(`postgresql://u:p@localhost/db?${param}=prod.example.com`),
+    )
+  }
+})
+
 test('rejects a malformed url', () => {
   assert.throws(() => assertLocalDatabase('nao-e-url'))
 })

@@ -1,11 +1,19 @@
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]'])
 
 export function assertLocalDatabase(connectionString: string): void {
+  let url: URL
   let hostname: string
   try {
-    hostname = new URL(connectionString).hostname
+    url = new URL(connectionString)
+    hostname = url.hostname
   } catch {
     throw new Error('Seed aborted: DATABASE_URL is not a valid URL.')
+  }
+
+  if (url.searchParams.has('host') || url.searchParams.has('hostaddr')) {
+    throw new Error(
+      'Seed aborted: DATABASE_URL must not override the host through query parameters.',
+    )
   }
 
   if (!LOCAL_HOSTS.has(hostname)) {
