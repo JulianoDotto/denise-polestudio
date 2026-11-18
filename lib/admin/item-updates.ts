@@ -22,14 +22,13 @@ function text(form: FormData, key: string) {
 
 export function parseClassUpdate(
   form: FormData,
-): ItemUpdateResult<{ title: string; description: string | null; coverUrl: string | null }> {
+): ItemUpdateResult<{ title: string; description: string | null }> {
   const title = text(form, 'title')
   if (!title) return { error: 'title' }
   return {
     data: {
       title,
       description: text(form, 'description') || null,
-      coverUrl: text(form, 'coverUrl') || null,
     },
   }
 }

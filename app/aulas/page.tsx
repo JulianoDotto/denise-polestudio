@@ -20,7 +20,7 @@ export default async function AulasPage() {
     <div className="pb-12">
       <h1 className="px-6 text-3xl text-center my-8">{TEXTS.AULAS_PAGE_TITLE_1}</h1>
       <div className="flex flex-col gap-10">
-        {aulas.map((aula) => {
+        {aulas.map((aula, index) => {
           const message = aula.whatsappTextTemplate
             ? aula.whatsappTextTemplate
             : TEXTS.AULAS_WHATSAPP_REQUEST_1.replace('{title}', aula.title)
@@ -32,6 +32,8 @@ export default async function AulasPage() {
                 <img
                   src={aula.coverUrl || IMAGES.AULAS_COVER_FALLBACK_1}
                   alt={aula.title}
+                  loading={index === 0 ? undefined : 'lazy'}
+                  decoding="async"
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-stone-950/35" />

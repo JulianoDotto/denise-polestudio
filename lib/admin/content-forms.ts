@@ -98,6 +98,7 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       imageType: TEXTS.AULAS_ADMIN_ERROR_IMAGE_TYPE_1,
       imageSize: TEXTS.AULAS_ADMIN_ERROR_IMAGE_SIZE_1,
       imageData: TEXTS.AULAS_ADMIN_ERROR_IMAGE_DATA_1,
+      imageUpload: TEXTS.ADMIN_ERROR_IMAGE_UPLOAD_1,
       persistence: TEXTS.AULAS_ADMIN_ERROR_PERSISTENCE_1,
     },
   },

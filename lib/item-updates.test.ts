@@ -15,8 +15,8 @@ function form(values: Record<string, string>) {
 }
 
 test('class update only contains the fields the form edits', () => {
-  const result = parseClassUpdate(form({ title: ' Pole ', description: '', coverUrl: '/capa.jpg' }))
-  assert.deepEqual(result, { data: { title: 'Pole', description: null, coverUrl: '/capa.jpg' } })
+  const result = parseClassUpdate(form({ title: ' Pole ', description: '', coverUrl: 'data:image/png;base64,AAAA' }))
+  assert.deepEqual(result, { data: { title: 'Pole', description: null } })
 })
 
 test('event update keeps the custom WhatsApp message out of the payload', () => {

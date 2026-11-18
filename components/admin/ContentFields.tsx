@@ -1,6 +1,8 @@
 'use client'
 
-import ClassCoverField from '@/components/admin/ClassCoverField'
+import ImageUploadField from '@/components/admin/ImageUploadField'
+import { IMAGES } from '@/hardcoded/images'
+import { TEXTS } from '@/hardcoded/texts'
 import {
   CONTENT_FORMS,
   type ContentKind,
@@ -105,11 +107,15 @@ export default function ContentFields({ kind, values }: ContentFieldsProps) {
         </label>
       ) : null}
       {fields.includes('cover') ? (
-        editing ? (
-          <ClassCoverField initialUrl={values.coverUrl ?? ''} />
-        ) : (
-          <ClassCoverField />
-        )
+        <ImageUploadField
+          name="coverFile"
+          label={TEXTS.AULAS_ADMIN_IMAGE_LABEL_1}
+          previewLabel={TEXTS.AULAS_ADMIN_PREVIEW_LABEL_1}
+          emptyLabel={TEXTS.AULAS_ADMIN_PREVIEW_EMPTY_1}
+          previewAlt={TEXTS.AULAS_ADMIN_PREVIEW_ALT_1}
+          fallbackUrl={IMAGES.AULAS_COVER_FALLBACK_1}
+          initialUrl={editing ? (values.coverUrl ?? '') : undefined}
+        />
       ) : null}
     </>
   )

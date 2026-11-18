@@ -86,7 +86,7 @@ export default function ContentFormModal(props: ContentFormModalProps) {
         <form action={formAction} className="grid gap-4">
           <input type="hidden" name="isActive" value="on" />
           <ContentFields kind={kind} />
-          <ActionButton type="submit" size="sm" className="self-start">
+          <ActionButton type="submit" size="sm" disabled={pending} className="self-start">
             {config.create.submit}
           </ActionButton>
         </form>
