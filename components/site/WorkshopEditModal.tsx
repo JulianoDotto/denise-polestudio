@@ -36,7 +36,6 @@ export default function WorkshopEditModal({
       closeOnSuccess
       errorMessages={{
         title: TEXTS.WORKSHOPS_ADMIN_ERROR_TITLE_1,
-        slug: TEXTS.WORKSHOPS_EDIT_ERROR_SLUG_1,
         update: TEXTS.WORKSHOPS_EDIT_ERROR_UPDATE_1,
       }}
       trigger={

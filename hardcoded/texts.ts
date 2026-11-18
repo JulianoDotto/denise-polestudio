@@ -168,7 +168,6 @@ export const TEXTS = {
   WORKSHOPS_EDIT_MODAL_DESCRIPTION_1: 'Atualize os dados do workshop.',
   WORKSHOPS_EDIT_ICON_ARIA_1: 'Editar workshop',
   WORKSHOPS_EDIT_SUBMIT_1: 'Salvar alterações',
-  WORKSHOPS_EDIT_ERROR_SLUG_1: 'Já existe um workshop com esse título.',
   WORKSHOPS_EDIT_ERROR_UPDATE_1: 'Não foi possível atualizar o workshop.',
   WORKSHOPS_DELETE_ICON_ARIA_1: 'Excluir workshop',
   WORKSHOPS_DELETE_TITLE_1: 'Excluir workshop',

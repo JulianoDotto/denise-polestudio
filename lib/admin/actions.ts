@@ -16,6 +16,13 @@ import {
   WorkshopRequestConflictError,
 } from '@/lib/admin/workshop-persistence'
 import { slugify } from './slug'
+import {
+  parseClassUpdate,
+  parseDate,
+  parseDigitalProductUpdate,
+  parseEventUpdate,
+  parseWorkshopUpdate,
+} from './item-updates'
 import { parseFeedCategory } from './feed-category'
 import {
   persistFeedPostWithCategory,
@@ -40,20 +47,6 @@ function parseLines(value: FormDataEntryValue | null) {
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean)
-}
-
-function parseDate(value: FormDataEntryValue | null) {
-  if (!value) return null
-  const input = value.toString().trim()
-  const match = input.match(/^(\d{4})-(\d{2})-(\d{2})$/)
-  if (!match) return null
-
-  const year = Number(match[1])
-  const month = Number(match[2])
-  const day = Number(match[3])
-  const date = new Date(Date.UTC(year, month - 1, day))
-  if (Number.isNaN(date.getTime())) return null
-  return date
 }
 
 function parseDateTime(value: FormDataEntryValue | null) {
@@ -417,43 +410,14 @@ export async function updateClassInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  const title = String(formData.get('title') || '').trim()
-  const description = String(formData.get('description') || '').trim() || null
-  const coverUrl = String(formData.get('coverUrl') || '').trim() || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
-  const isActive = parseCheckbox(formData.get('isActive'))
-  const hotmartUrl = String(formData.get('hotmartUrl') || '').trim() || null
-  const scheduleOnlineUrl =
-    String(formData.get('scheduleOnlineUrl') || '').trim() || null
-  const schedulePresentialUrl =
-    String(formData.get('schedulePresentialUrl') || '').trim() || null
-  const whatsappTextTemplate =
-    String(formData.get('whatsappTextTemplate') || '').trim() || null
+  const result = parseClassUpdate(formData)
+  if ('error' in result) return { success: false, error: result.error }
 
-  if (!title) {
-    return { success: false, error: 'title' }
-  }
-
-  const coverError = validateClassCoverUrl(coverUrl)
+  const coverError = validateClassCoverUrl(result.data.coverUrl)
   if (coverError) return { success: false, error: coverError }
 
   try {
-    await prisma.item.update({
-      where: { id },
-      data: {
-        title,
-        slug,
-        description,
-        coverUrl,
-        isActive,
-        hotmartUrl,
-        scheduleOnlineUrl,
-        schedulePresentialUrl,
-        whatsappTextTemplate,
-        type: 'CLASS',
-      },
-    })
+    await prisma.item.update({ where: { id }, data: result.data })
   } catch (error) {
     console.error('Failed to update class', error)
     return { success: false, error: 'persistence' }
@@ -514,33 +478,10 @@ export async function updateDigitalProductInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  const title = String(formData.get('title') || '').trim()
-  const description = String(formData.get('description') || '').trim() || null
-  const hotmartUrl =
-    normalizeExternalUrl(String(formData.get('hotmartUrl') || '')) || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
-  const isActive = parseCheckbox(formData.get('isActive'))
-  const type = String(formData.get('type') || '').trim()
+  const result = parseDigitalProductUpdate(formData)
+  if ('error' in result) return { success: false, error: result.error }
 
-  if (!title) {
-    return { success: false, error: 'title' }
-  }
-  if (type !== 'EBOOK' && type !== 'VIDEO') {
-    return { success: false, error: 'type' }
-  }
-
-  await prisma.item.update({
-    where: { id },
-    data: {
-      title,
-      slug,
-      description,
-      hotmartUrl,
-      isActive,
-      type,
-    },
-  })
+  await prisma.item.update({ where: { id }, data: result.data })
 
   revalidatePath('/produtos-digitais')
   return { success: true }
@@ -694,24 +635,13 @@ export async function updateWorkshopInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  const title = String(formData.get('title') || '').trim()
-  const description = String(formData.get('description') || '').trim() || null
-  const slug = slugify(title)
-  const isActive = parseCheckbox(formData.get('isActive'))
-
-  if (!title) return { success: false, error: 'title' }
+  const result = parseWorkshopUpdate(formData)
+  if ('error' in result) return { success: false, error: result.error }
 
   try {
-    await prisma.item.update({
-      where: { id },
-      data: { title, slug, description, isActive, type: 'WORKSHOP' },
-    })
-  } catch (error) {
-    const prismaError = error as { code?: string }
-    return {
-      success: false,
-      error: prismaError.code === 'P2002' ? 'slug' : 'update',
-    }
+    await prisma.item.update({ where: { id }, data: result.data })
+  } catch {
+    return { success: false, error: 'update' }
   }
 
   revalidatePath('/workshops')
@@ -995,39 +925,10 @@ export async function updateEventInline(
   const id = String(formData.get('id') || '')
   if (!id) return { success: false, error: 'id' }
 
-  const title = String(formData.get('title') || '').trim()
-  const description = String(formData.get('description') || '').trim() || null
-  const slugInput = String(formData.get('slug') || '').trim()
-  const slug = slugInput || slugify(title)
-  const isActive = parseCheckbox(formData.get('isActive'))
-  const eventDate = parseDate(formData.get('eventDate'))
-  const whatsappTextTemplate =
-    String(formData.get('whatsappTextTemplate') || '').trim() || null
+  const result = parseEventUpdate(formData)
+  if ('error' in result) return { success: false, error: result.error }
 
-  if (!title) {
-    return { success: false, error: 'title' }
-  }
-
-  try {
-    await prisma.item.update({
-      where: { id },
-      data: {
-        title,
-        slug,
-        description,
-        eventDate,
-        isActive,
-        whatsappTextTemplate,
-        type: 'EVENT',
-      },
-    })
-  } catch (error) {
-    const prismaError = error as { code?: string }
-    if (prismaError.code === 'P2002') {
-      return { success: false, error: 'slug' }
-    }
-    throw error
-  }
+  await prisma.item.update({ where: { id }, data: result.data })
 
   revalidatePath('/eventos')
   revalidatePath('/eventos')

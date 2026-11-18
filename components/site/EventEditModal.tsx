@@ -41,7 +41,6 @@ export default function EventEditModal({
       closeOnSuccess
       errorMessages={{
         title: TEXTS.EVENTOS_ADMIN_ERROR_TITLE_1,
-        slug: TEXTS.EVENTOS_ADMIN_ERROR_SLUG_1,
       }}
       trigger={
         <button
