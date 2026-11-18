@@ -12,11 +12,11 @@ export default function HomeHero({ imageUrl, headline, className }: HomeHeroProp
       <img
         src={imageUrl}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover object-[center_15%]"
+        className="hero-image absolute inset-0 h-full w-full object-cover object-[center_15%]"
       />
-      <div className="absolute inset-0 bg-stone-950/55" />
+      <div className="hero-veil absolute inset-0" />
       <div className="relative z-10 mx-auto flex h-full max-w-5xl items-end px-6 pb-12">
-        <h1 className="font-display text-3xl uppercase tracking-[0.35em] leading-tight text-zinc-300 sm:text-4xl">
+        <h1 className="hero-title font-display text-2xl uppercase leading-tight text-zinc-300 sm:text-4xl">
           {headline}
         </h1>
       </div>

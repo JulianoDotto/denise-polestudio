@@ -27,10 +27,10 @@ export default function PageHero({
       <img
         src={imageUrl}
         alt={title}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="hero-image absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: imagePosition }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+      <div className="hero-veil absolute inset-0" />
       <div
         className={cn(
           'relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-end px-4 pb-14',
@@ -40,7 +40,7 @@ export default function PageHero({
         {eyebrow ? (
           <p className="text-xs uppercase tracking-[0.5em] text-zinc-300/70">{eyebrow}</p>
         ) : null}
-        <h1 className="mt-3 font-display text-4xl uppercase tracking-[0.35em] text-zinc-300 sm:text-5xl">
+        <h1 className="mt-3 hero-title font-display text-4xl uppercase text-zinc-300 sm:text-5xl">
           {title}
         </h1>
       </div>

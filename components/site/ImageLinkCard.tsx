@@ -16,11 +16,15 @@ export default function ImageLinkCard({
   return (
     <Link
       href={href}
-      className={`group relative flex min-h-[120px] items-center justify-center overflow-hidden rounded-3xl ${className ?? ''}`.trim()}
+      className={`image-link-card relative flex min-h-[120px] items-center justify-center overflow-hidden ${className ?? ''}`.trim()}
     >
-      <img src={imageUrl} alt={title} className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-stone-950/45 transition group-hover:bg-stone-950/55" />
-      <span className="relative z-10 font-display text-xl font-semibold uppercase tracking-[0.35em] text-zinc-300">
+      <img
+        src={imageUrl}
+        alt={title}
+        className="image-link-card-photo absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="image-link-card-veil absolute inset-0" />
+      <span className="image-link-card-title relative z-10 font-display text-xl font-semibold uppercase text-zinc-300">
         {title}
       </span>
     </Link>
