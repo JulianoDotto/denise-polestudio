@@ -116,7 +116,7 @@ export default function ImageUploadField({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex min-w-0 flex-col gap-3">
       <label className="flex flex-col gap-2 text-sm">
         <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">{label}</span>
         <input
@@ -125,7 +125,7 @@ export default function ImageUploadField({
           name={name}
           accept="image/jpeg,image/png,image/webp"
           onChange={handleChange}
-          className="cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-stone-950 file:px-4 file:py-2 file:text-xs file:font-medium file:text-zinc-300"
+          className="w-full min-w-0 max-w-full cursor-pointer rounded-2xl border px-4 py-2 text-sm text-zinc-700 file:mr-4 file:rounded-full file:border-0 file:bg-stone-950 file:px-4 file:py-2 file:text-xs file:font-medium file:text-zinc-300"
         />
       </label>
       {error ? (
@@ -136,10 +136,10 @@ export default function ImageUploadField({
           {TEXTS.AULAS_ADMIN_IMAGE_READING_1}
         </p>
       ) : null}
-      <div className="flex flex-col gap-2 text-sm">
+      <div className="flex min-w-0 flex-col gap-2 text-sm">
         <span className="text-xs uppercase tracking-[0.2em] text-zinc-600">{previewLabel}</span>
-        <div className="flex items-center justify-between gap-3 rounded-2xl border bg-muted/40 px-4 py-3">
-          <span className="text-xs text-zinc-600">{fileName || emptyLabel}</span>
+        <div className="flex min-w-0 items-center justify-between gap-3 rounded-2xl border bg-muted/40 px-4 py-3">
+          <span className="min-w-0 truncate text-xs text-zinc-600">{fileName || emptyLabel}</span>
         </div>
         <img
           src={preview || initialUrl || fallbackUrl}
