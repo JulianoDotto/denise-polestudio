@@ -24,10 +24,8 @@ type AdminModalProps = {
   actionState?: unknown
   closeOnSuccess?: boolean
   errorMessages?: Record<string, string>
-  errorFallbackMessage?: string
   successMessage?: string
   initialOpen?: boolean
-  closeLabel?: string
 }
 
 export default function AdminModal({
@@ -39,18 +37,16 @@ export default function AdminModal({
   success,
   actionState,
   errorMessages,
-  errorFallbackMessage = TEXTS.SITE_ADMIN_MODAL_ERROR_FALLBACK_1,
   successMessage = TEXTS.SITE_ADMIN_MODAL_SUCCESS_FALLBACK_1,
   initialOpen = false,
-  closeLabel = TEXTS.SITE_ADMIN_MODAL_CLOSE_1,
   closeOnSuccess = false,
 }: AdminModalProps) {
   const [open, setOpen] = useState(initialOpen)
   const errorMessage = useMemo(() => {
     if (!error) return ''
-    if (!errorMessages) return errorFallbackMessage
-    return errorMessages[error] ?? errorFallbackMessage
-  }, [error, errorMessages, errorFallbackMessage])
+    if (!errorMessages) return TEXTS.SITE_ADMIN_MODAL_ERROR_FALLBACK_1
+    return errorMessages[error] ?? TEXTS.SITE_ADMIN_MODAL_ERROR_FALLBACK_1
+  }, [error, errorMessages])
 
   useEffect(() => {
     if (!closeOnSuccess || !success) return
@@ -93,7 +89,7 @@ export default function AdminModal({
                 size="sm"
                 type="button"
               >
-                {closeLabel}
+                {TEXTS.SITE_ADMIN_MODAL_CLOSE_1}
               </ActionButton>
             </DialogClose>
           </div>

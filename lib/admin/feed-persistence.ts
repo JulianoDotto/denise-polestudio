@@ -13,10 +13,6 @@ export type FeedPersistenceInput = {
   category: FeedCategorySelection
 }
 
-export type FeedTransaction = {
-  createFeedPost(data: FeedPersistenceInput): Promise<void>
-}
-
 export type FeedPersistenceDependencies = {
   createFeedPost(data: FeedPersistenceInput): Promise<void>
   isUniqueViolation(error: unknown): boolean
