@@ -8,7 +8,7 @@ import PageSection from '@/components/site/PageSection'
 import ImageUploadField from '@/components/admin/ImageUploadField'
 import StorePostSubmitButton from '@/components/admin/StorePostSubmitButton'
 import StorePostDurationFields from '@/components/admin/StorePostDurationFields'
-import StoreCarousel from '@/components/site/StoreCarousel'
+import StoreProductRow from '@/components/site/StoreProductRow'
 import FeedCategoryField from '@/components/admin/FeedCategoryField'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
@@ -69,7 +69,7 @@ export default async function LojaPage({
   const heroImage = IMAGES.LOJA_HERO_1
 
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
+    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
       <AgeGateModal />
 
       <PageHero
@@ -98,14 +98,15 @@ export default async function LojaPage({
         )}
       </PageSection>
 
-      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 pt-4">
         {feedGroups.map((group) => (
-          <div key={group.id} className="grid gap-4">
-            <h2 className="font-display text-xl uppercase tracking-[0.3em] text-zinc-800 sm:text-2xl">
-              {group.title}
-            </h2>
-            <StoreCarousel items={group.items} isAdmin={isAdmin} />
-          </div>
+          <StoreProductRow
+            key={group.id}
+            title={group.title}
+            items={group.items}
+            whatsappPhone={phone}
+            isAdmin={isAdmin}
+          />
         ))}
         {isAdmin ? (
           <div className="flex justify-center">
