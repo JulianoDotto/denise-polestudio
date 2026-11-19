@@ -5,9 +5,13 @@ import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import WorkshopCreateModal from '@/components/admin/WorkshopCreateModal'
+import GlowCard from '@/components/site/GlowCard'
+import PageHero from '@/components/site/PageHero'
+import PageSection from '@/components/site/PageSection'
 import { authOptions } from '@/lib/auth/authOptions'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
+import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 
 export default async function WorkshopsPage() {
@@ -17,71 +21,90 @@ export default async function WorkshopsPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
-      <h1 className="text-2xl font-semibold">{TEXTS.WORKSHOPS_PAGE_TITLE_1}</h1>
-      <p className="text-sm text-muted-foreground">
-        {TEXTS.WORKSHOPS_PAGE_DESCRIPTION_1}
-      </p>
+    <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
+      <PageHero
+        imageUrl={IMAGES.WORKSHOPS_HERO_1}
+        title={TEXTS.WORKSHOPS_PAGE_TITLE_1}
+        eyebrow={TEXTS.WORKSHOPS_HERO_EYEBROW_1}
+      />
 
-      <div className="grid gap-4">
-        {workshops.map((workshop) => {
+      <PageSection
+        title={TEXTS.WORKSHOPS_SECTION_TITLE_1}
+        paragraphs={[TEXTS.WORKSHOPS_PAGE_DESCRIPTION_1]}
+      />
+
+      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
+        {workshops.map((workshop, index) => {
           const message =
             workshop.whatsappTextTemplate ||
             TEXTS.WORKSHOPS_WHATSAPP_TEMPLATE_1.replace('{title}', workshop.title)
           const url = phone ? buildWhatsAppUrl(phone, message) : ''
 
           return (
-            <div key={workshop.id} className="flex flex-col gap-4 rounded-3xl border bg-white p-6">
-              <div className="flex items-center justify-between gap-3">
-                <h2 className="text-base font-semibold text-zinc-900">{workshop.title}</h2>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {TEXTS.WORKSHOPS_BADGE_1}
-                  </span>
-                  {isAdmin ? (
-                    <>
-                      <ContentFormModal
-                        kind="workshop"
-                        mode="edit"
-                        values={{
-                          id: workshop.id,
-                          title: workshop.title,
-                          description: workshop.description,
-                        }}
-                      />
-                      <ContentDeleteButton
-                        kind="workshop"
-                        id={workshop.id}
-                        title={workshop.title}
-                      />
-                    </>
-                  ) : null}
-                </div>
-              </div>
-              {workshop.coverUrl ? (
-                <img
-                  src={workshop.coverUrl}
-                  alt={workshop.title}
-                  className="h-40 w-full rounded-2xl object-cover"
-                />
-              ) : null}
-              <p className="text-sm text-muted-foreground">{workshop.description}</p>
-              {url ? (
-                <ActionButton href={url} target="_blank" rel="noreferrer" className="self-start">
-                  {TEXTS.WORKSHOPS_BUTTON_1}
-                </ActionButton>
-              ) : (
-                <ActionButton disabled className="self-start">
-                  {TEXTS.WORKSHOPS_BUTTON_1}
-                </ActionButton>
-              )}
-            </div>
+            <GlowCard
+              key={workshop.id}
+              index={index}
+              eyebrow={TEXTS.WORKSHOPS_BADGE_1}
+              title={workshop.title}
+              description={workshop.description ?? ''}
+              media={
+                workshop.coverUrl ? (
+                  <img
+                    src={workshop.coverUrl}
+                    alt={workshop.title}
+                    loading={index < 2 ? undefined : 'lazy'}
+                    decoding="async"
+                    className="h-48 w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  />
+                ) : undefined
+              }
+              adminControls={
+                isAdmin ? (
+                  <>
+                    <ContentFormModal
+                      kind="workshop"
+                      mode="edit"
+                      values={{
+                        id: workshop.id,
+                        title: workshop.title,
+                        description: workshop.description,
+                      }}
+                      tone="light"
+                    />
+                    <ContentDeleteButton
+                      kind="workshop"
+                      id={workshop.id}
+                      title={workshop.title}
+                      tone="light"
+                    />
+                  </>
+                ) : undefined
+              }
+              action={
+                url ? (
+                  <ActionButton
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tone="light"
+                    size="md"
+                    className="w-full"
+                  >
+                    {TEXTS.WORKSHOPS_BUTTON_1}
+                  </ActionButton>
+                ) : (
+                  <ActionButton disabled tone="light" size="md" className="w-full">
+                    {TEXTS.WORKSHOPS_BUTTON_1}
+                  </ActionButton>
+                )
+              }
+            />
           )
         })}
-      </div>
+      </section>
 
       {isAdmin ? (
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4">
           <WorkshopCreateModal />
         </div>
       ) : null}

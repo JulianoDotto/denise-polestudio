@@ -110,6 +110,8 @@ export const TEXTS = {
   WORKSHOPS_PAGE_DESCRIPTION_1:
     'Encontros com temas específicos para conhecer ou aprofundar técnicas, movimentos e formas de expressão.',
   WORKSHOPS_BADGE_1: 'Workshop',
+  WORKSHOPS_HERO_EYEBROW_1: 'Encontros',
+  WORKSHOPS_SECTION_TITLE_1: 'Sobre os workshops',
   WORKSHOPS_WHATSAPP_TEMPLATE_1: 'Olá, quero informações sobre o workshop {title}.',
   WORKSHOPS_BUTTON_1: 'CONHECER O WORKSHOP',
   WORKSHOPS_ADMIN_MODAL_TITLE_1: 'Adicionar workshop',
