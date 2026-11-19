@@ -4,7 +4,6 @@ import AgeGateModal from '@/components/site/AgeGateModal'
 import AdminModal from '@/components/admin/AdminModal'
 import ActionButton from '@/components/site/ActionButton'
 import PageHero from '@/components/site/PageHero'
-import PageSection from '@/components/site/PageSection'
 import ImageUploadField from '@/components/admin/ImageUploadField'
 import StorePostSubmitButton from '@/components/admin/StorePostSubmitButton'
 import StorePostDurationFields from '@/components/admin/StorePostDurationFields'
@@ -79,24 +78,32 @@ export default async function LojaPage({
         imagePosition="40% 50%"
       />
 
-      <PageSection
-        title={TEXTS.LOJA_SECTION_TITLE_1}
-        paragraphs={[
-          TEXTS.LOJA_SECTION_P1_1,
-          TEXTS.LOJA_SECTION_P2_1,
-        ]}
-      >
-        {contactUrl && (
-          <ActionButton
-            href={contactUrl}
-            target="_blank"
-            size="lg"
-            className="w-full max-w-md text-center"
-          >
+      <section className="mx-auto w-full max-w-5xl px-4 pt-4">
+        <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-vinho/70">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
+          {TEXTS.LOJA_SECTION_TITLE_1}
+        </p>
+        <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-[0.12em] text-vinho sm:text-4xl">
+          {TEXTS.LOJA_INTRO_HEADLINE_1}
+        </h2>
+        <div aria-hidden="true" className="mt-6 h-px w-12 bg-vinho/30" />
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-700">
+          {TEXTS.LOJA_SECTION_P1_1}
+        </p>
+        <ul className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-vinho/80">
+          {TEXTS.LOJA_PAYMENT_FACTS_1.split('|').map((fact) => (
+            <li key={fact} className="rounded-full border border-vinho/20 px-3 py-1.5">
+              {fact}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 text-sm text-zinc-600">{TEXTS.LOJA_INTRO_HELP_1}</p>
+        {contactUrl ? (
+          <ActionButton href={contactUrl} target="_blank" size="md" className="mt-4">
             {TEXTS.LOJA_WHATSAPP_BUTTON_1}
           </ActionButton>
-        )}
-      </PageSection>
+        ) : null}
+      </section>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 pt-4">
         {feedGroups.map((group) => (

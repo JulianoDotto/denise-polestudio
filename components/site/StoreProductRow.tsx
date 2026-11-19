@@ -53,6 +53,7 @@ export default function StoreProductRow({
 
   const openProduct = items.find((item) => item.id === openId) ?? null
   const showArrows = items.length > VISIBLE_ON_DESKTOP
+  const single = items.length === 1
   const orderUrl = (item: StoreProduct) =>
     whatsappPhone
       ? buildWhatsAppUrl(whatsappPhone, buildProductOrderMessage(item.title, item.priceCents))
@@ -69,15 +70,16 @@ export default function StoreProductRow({
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-4 border-t border-vinho/15 pt-10 first:border-t-0 first:pt-0">
       <div className="flex items-end justify-between gap-4">
-        <div className="grid gap-1">
-          <h2 className="font-display text-xl uppercase tracking-[0.3em] text-zinc-800 sm:text-2xl">
-            {title}
-          </h2>
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+        <div className="grid gap-2">
+          <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-vinho/70">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
             {formatProductCount(items.length)}
           </p>
+          <h2 className="font-display text-xl uppercase tracking-[0.3em] text-tinta sm:text-2xl">
+            {title}
+          </h2>
         </div>
         {showArrows ? (
           <div className="hidden items-center gap-2 sm:flex">
@@ -108,57 +110,76 @@ export default function StoreProductRow({
         {items.map((item, index) => {
           const price = formatPrice(item.priceCents)
           const url = orderUrl(item)
+          const photo = (
+            <div className="relative aspect-square w-full overflow-hidden bg-white">
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                loading={index < 2 ? undefined : 'lazy'}
+                decoding="async"
+                className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[#5a1a2a]/5 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-60 motion-reduce:transition-none"
+              />
+              <div
+                aria-hidden="true"
+                className={single
+                  ? 'pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-tinta/10 to-tinta/45 sm:inset-x-auto sm:inset-y-0 sm:right-0 sm:h-auto sm:w-10 sm:bg-gradient-to-r'
+                  : 'pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-tinta/10 to-tinta/45'}
+              />
+            </div>
+          )
+          const info = (
+            <div className={single ? 'grid gap-2' : 'grid gap-2 px-5 pt-5'}>
+              <h3 className="line-clamp-2 font-sans text-base font-medium leading-snug tracking-normal text-marfim">
+                {item.title}
+              </h3>
+              {price ? (
+                <p className="font-display text-xl tracking-[0.08em] text-[#e4aab8]">{price}</p>
+              ) : null}
+            </div>
+          )
+          const order = url ? (
+            <ActionButton href={url} target="_blank" rel="noopener noreferrer" tone="light" size="sm" className="w-full px-3 tracking-[0.06em] sm:tracking-[0.06em]">
+              {TEXTS.LOJA_PRODUCT_ORDER_BUTTON_1}
+            </ActionButton>
+          ) : null
+          const detailsLabel = `${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`
+          const focusClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-marfim'
+
           return (
             <li
               key={item.id}
-              className="w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)]"
+              className={single ? 'w-full shrink-0' : 'w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)]'}
             >
               <article className="group relative h-full rounded-[28px] shadow-[0_24px_48px_-28px_rgba(90,26,42,0.6)] ring-1 ring-marfim/10 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_32px_64px_-28px_rgba(90,26,42,0.8)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                <div className="relative isolate flex h-full flex-col bg-tinta text-marfim [clip-path:inset(0_round_28px)]">
+                <div className={`relative isolate flex h-full bg-tinta text-marfim [clip-path:inset(0_round_28px)] ${single ? 'flex-col sm:flex-row' : 'flex-col'}`}>
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute -bottom-28 -right-24 -z-10 h-64 w-64 rounded-full bg-vinho opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setOpenId(item.id)}
-                    className="block text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-marfim"
-                    aria-label={`${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`}
-                  >
-                    <div className="relative aspect-square overflow-hidden bg-white">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        loading={index < 2 ? undefined : 'lazy'}
-                        decoding="async"
-                        className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-[#5a1a2a]/5 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-60 motion-reduce:transition-none"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-tinta/10 to-tinta/45"
-                      />
-                    </div>
-                    <div className="grid gap-2 px-5 pt-5">
-                      <h3 className="line-clamp-2 font-sans text-base font-medium leading-snug tracking-normal text-marfim">
-                        {item.title}
-                      </h3>
-                      {price ? (
-                        <p className="font-display text-xl tracking-[0.08em] text-[#e4aab8]">{price}</p>
-                      ) : null}
-                    </div>
-                  </button>
-                  {url ? (
-                    <div className="mt-auto p-5 pt-4">
-                      <ActionButton href={url} target="_blank" rel="noopener noreferrer" tone="light" size="sm" className="w-full px-3 tracking-[0.06em] sm:tracking-[0.06em]">
-                        {TEXTS.LOJA_PRODUCT_ORDER_BUTTON_1}
-                      </ActionButton>
-                    </div>
+                  {single ? (
+                    <>
+                      <button type="button" onClick={() => setOpenId(item.id)} className={`flex w-full shrink-0 sm:w-[44%] ${focusClass}`} aria-label={detailsLabel}>
+                        {photo}
+                      </button>
+                      <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-5 sm:p-7">
+                        <button type="button" onClick={() => setOpenId(item.id)} className={`text-left ${focusClass}`} aria-label={detailsLabel}>
+                          {info}
+                        </button>
+                        {order}
+                      </div>
+                    </>
                   ) : (
-                    <div className="pb-5" />
+                    <>
+                      <button type="button" onClick={() => setOpenId(item.id)} className={`block text-left ${focusClass}`} aria-label={detailsLabel}>
+                        {photo}
+                        {info}
+                      </button>
+                      {order ? <div className="mt-auto p-5 pt-4">{order}</div> : <div className="pb-5" />}
+                    </>
                   )}
                   {isAdmin ? (
                     <button

@@ -56,11 +56,12 @@ export const TEXTS = {
   HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1: 'Produtos digitais',
   LOJA_HERO_TITLE_1: 'Loja',
   LOJA_HERO_EYEBROW_1: 'Coleção',
-  LOJA_SECTION_TITLE_1: 'Sobre a loja',
+  LOJA_SECTION_TITLE_1: 'A loja',
+  LOJA_INTRO_HEADLINE_1: 'Para o palco, o quarto e o autocuidado',
   LOJA_SECTION_P1_1:
     'Uma seleção de produtos para Pole Dance, sensualidade, bem-estar e autocuidado.',
-  LOJA_SECTION_P2_1:
-    'Compre por PIX, dinheiro ou cartão, com possibilidade de parcelamento. Enviamos para todo o Brasil. Se precisar de ajuda para escolher, fale com a Denise pelo WhatsApp.',
+  LOJA_PAYMENT_FACTS_1: 'PIX|Dinheiro|Cartão|Parcelamento|Envio para todo o Brasil',
+  LOJA_INTRO_HELP_1: 'Se precisar de ajuda para escolher, fale com a Denise pelo WhatsApp.',
   LOJA_WHATSAPP_MESSAGE_1: 'Olá, quero saber mais sobre os produtos da Denise.',
   LOJA_WHATSAPP_BUTTON_1: 'Comprar pelo WhatsApp',
   LOJA_ADMIN_TITLE_1: 'Publicar no feed',
