@@ -1,42 +1,91 @@
 import Link from 'next/link'
-import { Instagram, MapPin, Phone } from 'lucide-react'
+import { ArrowUpRight, Instagram, MapPin, MessageCircle } from 'lucide-react'
 import { TEXTS } from '@/hardcoded/texts'
+
+const SITE_LINKS = [
+  { title: TEXTS.HOME_LINK_AULAS_TITLE_1, href: '/aulas' },
+  { title: TEXTS.HOME_LINK_LOJA_TITLE_1, href: '/loja' },
+  { title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1, href: '/produtos-digitais' },
+  { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos' },
+  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops' },
+]
+
+const underlineClass =
+  'bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size,color] duration-300 hover:bg-[length:100%_1px] hover:text-marfim focus-visible:bg-[length:100%_1px] focus-visible:text-marfim focus-visible:outline-none motion-reduce:transition-none'
+
+const rowClass = 'flex min-h-14 items-center justify-between gap-4 py-4'
+const labelClass = 'text-[11px] uppercase tracking-[0.28em] text-marfim/60'
 
 export default function Footer() {
   return (
     <>
-      <footer className="border-t border-white/10 bg-[#62192A] text-zinc-300">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 text-sm">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 rounded-full bg-white/10 p-2">
-                <MapPin className="h-4 w-4 text-zinc-300" />
-              </div>
-              <div className="leading-relaxed">
-                <p>{TEXTS.SITE_FOOTER_ADDRESS_LINE_1}</p>
-                <p>{TEXTS.SITE_FOOTER_ADDRESS_LINE_2}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="rounded-full bg-white/10 p-2">
-                <Phone className="h-4 w-4 text-zinc-300" />
-              </div>
-              <p>{TEXTS.SITE_FOOTER_PHONE_1}</p>
-            </div>
-            <Link
-              href={TEXTS.SITE_FOOTER_INSTAGRAM_URL_1}
-              target="_blank"
-              className="flex items-center gap-3"
-            >
-              <div className="rounded-full bg-white/10 p-2">
-                <Instagram className="h-4 w-4 text-zinc-300" />
-              </div>
-              <span>{TEXTS.SITE_FOOTER_INSTAGRAM_HANDLE_1}</span>
-            </Link>
-          </div>
-        </div>
-        <div className="border-t border-black/10 bg-areia px-6 py-3 text-center text-xs text-zinc-600">
-          {TEXTS.SITE_FOOTER_COPYRIGHT_1}
+      <footer className="mt-20 rounded-t-[40px] bg-vinho text-marfim">
+        <div className="mx-auto w-full max-w-[738px] px-6 pb-8 pt-14">
+          <p className="font-display text-3xl uppercase tracking-[0.3em]">{TEXTS.SITE_HEADER_LOGO_1}</p>
+          <p className="mt-3 text-sm text-marfim/70">{TEXTS.HOME_HERO_HEADLINE_1}</p>
+
+          <nav
+            aria-label={TEXTS.SITE_FOOTER_NAV_ARIA_1}
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-[11px] uppercase tracking-[0.28em] text-marfim/70"
+          >
+            {SITE_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={underlineClass}>
+                {link.title}
+              </Link>
+            ))}
+          </nav>
+
+          <ul className="mt-10 divide-y divide-marfim/20 border-y border-marfim/20 text-sm">
+            <li className={rowClass}>
+              <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_ADDRESS_1}</span>
+              <span className="flex items-start gap-3 text-right">
+                <span className="leading-relaxed">
+                  {TEXTS.SITE_FOOTER_ADDRESS_LINE_1}
+                  <br />
+                  {TEXTS.SITE_FOOTER_ADDRESS_LINE_2}
+                </span>
+                <MapPin aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-marfim/70" />
+              </span>
+            </li>
+            <li>
+              <a
+                href={TEXTS.SITE_FOOTER_WHATSAPP_URL_1}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${rowClass} group focus-visible:outline-none`}
+              >
+                <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_WHATSAPP_1}</span>
+                <span className="flex items-center gap-3">
+                  <span className={`${underlineClass} pb-0.5 group-hover:bg-[length:100%_1px] group-focus-visible:bg-[length:100%_1px]`}>
+                    {TEXTS.SITE_FOOTER_PHONE_1}
+                  </span>
+                  <MessageCircle aria-hidden="true" className="h-4 w-4 text-marfim/70" />
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={TEXTS.SITE_FOOTER_INSTAGRAM_URL_1}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${rowClass} group focus-visible:outline-none`}
+              >
+                <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_INSTAGRAM_1}</span>
+                <span className="flex items-center gap-3">
+                  <span className={`${underlineClass} pb-0.5 group-hover:bg-[length:100%_1px] group-focus-visible:bg-[length:100%_1px]`}>
+                    {TEXTS.SITE_FOOTER_INSTAGRAM_HANDLE_1}
+                  </span>
+                  <Instagram aria-hidden="true" className="h-4 w-4 text-marfim/70" />
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="h-4 w-4 text-marfim/50 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0"
+                  />
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <p className="mt-8 text-xs text-marfim/55">{TEXTS.SITE_FOOTER_COPYRIGHT_1}</p>
         </div>
       </footer>
 
