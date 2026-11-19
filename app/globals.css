@@ -101,37 +101,6 @@
     letter-spacing: 0.24em;
     animation: hero-title-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
-  .image-link-card {
-    border-radius: 16px;
-  }
-  .image-link-card:focus-visible {
-    outline: 2px solid #f3ece2;
-    outline-offset: 3px;
-  }
-  .image-link-card-veil {
-    background: linear-gradient(90deg, rgba(58, 16, 28, 0.55), rgba(14, 11, 11, 0.4));
-  }
-  .image-link-card-photo {
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .image-link-card-title {
-    letter-spacing: 0.35em;
-    transition: letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .image-link-card:focus-visible .image-link-card-photo {
-    transform: scale(1.04);
-  }
-  .image-link-card:focus-visible .image-link-card-title {
-    letter-spacing: 0.42em;
-  }
-  @media (hover: hover) {
-    .image-link-card:hover .image-link-card-photo {
-      transform: scale(1.04);
-    }
-    .image-link-card:hover .image-link-card-title {
-      letter-spacing: 0.42em;
-    }
-  }
 }
 
 @keyframes hero-image-in {
@@ -179,18 +148,8 @@
     display: none;
   }
   .hero-image,
-  .hero-title,
-  .image-link-card-photo,
-  .image-link-card-title {
+  .hero-title {
     animation: none;
     transition: none;
-  }
-  .image-link-card:hover .image-link-card-photo,
-  .image-link-card:focus-visible .image-link-card-photo {
-    transform: none;
-  }
-  .image-link-card:hover .image-link-card-title,
-  .image-link-card:focus-visible .image-link-card-title {
-    letter-spacing: 0.35em;
   }
 }

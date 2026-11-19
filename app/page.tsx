@@ -38,16 +38,17 @@ export default async function Home() {
       </section>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-        <h2 className="text-center font-display uppercase tracking-[0.4em] text-zinc-300 text-2xl">
+        <h2 className="text-center font-display text-2xl uppercase tracking-[0.4em] text-marfim/90">
           {TEXTS.HOME_HELP_TITLE_1}
         </h2>
-        <div className="grid gap-4">
-          {helpLinks.map((item) => (
+        <div className="grid gap-3">
+          {helpLinks.map((item, index) => (
             <ImageLinkCard
               key={item.href}
               href={item.href}
               title={item.title}
               imageUrl={item.imageUrl}
+              index={index}
             />
           ))}
         </div>
