@@ -10,11 +10,26 @@ test('solid dark is the wine pill', () => {
   }
 })
 
-test('solid light is the ivory pill for dark backgrounds', () => {
+test('solid light is the wine pill outlined for dark backgrounds', () => {
   const classes = getActionButtonClasses({ size: 'md', variant: 'solid', tone: 'light' })
-  assert.ok(classes.includes('bg-marfim'))
-  assert.ok(classes.includes('text-[#1b1212]'))
-  assert.ok(!classes.includes('bg-vinho'))
+  for (const name of ['bg-vinho', 'text-marfim', 'hover:bg-vinho-hover', 'focus-visible:ring-offset-tinta']) {
+    assert.ok(classes.includes(name), name)
+  }
+  assert.ok(!classes.includes('bg-marfim'))
+})
+
+test('labels stay centered and tighten on small screens', () => {
+  const classes = getActionButtonClasses({ size: 'lg', variant: 'solid', tone: 'light' })
+  for (const name of ['text-center', 'tracking-[0.1em]', 'sm:tracking-[0.14em]']) {
+    assert.ok(classes.includes(name), name)
+  }
+})
+
+test('the click pulse stays inside the pill and behind the label', () => {
+  const classes = getActionButtonClasses({ size: 'md', variant: 'outline', tone: 'dark' })
+  for (const name of ['relative', 'isolate', 'overflow-hidden']) {
+    assert.ok(classes.includes(name), name)
+  }
 })
 
 test('outline keeps the pill shape', () => {

@@ -73,7 +73,7 @@ export const TEXTS = {
   AULAS_PAGE_TITLE_1: 'Conheça as aulas',
   AULAS_DEFAULT_DESC_1: 'Você começa pelo seu nível, com orientação e evolução gradual.',
   AULAS_WHATSAPP_REQUEST_1: 'Olá! Quero conhecer a aula de {title}. Pode me passar os horários e valores?',
-  AULAS_CARD_BUTTON_1: 'Consultar horários e valores',
+  AULAS_CARD_BUTTON_1: 'Ver horários e valores',
   AULAS_ADMIN_MODAL_TITLE_1: 'Adicionar aula',
   AULAS_ADMIN_MODAL_DESCRIPTION_1: 'Preencha as informações para publicar a aula.',
   AULAS_ADMIN_TITLE_LABEL_1: 'Título',
