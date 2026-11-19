@@ -48,6 +48,7 @@ export default function StoreCarousel({
   const safeIndex = Math.min(activeIndex, slides.length - 1)
   const activeSlide = slides[safeIndex]
   const canDelete = isAdmin && items.length > 0
+  const hasManySlides = slides.length > 1
   const price = formatPrice(activeSlide?.priceCents)
 
   if (!activeSlide) return null
@@ -142,6 +143,7 @@ export default function StoreCarousel({
               {activeSlide.title}
             </h3>
           </div>
+          {hasManySlides ? (
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -160,6 +162,7 @@ export default function StoreCarousel({
               <ChevronRight className="h-5 w-5" />
             </button>
           </div>
+          ) : null}
         </div>
       </div>
 
@@ -176,6 +179,7 @@ export default function StoreCarousel({
         </div>
       ) : null}
 
+      {hasManySlides ? (
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-zinc-300/60">
         <span>
           {String(safeIndex + 1).padStart(2, '0')} /{' '}
@@ -195,6 +199,7 @@ export default function StoreCarousel({
           ))}
         </div>
       </div>
+      ) : null}
     </div>
   )
 }
