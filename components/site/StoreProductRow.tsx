@@ -103,7 +103,7 @@ export default function StoreProductRow({
 
       <ul
         ref={listRef}
-        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-8 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-20 pt-2 -mb-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item, index) => {
           const price = formatPrice(item.priceCents)
@@ -113,50 +113,64 @@ export default function StoreProductRow({
               key={item.id}
               className="w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)]"
             >
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_1px_2px_rgba(14,11,11,0.06),0_14px_32px_-14px_rgba(90,26,42,0.28)] ring-1 ring-[#e8dfd3] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgba(14,11,11,0.06),0_22px_44px_-16px_rgba(90,26,42,0.38)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                <button
-                  type="button"
-                  onClick={() => setOpenId(item.id)}
-                  className="block text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-vinho"
-                  aria-label={`${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`}
-                >
-                  <div className="aspect-square overflow-hidden border-b border-[#efe7dc] bg-white">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      loading={index < 2 ? undefined : 'lazy'}
-                      decoding="async"
-                      className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                    />
-                  </div>
-                  <div className="grid gap-1 px-4 pt-4">
-                    <h3 className="line-clamp-2 font-sans text-base font-medium leading-snug tracking-normal text-zinc-900">
-                      {item.title}
-                    </h3>
-                    {price ? (
-                      <p className="font-display text-lg tracking-[0.08em] text-vinho">{price}</p>
-                    ) : null}
-                  </div>
-                </button>
-                {url ? (
-                  <div className="mt-auto p-4 pt-3">
-                    <ActionButton href={url} target="_blank" rel="noopener noreferrer" size="sm" className="w-full px-3 tracking-[0.06em] sm:tracking-[0.06em]">
-                      {TEXTS.LOJA_PRODUCT_ORDER_BUTTON_1}
-                    </ActionButton>
-                  </div>
-                ) : (
-                  <div className="pb-4" />
-                )}
-                {isAdmin ? (
+              <article className="group relative h-full rounded-[28px] shadow-[0_24px_48px_-28px_rgba(90,26,42,0.6)] ring-1 ring-marfim/10 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_32px_64px_-28px_rgba(90,26,42,0.8)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                <div className="relative isolate flex h-full flex-col bg-tinta text-marfim [clip-path:inset(0_round_28px)]">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-28 -right-24 -z-10 h-64 w-64 rounded-full bg-vinho opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
+                  />
                   <button
                     type="button"
-                    onClick={() => setDeleteId(item.id)}
-                    className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-white/90 text-zinc-700 transition hover:border-rose-400 hover:text-rose-600"
-                    aria-label={`${TEXTS.STORE_CAROUSEL_DELETE_ARIA_1}: ${item.title}`}
+                    onClick={() => setOpenId(item.id)}
+                    className="block text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-marfim"
+                    aria-label={`${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <div className="relative aspect-square overflow-hidden bg-white">
+                      <img
+                        src={item.imageUrl}
+                        alt={item.title}
+                        loading={index < 2 ? undefined : 'lazy'}
+                        decoding="async"
+                        className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-[#5a1a2a]/5 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-60 motion-reduce:transition-none"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-b from-transparent via-tinta/10 to-tinta/45"
+                      />
+                    </div>
+                    <div className="grid gap-2 px-5 pt-5">
+                      <h3 className="line-clamp-2 font-sans text-base font-medium leading-snug tracking-normal text-marfim">
+                        {item.title}
+                      </h3>
+                      {price ? (
+                        <p className="font-display text-xl tracking-[0.08em] text-[#e4aab8]">{price}</p>
+                      ) : null}
+                    </div>
                   </button>
-                ) : null}
+                  {url ? (
+                    <div className="mt-auto p-5 pt-4">
+                      <ActionButton href={url} target="_blank" rel="noopener noreferrer" tone="light" size="sm" className="w-full px-3 tracking-[0.06em] sm:tracking-[0.06em]">
+                        {TEXTS.LOJA_PRODUCT_ORDER_BUTTON_1}
+                      </ActionButton>
+                    </div>
+                  ) : (
+                    <div className="pb-5" />
+                  )}
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      onClick={() => setDeleteId(item.id)}
+                      className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-marfim/30 bg-tinta/80 text-marfim transition hover:border-rose-300 hover:text-rose-200"
+                      aria-label={`${TEXTS.STORE_CAROUSEL_DELETE_ARIA_1}: ${item.title}`}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  ) : null}
+                </div>
               </article>
             </li>
           )
