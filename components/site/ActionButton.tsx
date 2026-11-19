@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { getActionButtonClasses } from '@/lib/action-button-styles'
+import { startClickPulse } from '@/lib/click-pulse'
 
 type ActionButtonBaseProps = {
   children: React.ReactNode
@@ -36,6 +39,10 @@ export default function ActionButton(
   } = props
 
   const classes = cn(getActionButtonClasses({ size, variant, tone }), className)
+  const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.button !== 0) return
+    startClickPulse(event.currentTarget, event.clientX, event.clientY)
+  }
 
   const isLink = (
     value: ActionButtonLinkProps | ActionButtonButtonProps,
@@ -47,14 +54,14 @@ export default function ActionButton(
 
     if (isExternal) {
       return (
-        <a href={href} target={target} rel={rel} className={classes}>
+        <a href={href} target={target} rel={rel} className={classes} onPointerDown={handlePointerDown}>
           {children}
         </a>
       )
     }
 
     return (
-      <Link href={href} target={target} rel={rel} className={classes}>
+      <Link href={href} target={target} rel={rel} className={classes} onPointerDown={handlePointerDown}>
         {children}
       </Link>
     )
@@ -62,7 +69,13 @@ export default function ActionButton(
 
   const { type = 'button', onClick, disabled } = props
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={classes}
+      onPointerDown={handlePointerDown}
+    >
       {children}
     </button>
   )
