@@ -35,7 +35,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <div className="border-t border-black/10 bg-[#FDFDFD] px-6 py-3 text-center text-xs text-zinc-600">
+        <div className="border-t border-black/10 bg-areia px-6 py-3 text-center text-xs text-zinc-600">
           {TEXTS.SITE_FOOTER_COPYRIGHT_1}
         </div>
       </footer>

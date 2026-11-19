@@ -40,7 +40,7 @@ export default async function EventosPage() {
     ? buildWhatsAppUrl(phone, TEXTS.EVENTOS_WHATSAPP_MESSAGE_1)
     : ''
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
+    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
       <PageHero
         imageUrl={IMAGES.EVENTOS_BANNER_1}
         title={TEXTS.EVENTOS_PAGE_TITLE_1}

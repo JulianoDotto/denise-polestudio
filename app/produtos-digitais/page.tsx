@@ -20,7 +20,7 @@ export default async function EbooksPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-[#FDFDFD]">
+    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
       <PageHero
         imageUrl={IMAGES.PRODUTOS_DIGITAIS_HERO_1}
         title={TEXTS.PRODUTOS_DIGITAIS_HERO_TITLE_1}
@@ -71,7 +71,7 @@ export default async function EbooksPage() {
                   />
                 </div>
               ) : null}
-              <span className="w-fit rounded-full bg-[#FDFDFD] border px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-600">
+              <span className="w-fit rounded-full bg-white border px-3 py-1 text-xs uppercase tracking-[0.2em] text-zinc-600">
                 {badge}
               </span>
               <h2 className="text-lg font-semibold text-zinc-300">{item.title}</h2>
