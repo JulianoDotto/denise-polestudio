@@ -31,6 +31,7 @@ type StoreProductRowProps = {
   items: StoreProduct[]
   whatsappPhone: string
   isAdmin?: boolean
+  reorderControls?: React.ReactNode
 }
 
 // Three cards fit side by side on wider screens, so arrows only help when there are more.
@@ -44,6 +45,7 @@ export default function StoreProductRow({
   items,
   whatsappPhone,
   isAdmin = false,
+  reorderControls,
 }: StoreProductRowProps) {
   const listRef = useRef<HTMLUListElement>(null)
   const [openId, setOpenId] = useState<string | null>(null)
@@ -81,26 +83,29 @@ export default function StoreProductRow({
             {title}
           </h2>
         </div>
-        {showArrows ? (
-          <div className="hidden items-center gap-2 sm:flex">
-            <button
-              type="button"
-              onClick={() => scrollRow(-1)}
-              className={iconButtonClass}
-              aria-label={TEXTS.STORE_CAROUSEL_PREV_ARIA_1}
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollRow(1)}
-              className={iconButtonClass}
-              aria-label={TEXTS.STORE_CAROUSEL_NEXT_ARIA_1}
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        ) : null}
+        <div className="flex items-center gap-4">
+          {reorderControls}
+          {showArrows ? (
+            <div className="hidden items-center gap-2 sm:flex">
+              <button
+                type="button"
+                onClick={() => scrollRow(-1)}
+                className={iconButtonClass}
+                aria-label={TEXTS.STORE_CAROUSEL_PREV_ARIA_1}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollRow(1)}
+                className={iconButtonClass}
+                aria-label={TEXTS.STORE_CAROUSEL_NEXT_ARIA_1}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <ul

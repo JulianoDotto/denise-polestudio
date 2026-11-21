@@ -5,6 +5,7 @@ type GlowCardProps = {
   description: string
   action: React.ReactNode
   adminControls?: React.ReactNode
+  reorderControls?: React.ReactNode
   media?: React.ReactNode
 }
 
@@ -16,6 +17,7 @@ export default function GlowCard({
   description,
   action,
   adminControls,
+  reorderControls,
   media,
 }: GlowCardProps) {
   return (
@@ -54,6 +56,7 @@ export default function GlowCard({
       <p className="mt-5 flex-1 whitespace-pre-line text-[15px] leading-relaxed text-marfim/75">
         {description}
       </p>
+      {reorderControls ? <div className="mt-5 flex justify-end">{reorderControls}</div> : null}
       <div className="mt-7">{action}</div>
       </div>
     </article>

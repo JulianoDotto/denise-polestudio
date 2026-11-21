@@ -11,6 +11,7 @@ import StorePostSubmitButton from '@/components/admin/StorePostSubmitButton'
 import StorePostDurationFields from '@/components/admin/StorePostDurationFields'
 import StoreProductRow from '@/components/site/StoreProductRow'
 import FeedCategoryField from '@/components/admin/FeedCategoryField'
+import ReorderButtons from '@/components/admin/ReorderButtons'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 import { createStorePost } from '@/lib/admin/actions/store-posts'
@@ -99,13 +100,24 @@ export default async function LojaPage({
       </PageIntro>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 pt-4">
-        {feedGroups.map((group) => (
+        {feedGroups.map((group, index) => (
           <StoreProductRow
             key={group.id}
             title={group.title}
             items={group.items}
             whatsappPhone={phone}
             isAdmin={isAdmin}
+            reorderControls={
+              isAdmin ? (
+                <ReorderButtons
+                  target={{ kind: 'storeSection' }}
+                  id={group.id}
+                  isFirst={index === 0}
+                  isLast={index === feedGroups.length - 1}
+                  tone="dark"
+                />
+              ) : undefined
+            }
           />
         ))}
         {isAdmin ? (

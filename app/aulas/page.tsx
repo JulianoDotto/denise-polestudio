@@ -5,6 +5,7 @@ import { ItemType } from '@prisma/client'
 import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
+import ReorderButtons from '@/components/admin/ReorderButtons'
 import GlowCard from '@/components/site/GlowCard'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
@@ -57,6 +58,17 @@ export default async function AulasPage() {
                     loading={index < 2 ? undefined : 'lazy'}
                     decoding="async"
                     className="block h-auto w-full transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  />
+                ) : undefined
+              }
+              reorderControls={
+                isAdmin ? (
+                  <ReorderButtons
+                    target={{ kind: 'item', list: 'class' }}
+                    id={aula.id}
+                    isFirst={index === 0}
+                    isLast={index === aulas.length - 1}
+                    tone="light"
                   />
                 ) : undefined
               }

@@ -6,6 +6,7 @@ import ActionButton from '@/components/site/ActionButton'
 import GlowCard from '@/components/site/GlowCard'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
+import ReorderButtons from '@/components/admin/ReorderButtons'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
 import { getItemsByTypes } from '@/lib/db'
@@ -60,6 +61,17 @@ export default async function EbooksPage() {
               eyebrow={badge}
               title={item.title}
               description={item.description || TEXTS.PRODUTOS_DIGITAIS_DESCRIPTION_1}
+              reorderControls={
+                isAdmin ? (
+                  <ReorderButtons
+                    target={{ kind: 'item', list: 'digitalProduct' }}
+                    id={item.id}
+                    isFirst={index === 0}
+                    isLast={index === items.length - 1}
+                    tone="light"
+                  />
+                ) : undefined
+              }
               adminControls={
                 isAdmin ? (
                   <>
