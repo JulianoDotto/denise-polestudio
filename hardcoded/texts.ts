@@ -3,7 +3,7 @@ export const TEXTS = {
   SITE_METADATA_DESCRIPTION_1:
     'Aulas de Pole Dance e artes sensuais, workshops, eventos e conteúdos de Denise Garcia.',
   SITE_HEADER_LOGO_1: 'Denise Garcia',
-  META_AULAS_TITLE_1: 'Aulas de pole dance',
+  META_AULAS_TITLE_1: 'Aulas',
   META_AULAS_DESCRIPTION_1: 'Aulas de pole dance com a Denise Garcia em Caçapava/SP. Consulte horários e valores pelo WhatsApp.',
   META_LOJA_TITLE_1: 'Loja',
   META_LOJA_DESCRIPTION_1: 'Produtos para pole dance, sensualidade, bem-estar e autocuidado, com envio para todo o Brasil.',
