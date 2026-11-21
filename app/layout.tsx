@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Jost } from "next/font/google";
+import { Jost, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import { TEXTS } from "@/hardcoded/texts";
 
-// Titles: a high-contrast didone, luxurious and sober; its italic is the burlesque accent.
-const display = Bodoni_Moda({
+// Titles: a transitional display serif, luxurious but sturdy enough to read; its italic is the burlesque accent.
+const display = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
-  axes: ["opsz"],
   display: "swap",
 });
 
