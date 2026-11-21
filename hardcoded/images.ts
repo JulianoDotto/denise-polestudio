@@ -9,5 +9,4 @@ export const IMAGES = {
   // Same photo as the classes link until a photo of its own arrives.
   HOME_LINK_PRODUTOS_DIGITAIS_1: '/images/home/link-aulas.webp',
   HOME_LINK_WORKSHOPS_1: '/images/home/link-workshops.webp',
-  LOJA_HERO_1: '/images/loja/loja-hero.webp',
 } as const

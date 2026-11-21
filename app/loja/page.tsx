@@ -72,17 +72,14 @@ export default async function LojaPage({
     }
   }
   const feedGroups = groupFeedPostsByCategory(posts, IMAGES.SITE_FALLBACK_1)
-  const heroImage = IMAGES.LOJA_HERO_1
 
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
       <AgeGateModal />
 
       <PageHero
-        imageUrl={heroImage}
         title={TEXTS.LOJA_HERO_TITLE_1}
         eyebrow={TEXTS.LOJA_HERO_EYEBROW_1}
-        imagePosition="40% 50%"
       />
 
       <PageIntro
