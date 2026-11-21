@@ -399,10 +399,12 @@ Expected: nenhum arquivo restante com o prefixo `dev/`.
 
 ### Task 6: Script de migração
 
+> Feito em 21/11/2026 pelo plano `2026-11-21-lighthouse-loja.md`: 24 fotos migradas (7 de aulas, 17 da loja), conferidas em `denisegarcia.vercel.app`.
+
 **Files:**
 - Create fora do repositório: `migrate-images.mjs`, no scratchpad da sessão, ao lado de uma cópia de `dump-production.mjs`.
 
-- [ ] **Step 1: Implementar o script**
+- [x] **Step 1: Implementar o script**
 
 - Peça a URL do banco e o token do Blob sem exibir na tela. Aceite `--rehearsal` somente para `127.0.0.1` e recuse banco local sem essa opção. Aceite `--dry-run`.
 - Faça o backup com `dump-production.mjs` em `C:/Users/jdott/Backups/denise-polestudio/<data>-antes-das-fotos` e cancele se ele falhar.
@@ -412,12 +414,12 @@ Expected: nenhum arquivo restante com o prefixo `dev/`.
 - Falha em uma foto não interrompe as demais. O script termina com o total migrado, os conflitos, as falhas e o tamanho antes e depois.
 - Nunca imprima a URL, o token ou o conteúdo das fotos.
 
-- [ ] **Step 2: Ensaiar em uma cópia local do backup mais recente, usando o prefixo `dev/migracao/`**
+- [x] **Step 2: Ensaiar em uma cópia local do backup mais recente, usando o prefixo `dev/migracao/`**
 
 Execute simulação, execução completa, repetição e conflito forçado.
 Expected: a simulação não altera nada, a execução migra todas as linhas com base64, a repetição processa 0 linhas e o conflito preserva o valor mais novo.
 
-- [ ] **Step 3: Limpar o ensaio**
+- [x] **Step 3: Limpar o ensaio**
 
 Apague a cópia local, os backups do ensaio e os arquivos em `dev/migracao/`.
 Expected: nenhum dado de usuário fora da pasta de backups.
@@ -436,11 +438,11 @@ Expected: status `success` nos dois projetos da Vercel.
 
 Expected: a foto abre pelo endereço `.public.blob.vercel-storage.com` e sai do Blob ao excluir a aula.
 
-- [ ] **Step 3: O dono do projeto executa a migração no próprio terminal**
+- [x] **Step 3: O dono do projeto executa a migração no próprio terminal**
 
 Expected: todas as fotos migradas, sem falhas.
 
-- [ ] **Step 4: Conferir os dois endereços públicos**
+- [x] **Step 4: Conferir os dois endereços públicos**
 
 Run: buscar `/aulas` e `/loja` em `denise-polestudio.vercel.app` e `denise-polestudio-llm1.vercel.app`.
 Expected: nenhum `data:image`, HTML abaixo de 100 KB e todas as fotos com status 200.
