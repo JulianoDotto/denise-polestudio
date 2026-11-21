@@ -5,7 +5,7 @@ import { ItemType } from '@prisma/client'
 import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
-import EventTypesCarousel from '@/components/site/EventTypesCarousel'
+import EventFormats from '@/components/site/EventFormats'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
 import { prisma } from '@/lib/prisma'
@@ -42,55 +42,47 @@ export default async function EventosPage() {
   const phone = getWhatsAppPhone()
   const session = await getServerSession(authOptions)
   const isAdmin = session?.user?.role === 'ADMIN'
-  const contactUrl = phone
-    ? buildWhatsAppUrl(phone, TEXTS.EVENTOS_WHATSAPP_MESSAGE_1)
-    : ''
+  const contactUrl = phone ? buildWhatsAppUrl(phone, TEXTS.EVENTOS_WHATSAPP_MESSAGE_1) : ''
+
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
+    <div className="flex flex-col bg-areia pb-14 text-zinc-900">
       <PageHero title={TEXTS.EVENTOS_PAGE_TITLE_1} eyebrow={TEXTS.EVENTOS_HERO_EYEBROW_1} index={4} total={5} />
 
-      <PageIntro
-        eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}
-        headline={TEXTS.EVENTOS_INTRO_HEADLINE_1}
-        paragraphs={[TEXTS.EVENTOS_DESCRIPTION_1, TEXTS.EVENTOS_SECTION_P2_1]}
-      >
-        <EventTypesCarousel />
-        <div className="mt-6">
-          {contactUrl ? (
-            <ActionButton
-              href={contactUrl}
-              target="_blank"
-              size="lg"
-              className="w-full max-w-md text-center leading-none"
-            >
-              {TEXTS.EVENTOS_CONTACT_BUTTON_1}
-            </ActionButton>
-          ) : (
-            <span className="inline-flex rounded-full border px-4 py-2 text-sm text-muted-foreground">
-              {TEXTS.EVENTOS_WHATSAPP_MISSING_1}
-            </span>
-          )}
-        </div>
-      </PageIntro>
+      <div className="py-12 sm:py-16">
+        <PageIntro
+          eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}
+          headline={TEXTS.EVENTOS_INTRO_HEADLINE_1}
+          paragraphs={[TEXTS.EVENTOS_DESCRIPTION_1]}
+        />
+      </div>
 
-      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
-        <div className="flex items-end justify-between gap-3">
-          <h2 className="text-2xl font-semibold">{TEXTS.EVENTOS_SECTION_UPCOMING_1}</h2>
-          <span className="text-xs uppercase tracking-[0.2em] text-zinc-500">
+      <EventFormats phone={phone} />
+
+      <section className="mx-auto w-full max-w-5xl px-4 pt-14 sm:pt-20">
+        <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-vinho/70">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
+          {TEXTS.EVENTOS_AGENDA_EYEBROW_1}
+        </p>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+          <h2 className="font-display text-3xl uppercase leading-tight tracking-[0.12em] text-vinho sm:text-4xl">
+            {TEXTS.EVENTOS_SECTION_UPCOMING_1}
+          </h2>
+          <span className="text-[11px] uppercase tracking-[0.28em] text-vinho/60">
             {events.length === 1 ? '1 evento na agenda' : `${events.length} eventos na agenda`}
           </span>
         </div>
+        <div aria-hidden="true" className="mt-6 h-px w-12 bg-vinho/30" />
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-700">{TEXTS.EVENTOS_SECTION_P2_1}</p>
 
         {events.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2">
+          <ul className="mt-10 grid gap-5 md:grid-cols-2">
             {events.map((event) => {
               const { day, month, year } = getEventDateParts(event.eventDate)
-              const details = event.description
               const cardMessage = event.whatsappTextTemplate
                 ? event.whatsappTextTemplate
                 : TEXTS.EVENTOS_WHATSAPP_ITEM_MESSAGE_1.replace('{title}', event.title)
               const eventContactUrl = phone ? buildWhatsAppUrl(phone, cardMessage) : ''
-              const dateA11yLabel = event.eventDate
+              const dateLabel = event.eventDate
                 ? new Intl.DateTimeFormat('pt-BR', {
                     day: '2-digit',
                     month: 'long',
@@ -100,14 +92,32 @@ export default async function EventosPage() {
                 : TEXTS.EVENTOS_DATE_FALLBACK_1
 
               return (
-                <article
-                  key={event.id}
-                  className="rounded-[2rem] border border-[#3a1a26]/20 bg-white p-6 shadow-[0_20px_45px_-35px_rgba(27,6,11,0.55)]"
-                >
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center justify-end gap-2">
+                <li key={event.id}>
+                  {/* Ticket: a wine date stub, a perforated seam and the event. */}
+                  <article className="relative flex h-full overflow-hidden rounded-[24px] bg-white shadow-[0_24px_48px_-32px_rgba(90,26,42,0.55)] ring-1 ring-vinho/10">
+                    <div className="flex w-[88px] shrink-0 flex-col items-center justify-center bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_55%,#3a101c_100%)] px-2 py-6 text-marfim sm:w-28">
+                      <p className="sr-only">{dateLabel}</p>
+                      <span aria-hidden="true" className="font-display text-5xl leading-none tabular-nums">
+                        {day}
+                      </span>
+                      <span aria-hidden="true" className="mt-2 text-xs uppercase tracking-[0.32em]">
+                        {month}
+                      </span>
+                      <span aria-hidden="true" className="mt-1 text-[11px] tracking-[0.2em] text-marfim/60">
+                        {year}
+                      </span>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="absolute -top-2.5 left-[78px] h-5 w-5 rounded-full bg-areia sm:left-[102px]"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-2.5 left-[78px] h-5 w-5 rounded-full bg-areia sm:left-[102px]"
+                    />
+                    <div className="flex min-w-0 flex-1 flex-col border-l border-dashed border-vinho/25 p-5 sm:p-6">
                       {isAdmin ? (
-                        <div className="flex items-center gap-2">
+                        <div className="mb-3 flex items-center justify-end gap-2">
                           <ContentFormModal
                             kind="event"
                             mode="edit"
@@ -115,90 +125,73 @@ export default async function EventosPage() {
                               id: event.id,
                               title: event.title,
                               description: event.description,
-                              eventDate: event.eventDate
-                                ? event.eventDate.toISOString().slice(0, 10)
-                                : '',
+                              eventDate: event.eventDate ? event.eventDate.toISOString().slice(0, 10) : '',
                             }}
                           />
                           <ContentDeleteButton kind="event" id={event.id} title={event.title} />
                         </div>
                       ) : null}
+                      <h3 className="font-display text-xl uppercase leading-tight tracking-[0.1em] text-vinho">
+                        {event.title}
+                      </h3>
+                      {event.description ? (
+                        <p className="mt-3 flex-1 whitespace-pre-line text-sm leading-relaxed text-zinc-600">
+                          {event.description}
+                        </p>
+                      ) : (
+                        <span className="flex-1" />
+                      )}
+                      {eventContactUrl ? (
+                        <ActionButton href={eventContactUrl} target="_blank" size="sm" className="mt-5 w-full">
+                          {TEXTS.EVENTOS_CARD_BUTTON_1}
+                        </ActionButton>
+                      ) : null}
                     </div>
-
-                    <div className="flex items-center gap-5">
-                      <div
-                        role="text"
-                        aria-label={`Data do evento: ${dateA11yLabel}`}
-                        className="grid w-[64px] shrink-0 grid-cols-12 gap-y-1"
-                      >
-                        {day.split('').map((char, idx) => (
-                          <span
-                            key={`day-${event.id}-${idx}`}
-                            aria-hidden="true"
-                            className="col-span-6 text-center text-4xl font-display tabular-nums text-zinc-900"
-                          >
-                            {char}
-                          </span>
-                        ))}
-                        {month.split('').map((char, idx) => (
-                          <span
-                            key={`month-${event.id}-${idx}`}
-                            aria-hidden="true"
-                            className="col-span-4 font-bold text-center text-base font-display uppercase text-[#3a1a26]/80"
-                          >
-                            {char}
-                          </span>
-                        ))}
-                        {year.split('').map((char, idx) => (
-                          <span
-                            key={`year-${event.id}-${idx}`}
-                            aria-hidden="true"
-                            className="col-span-3 text-center text-base font-display text-[#3a1a26]/80"
-                          >
-                            {char}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex min-w-0 flex-1 flex-col gap-2">
-                        <h3 className="text-xl font-semibold">{event.title}</h3>
-                        <p className="text-sm leading-relaxed text-zinc-600">{details}</p>
-                      </div>
-                    </div>
-
-                    {eventContactUrl && (
-                      <ActionButton
-                        href={eventContactUrl}
-                        target="_blank"
-                        size="sm"
-                        className="w-full"
-                      >
-                        {TEXTS.EVENTOS_CARD_BUTTON_1}
-                      </ActionButton>
-                    )}
-                  </div>
-                </article>
+                  </article>
+                </li>
               )
             })}
-          </div>
+          </ul>
         ) : (
-          <div className="rounded-[2rem] border border-dashed border-[#3a1a26]/30 bg-white/80 p-8 text-center">
-            <h3 className="text-lg font-semibold text-zinc-800">{TEXTS.EVENTOS_EMPTY_TITLE_1}</h3>
-            <p className="mt-2 text-sm text-zinc-600">{TEXTS.EVENTOS_EMPTY_DESCRIPTION_1}</p>
+          <div className="relative mt-10 overflow-hidden rounded-[24px] border border-dashed border-vinho/30 bg-white/70 px-6 py-10 text-center">
+            <span
+              aria-hidden="true"
+              className="absolute -left-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-dashed border-vinho/30 bg-areia"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute -right-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-dashed border-vinho/30 bg-areia"
+            />
+            <h3 className="font-display text-2xl uppercase tracking-[0.12em] text-vinho">
+              {TEXTS.EVENTOS_EMPTY_TITLE_1}
+            </h3>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-600">
+              {TEXTS.EVENTOS_EMPTY_DESCRIPTION_1}
+            </p>
             {contactUrl ? (
-              <ActionButton
-                href={contactUrl}
-                target="_blank"
-                size="sm"
-                className="mt-5"
-              >
+              <ActionButton href={contactUrl} target="_blank" size="sm" className="mt-6 w-full max-w-xs">
                 {TEXTS.EVENTOS_CONTACT_BUTTON_2}
               </ActionButton>
-            ) : null}
+            ) : (
+              <p className="mt-6 text-sm text-zinc-500">{TEXTS.EVENTOS_WHATSAPP_MISSING_1}</p>
+            )}
           </div>
         )}
 
+        {events.length > 0 && contactUrl ? (
+          <ActionButton
+            href={contactUrl}
+            target="_blank"
+            size="lg"
+            variant="outline"
+            className="mt-8 w-full sm:w-auto"
+          >
+            {TEXTS.EVENTOS_CONTACT_BUTTON_1}
+          </ActionButton>
+        ) : null}
+
         {isAdmin ? (
-          <div className="flex justify-center">
+          <div className="mt-8 flex justify-center">
             <ContentFormModal kind="event" mode="create" />
           </div>
         ) : null}
