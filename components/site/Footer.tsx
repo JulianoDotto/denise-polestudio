@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowUpRight, Instagram, MapPin, MessageCircle } from 'lucide-react'
+import { Instagram, MapPin, MessageCircle } from 'lucide-react'
 import { TEXTS } from '@/hardcoded/texts'
 
 const SITE_LINKS = [
@@ -11,81 +11,56 @@ const SITE_LINKS = [
 ]
 
 const underlineClass =
-  'bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size,color] duration-300 hover:bg-[length:100%_1px] hover:text-marfim focus-visible:bg-[length:100%_1px] focus-visible:text-marfim focus-visible:outline-none motion-reduce:transition-none'
+  'bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size,color] duration-300 hover:bg-[length:100%_1px] hover:text-marfim focus-visible:bg-[length:100%_1px] focus-visible:text-marfim focus-visible:outline-none motion-reduce:transition-none'
 
-const rowClass = 'flex min-h-14 items-center justify-between gap-4 py-4'
-const labelClass = 'text-[11px] uppercase tracking-[0.28em] text-marfim/60'
+const contactClass = 'flex items-start gap-3'
+const iconClass = 'mt-0.5 h-4 w-4 shrink-0 text-marfim/60'
 
 export default function Footer() {
   return (
     <>
-      <footer className="mt-20 rounded-t-[40px] bg-vinho text-marfim">
-        <div className="mx-auto w-full max-w-[738px] px-6 pb-8 pt-14">
-          <p className="font-display text-3xl uppercase tracking-[0.3em]">{TEXTS.SITE_HEADER_LOGO_1}</p>
-          <p className="mt-3 text-sm text-marfim/70">{TEXTS.HOME_HERO_HEADLINE_1}</p>
+      <footer className="bg-vinho text-marfim">
+        <div className="mx-auto grid w-full max-w-[738px] gap-10 px-6 py-12 sm:grid-cols-[1fr_auto] sm:gap-16">
+          <div>
+            <p className="font-display text-2xl uppercase tracking-[0.3em]">{TEXTS.SITE_HEADER_LOGO_1}</p>
+            <p className="mt-3 text-sm text-marfim/70">{TEXTS.HOME_HERO_HEADLINE_1}</p>
+          </div>
 
-          <nav
-            aria-label={TEXTS.SITE_FOOTER_NAV_ARIA_1}
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-[11px] uppercase tracking-[0.28em] text-marfim/70"
-          >
-            {SITE_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} className={underlineClass}>
-                {link.title}
-              </Link>
-            ))}
-          </nav>
-
-          <ul className="mt-10 divide-y divide-marfim/20 border-y border-marfim/20 text-sm">
-            <li className={rowClass}>
-              <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_ADDRESS_1}</span>
-              <span className="flex items-start gap-3 text-right">
-                <span className="leading-relaxed">
-                  {TEXTS.SITE_FOOTER_ADDRESS_LINE_1}
-                  <br />
-                  {TEXTS.SITE_FOOTER_ADDRESS_LINE_2}
-                </span>
-                <MapPin aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-marfim/70" />
+          <ul className="grid gap-4 text-sm">
+            <li className={contactClass}>
+              <MapPin aria-hidden="true" className={iconClass} />
+              <span className="leading-relaxed">
+                {TEXTS.SITE_FOOTER_ADDRESS_LINE_1}
+                <br />
+                {TEXTS.SITE_FOOTER_ADDRESS_LINE_2}
               </span>
             </li>
             <li>
-              <a
-                href={TEXTS.SITE_FOOTER_WHATSAPP_URL_1}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${rowClass} group focus-visible:outline-none`}
-              >
-                <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_WHATSAPP_1}</span>
-                <span className="flex items-center gap-3">
-                  <span className={`${underlineClass} pb-0.5 group-hover:bg-[length:100%_1px] group-focus-visible:bg-[length:100%_1px]`}>
-                    {TEXTS.SITE_FOOTER_PHONE_1}
-                  </span>
-                  <MessageCircle aria-hidden="true" className="h-4 w-4 text-marfim/70" />
-                </span>
+              <a href={TEXTS.SITE_FOOTER_WHATSAPP_URL_1} target="_blank" rel="noopener noreferrer" className={contactClass}>
+                <MessageCircle aria-hidden="true" className={iconClass} />
+                <span className={underlineClass}>{TEXTS.SITE_FOOTER_PHONE_1}</span>
               </a>
             </li>
             <li>
-              <a
-                href={TEXTS.SITE_FOOTER_INSTAGRAM_URL_1}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${rowClass} group focus-visible:outline-none`}
-              >
-                <span className={labelClass}>{TEXTS.SITE_FOOTER_LABEL_INSTAGRAM_1}</span>
-                <span className="flex items-center gap-3">
-                  <span className={`${underlineClass} pb-0.5 group-hover:bg-[length:100%_1px] group-focus-visible:bg-[length:100%_1px]`}>
-                    {TEXTS.SITE_FOOTER_INSTAGRAM_HANDLE_1}
-                  </span>
-                  <Instagram aria-hidden="true" className="h-4 w-4 text-marfim/70" />
-                  <ArrowUpRight
-                    aria-hidden="true"
-                    className="h-4 w-4 text-marfim/50 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0"
-                  />
-                </span>
+              <a href={TEXTS.SITE_FOOTER_INSTAGRAM_URL_1} target="_blank" rel="noopener noreferrer" className={contactClass}>
+                <Instagram aria-hidden="true" className={iconClass} />
+                <span className={underlineClass}>{TEXTS.SITE_FOOTER_INSTAGRAM_HANDLE_1}</span>
               </a>
             </li>
           </ul>
+        </div>
 
-          <p className="mt-8 text-xs text-marfim/55">{TEXTS.SITE_FOOTER_COPYRIGHT_1}</p>
+        <div className="border-t border-marfim/15">
+          <div className="mx-auto flex w-full max-w-[738px] flex-col gap-4 px-6 py-5 text-xs text-marfim/60 sm:flex-row sm:items-center sm:justify-between">
+            <p>{TEXTS.SITE_FOOTER_COPYRIGHT_1}</p>
+            <nav aria-label={TEXTS.SITE_FOOTER_NAV_ARIA_1} className="flex flex-wrap gap-x-5 gap-y-2">
+              {SITE_LINKS.map((link) => (
+                <Link key={link.href} href={link.href} className={underlineClass}>
+                  {link.title}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
       </footer>
 
