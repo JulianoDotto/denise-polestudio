@@ -6,7 +6,8 @@ type HomeHeroProps = {
 
 export default function HomeHero({ imageUrl, headline, eyebrow }: HomeHeroProps) {
   return (
-    <section className="relative isolate h-[520px] overflow-hidden bg-stone-950 sm:h-[640px]">
+    <div className="px-3 pt-3">
+    <section className="relative isolate h-[520px] overflow-hidden rounded-[28px] bg-stone-950 sm:h-[640px]">
       <img
         src={imageUrl}
         alt=""
@@ -22,5 +23,6 @@ export default function HomeHero({ imageUrl, headline, eyebrow }: HomeHeroProps)
         </h1>
       </div>
     </section>
+    </div>
   )
 }

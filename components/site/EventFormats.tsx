@@ -13,7 +13,8 @@ type EventFormatsProps = {
 // Every title is visible at once; a tap opens the details and the WhatsApp request.
 export default function EventFormats({ phone }: EventFormatsProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-tinta text-marfim">
+    <section className="px-3">
+      <div className="relative isolate overflow-hidden rounded-[28px] bg-tinta text-marfim">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-vinho opacity-70 blur-3xl"
@@ -23,7 +24,7 @@ export default function EventFormats({ phone }: EventFormatsProps) {
         className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-96 w-96 rounded-full bg-vinho/40 blur-3xl"
       />
 
-      <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:py-20">
+      <div className="mx-auto w-full max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
         <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-marfim/60">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
           {TEXTS.EVENTOS_FORMATS_EYEBROW_1}
@@ -71,6 +72,7 @@ export default function EventFormats({ phone }: EventFormatsProps) {
             )
           })}
         </ul>
+      </div>
       </div>
     </section>
   )

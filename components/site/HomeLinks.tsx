@@ -18,7 +18,11 @@ type HomeLinksProps = {
 // The home's index of the site: one row per page, read top to bottom like a contents list.
 export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
   return (
-    <section className="mx-auto w-full max-w-5xl px-6 py-14">
+    <section className="px-3 py-6">
+      <div className="relative isolate overflow-hidden rounded-[28px] bg-tinta">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 -z-10 h-80 w-80 rounded-full bg-vinho opacity-70 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-24 -z-10 h-72 w-72 rounded-full bg-vinho/40 blur-3xl" />
+      <div className="mx-auto w-full max-w-5xl px-5 py-12 sm:px-8">
       <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-marfim/60">
         <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
         {eyebrow}
@@ -79,6 +83,8 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
           </li>
         ))}
       </ul>
+      </div>
+      </div>
     </section>
   )
 }

@@ -42,7 +42,8 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
   if (!imageUrl) {
     const progress = index && total ? (index / total) * 100 : 0
     return (
-      <section className="relative isolate h-[300px] overflow-hidden bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[320px]">
+      <div className="px-3 pt-3">
+      <section className="relative isolate h-[300px] overflow-hidden rounded-[28px] bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[320px]">
         {/* Light: a soft marfim glow top left, a rosé glow low on the right. */}
         <div
           aria-hidden="true"
@@ -128,6 +129,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
           </div>
         </div>
       </section>
+      </div>
     )
   }
 

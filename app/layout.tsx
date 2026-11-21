@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${display.variable} ${body.variable} bg-vinho-gradient antialiased`}>
+      <body className={`${display.variable} ${body.variable} bg-areia text-zinc-900 antialiased`}>
         <Header />
         <main className="min-h-[70vh] w-full max-w-[738px] mx-auto">{children}</main>
         <Footer />
