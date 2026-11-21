@@ -1,14 +1,22 @@
+import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { ItemType } from '@prisma/client'
 
 import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
+import GlowCard from '@/components/site/GlowCard'
+import PageHero from '@/components/site/PageHero'
+import PageIntro from '@/components/site/PageIntro'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
-import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  title: TEXTS.META_AULAS_TITLE_1,
+  description: TEXTS.META_AULAS_DESCRIPTION_1,
+}
 
 export default async function AulasPage() {
   const aulas = await getItemsByType(ItemType.CLASS)
@@ -17,9 +25,16 @@ export default async function AulasPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="pb-12">
-      <h1 className="px-6 text-3xl text-center my-8">{TEXTS.AULAS_PAGE_TITLE_1}</h1>
-      <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
+      <PageHero title={TEXTS.AULAS_PAGE_TITLE_1} eyebrow={TEXTS.AULAS_HERO_EYEBROW_1} />
+
+      <PageIntro
+        eyebrow={TEXTS.AULAS_SECTION_TITLE_1}
+        headline={TEXTS.AULAS_INTRO_HEADLINE_1}
+        paragraphs={[TEXTS.AULAS_DEFAULT_DESC_1]}
+      />
+
+      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
         {aulas.map((aula, index) => {
           const message = aula.whatsappTextTemplate
             ? aula.whatsappTextTemplate
@@ -27,52 +42,55 @@ export default async function AulasPage() {
           const contactUrl = phone ? buildWhatsAppUrl(phone, message) : ''
 
           return (
-            <section key={aula.id} className="w-full">
-              <div className="relative h-64 w-full overflow-hidden bg-stone-950 sm:h-80">
-                <img
-                  src={aula.coverUrl || IMAGES.AULAS_COVER_FALLBACK_1}
-                  alt={aula.title}
-                  loading={index === 0 ? undefined : 'lazy'}
-                  decoding="async"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-stone-950/35" />
-              </div>
-              <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-6">
-                <div className="flex items-start justify-between gap-4">
-                  <h2 className="text-2xl font-semibold">{aula.title}</h2>
-                  {isAdmin ? (
-                    <div className="flex items-center gap-2">
-                      <ContentFormModal
-                        kind="class"
-                        mode="edit"
-                        values={{
-                          id: aula.id,
-                          title: aula.title,
-                          description: aula.description,
-                          coverUrl: aula.coverUrl,
-                        }}
-                      />
-                      <ContentDeleteButton kind="class" id={aula.id} title={aula.title} />
-                    </div>
-                  ) : null}
-                </div>
-                <p className="text-base text-muted-foreground text-zinc-300">
-                  {aula.description || TEXTS.AULAS_DEFAULT_DESC_1}
-                </p>
-                {contactUrl && (
-                  <ActionButton href={contactUrl} tone="light" target="_blank" size="lg">
+            <GlowCard
+              key={aula.id}
+              index={index}
+              eyebrow={TEXTS.AULAS_CARD_EYEBROW_1}
+              title={aula.title}
+              description={aula.description || TEXTS.AULAS_DEFAULT_DESC_1}
+              media={
+                aula.coverUrl ? (
+                  <img
+                    src={aula.coverUrl}
+                    alt={aula.title}
+                    loading={index < 2 ? undefined : 'lazy'}
+                    decoding="async"
+                    className="h-52 w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  />
+                ) : undefined
+              }
+              adminControls={
+                isAdmin ? (
+                  <>
+                    <ContentFormModal
+                      kind="class"
+                      mode="edit"
+                      values={{
+                        id: aula.id,
+                        title: aula.title,
+                        description: aula.description,
+                        coverUrl: aula.coverUrl,
+                      }}
+                      tone="light"
+                    />
+                    <ContentDeleteButton kind="class" id={aula.id} title={aula.title} tone="light" />
+                  </>
+                ) : undefined
+              }
+              action={
+                contactUrl ? (
+                  <ActionButton href={contactUrl} tone="light" target="_blank" rel="noopener noreferrer" size="md" className="w-full">
                     {TEXTS.AULAS_CARD_BUTTON_1}
                   </ActionButton>
-                )}
-              </div>
-            </section>
+                ) : null
+              }
+            />
           )
         })}
-      </div>
+      </section>
 
       {isAdmin ? (
-        <div className="flex justify-center px-6">
+        <div className="flex justify-center px-4">
           <ContentFormModal kind="class" mode="create" />
         </div>
       ) : null}

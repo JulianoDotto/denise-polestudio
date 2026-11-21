@@ -1,16 +1,13 @@
 export const IMAGES = {
-  SITE_PLACEHOLDER_1: '/images/placeholder.svg',
-  HOME_HERO_1: '/images/home/home_hero_2.jpeg',
-  HOME_SECTION_IMAGE_1: '/images/home/home_about_denise_5776.jpg',
-  HOME_BUTTON_LINKS_1: '/images/home/home_button_1.png',
-  HOME_BUTTON_LINKS_2: '/images/home/home_button_2.png',
-  HOME_BUTTON_LINKS_4: '/images/home/home_button_4.png',
-  HOME_BUTTON_LINKS_5: '/images/home/home_button_1.png',
-  HOME_BUTTON_LINKS_6: '/images/home/home_button_3.png',
-  WORKSHOPS_HERO_1: '/images/home/home_button_3.png',
-  LOJA_HERO_1: '/images/loja/loja_hero_studio.png',
-  EVENTOS_BANNER_1: '/images/placeholder.svg',
-  PRODUTOS_DIGITAIS_HERO_1: '/images/placeholder.svg',
-  STORE_IMAGE_FIELD_PREVIEW_1: '/images/placeholder.svg',
-  AULAS_COVER_FALLBACK_1: '/images/placeholder.svg',
+  // Shown where a class or a store post has no photo of its own.
+  SITE_FALLBACK_1: '/images/fallback-dg.svg',
+  HOME_HERO_1: '/images/home/home-hero.webp',
+  HOME_SECTION_IMAGE_1: '/images/home/home-sobre-denise.webp',
+  HOME_LINK_AULAS_1: '/images/home/link-aulas.webp',
+  HOME_LINK_LOJA_1: '/images/home/link-loja.webp',
+  HOME_LINK_EVENTOS_1: '/images/home/link-eventos.webp',
+  // Same photo as the classes link until a photo of its own arrives.
+  HOME_LINK_PRODUTOS_DIGITAIS_1: '/images/home/link-aulas.webp',
+  HOME_LINK_WORKSHOPS_1: '/images/home/link-workshops.webp',
+  LOJA_HERO_1: '/images/loja/loja-hero.webp',
 } as const

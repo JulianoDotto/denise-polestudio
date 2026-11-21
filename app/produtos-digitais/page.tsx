@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { ItemType } from '@prisma/client'
 
@@ -6,13 +7,17 @@ import GlowCard from '@/components/site/GlowCard'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import PageHero from '@/components/site/PageHero'
-import PageSection from '@/components/site/PageSection'
+import PageIntro from '@/components/site/PageIntro'
 import { getItemsByTypes } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
 import { normalizeExternalUrl } from '@/lib/externalUrl'
-import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  title: TEXTS.META_PRODUTOS_DIGITAIS_TITLE_1,
+  description: TEXTS.META_PRODUTOS_DIGITAIS_DESCRIPTION_1,
+}
 
 export default async function EbooksPage() {
   const items = await getItemsByTypes([ItemType.EBOOK, ItemType.VIDEO])
@@ -23,13 +28,13 @@ export default async function EbooksPage() {
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
       <PageHero
-        imageUrl={IMAGES.PRODUTOS_DIGITAIS_HERO_1}
         title={TEXTS.PRODUTOS_DIGITAIS_HERO_TITLE_1}
         eyebrow={TEXTS.PRODUTOS_DIGITAIS_HERO_EYEBROW_1}
       />
 
-      <PageSection
-        title={TEXTS.PRODUTOS_DIGITAIS_SECTION_TITLE_1}
+      <PageIntro
+        eyebrow={TEXTS.PRODUTOS_DIGITAIS_SECTION_TITLE_1}
+        headline={TEXTS.PRODUTOS_DIGITAIS_INTRO_HEADLINE_1}
         paragraphs={[TEXTS.PRODUTOS_DIGITAIS_SECTION_P1_1, TEXTS.PRODUTOS_DIGITAIS_SECTION_P2_1]}
       />
 

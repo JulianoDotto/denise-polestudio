@@ -113,7 +113,7 @@ export default function ContentFields({ kind, values }: ContentFieldsProps) {
           previewLabel={TEXTS.AULAS_ADMIN_PREVIEW_LABEL_1}
           emptyLabel={TEXTS.AULAS_ADMIN_PREVIEW_EMPTY_1}
           previewAlt={TEXTS.AULAS_ADMIN_PREVIEW_ALT_1}
-          fallbackUrl={IMAGES.AULAS_COVER_FALLBACK_1}
+          fallbackUrl={IMAGES.SITE_FALLBACK_1}
           initialUrl={editing ? (values.coverUrl ?? '') : undefined}
         />
       ) : null}

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 import { ItemType } from '@prisma/client'
@@ -6,11 +7,16 @@ import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import EventTypesCarousel from '@/components/site/EventTypesCarousel'
 import PageHero from '@/components/site/PageHero'
+import PageIntro from '@/components/site/PageIntro'
 import { prisma } from '@/lib/prisma'
 import { authOptions } from '@/lib/auth/authOptions'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
-import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  title: TEXTS.META_EVENTOS_TITLE_1,
+  description: TEXTS.META_EVENTOS_DESCRIPTION_1,
+}
 
 function getEventDateParts(date?: Date | null) {
   if (!date || Number.isNaN(date.getTime())) {
@@ -41,21 +47,13 @@ export default async function EventosPage() {
     : ''
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
-      <PageHero
-        imageUrl={IMAGES.EVENTOS_BANNER_1}
-        title={TEXTS.EVENTOS_PAGE_TITLE_1}
-      />
+      <PageHero title={TEXTS.EVENTOS_PAGE_TITLE_1} eyebrow={TEXTS.EVENTOS_HERO_EYEBROW_1} />
 
-      <section className="mx-auto w-full max-w-5xl px-4">
-        <h2 className="text-xl uppercase tracking-[0.35em] text-zinc-500">
-          {TEXTS.EVENTOS_TYPES_TITLE_1}
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-zinc-700">
-          {TEXTS.EVENTOS_DESCRIPTION_1}
-        </p>
-        <p className="mt-4 text-base leading-relaxed text-zinc-700">
-          {TEXTS.EVENTOS_SECTION_P2_1}
-        </p>
+      <PageIntro
+        eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}
+        headline={TEXTS.EVENTOS_INTRO_HEADLINE_1}
+        paragraphs={[TEXTS.EVENTOS_DESCRIPTION_1, TEXTS.EVENTOS_SECTION_P2_1]}
+      >
         <EventTypesCarousel />
         <div className="mt-6">
           {contactUrl ? (
@@ -73,7 +71,7 @@ export default async function EventosPage() {
             </span>
           )}
         </div>
-      </section>
+      </PageIntro>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4">
         <div className="flex items-end justify-between gap-3">

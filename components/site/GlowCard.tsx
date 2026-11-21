@@ -31,7 +31,7 @@ export default function GlowCard({
       />
       {adminControls ? (
         <div className="absolute right-4 top-4 z-10 flex items-center gap-2">{adminControls}</div>
-      ) : (
+      ) : media ? null : (
         <span
           aria-hidden="true"
           className="absolute right-7 top-5 font-display text-5xl leading-none text-marfim/10"

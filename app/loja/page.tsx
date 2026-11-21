@@ -1,9 +1,11 @@
+import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 
 import AgeGateModal from '@/components/site/AgeGateModal'
 import AdminModal from '@/components/admin/AdminModal'
 import ActionButton from '@/components/site/ActionButton'
 import PageHero from '@/components/site/PageHero'
+import PageIntro from '@/components/site/PageIntro'
 import ImageUploadField from '@/components/admin/ImageUploadField'
 import StorePostSubmitButton from '@/components/admin/StorePostSubmitButton'
 import StorePostDurationFields from '@/components/admin/StorePostDurationFields'
@@ -16,6 +18,11 @@ import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { groupFeedPostsByCategory } from '@/lib/feed-groups'
+
+export const metadata: Metadata = {
+  title: TEXTS.META_LOJA_TITLE_1,
+  description: TEXTS.META_LOJA_DESCRIPTION_1,
+}
 
 type LojaSearchParams = {
   error?: string
@@ -64,7 +71,7 @@ export default async function LojaPage({
       categoriesError = true
     }
   }
-  const feedGroups = groupFeedPostsByCategory(posts, IMAGES.SITE_PLACEHOLDER_1)
+  const feedGroups = groupFeedPostsByCategory(posts, IMAGES.SITE_FALLBACK_1)
   const heroImage = IMAGES.LOJA_HERO_1
 
   return (
@@ -78,18 +85,11 @@ export default async function LojaPage({
         imagePosition="40% 50%"
       />
 
-      <section className="mx-auto w-full max-w-5xl px-4 pt-4">
-        <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-vinho/70">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
-          {TEXTS.LOJA_SECTION_TITLE_1}
-        </p>
-        <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-[0.12em] text-vinho sm:text-4xl">
-          {TEXTS.LOJA_INTRO_HEADLINE_1}
-        </h2>
-        <div aria-hidden="true" className="mt-6 h-px w-12 bg-vinho/30" />
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-700">
-          {TEXTS.LOJA_SECTION_P1_1}
-        </p>
+      <PageIntro
+        eyebrow={TEXTS.LOJA_SECTION_TITLE_1}
+        headline={TEXTS.LOJA_INTRO_HEADLINE_1}
+        paragraphs={[TEXTS.LOJA_SECTION_P1_1]}
+      >
         <ul className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-vinho/80">
           {TEXTS.LOJA_PAYMENT_FACTS_1.split('|').map((fact) => (
             <li key={fact} className="rounded-full border border-vinho/20 px-3 py-1.5">
@@ -103,7 +103,7 @@ export default async function LojaPage({
             {TEXTS.LOJA_WHATSAPP_BUTTON_1}
           </ActionButton>
         ) : null}
-      </section>
+      </PageIntro>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 pt-4">
         {feedGroups.map((group) => (
@@ -194,7 +194,7 @@ export default async function LojaPage({
                   previewLabel={TEXTS.STORE_IMAGE_FIELD_PREVIEW_LABEL_1}
                   emptyLabel={TEXTS.STORE_IMAGE_FIELD_EMPTY_1}
                   previewAlt={TEXTS.STORE_IMAGE_FIELD_PREVIEW_ALT_1}
-                  fallbackUrl={IMAGES.STORE_IMAGE_FIELD_PREVIEW_1}
+                  fallbackUrl={IMAGES.SITE_FALLBACK_1}
                 />
                 <StorePostDurationFields />
                 <StorePostSubmitButton />

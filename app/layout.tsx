@@ -21,8 +21,16 @@ const body = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: TEXTS.SITE_METADATA_TITLE_1,
+  title: {
+    default: TEXTS.SITE_METADATA_TITLE_1,
+    template: `%s · ${TEXTS.SITE_METADATA_TITLE_1}`,
+  },
   description: TEXTS.SITE_METADATA_DESCRIPTION_1,
+  openGraph: {
+    siteName: TEXTS.SITE_METADATA_TITLE_1,
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

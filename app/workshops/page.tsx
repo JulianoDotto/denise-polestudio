@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { ItemType } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 
@@ -7,12 +8,16 @@ import ContentFormModal from '@/components/admin/ContentFormModal'
 import WorkshopCreateModal from '@/components/admin/WorkshopCreateModal'
 import GlowCard from '@/components/site/GlowCard'
 import PageHero from '@/components/site/PageHero'
-import PageSection from '@/components/site/PageSection'
+import PageIntro from '@/components/site/PageIntro'
 import { authOptions } from '@/lib/auth/authOptions'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
-import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  title: TEXTS.META_WORKSHOPS_TITLE_1,
+  description: TEXTS.META_WORKSHOPS_DESCRIPTION_1,
+}
 
 export default async function WorkshopsPage() {
   const phone = getWhatsAppPhone()
@@ -23,13 +28,13 @@ export default async function WorkshopsPage() {
   return (
     <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
       <PageHero
-        imageUrl={IMAGES.WORKSHOPS_HERO_1}
         title={TEXTS.WORKSHOPS_PAGE_TITLE_1}
         eyebrow={TEXTS.WORKSHOPS_HERO_EYEBROW_1}
       />
 
-      <PageSection
-        title={TEXTS.WORKSHOPS_SECTION_TITLE_1}
+      <PageIntro
+        eyebrow={TEXTS.WORKSHOPS_SECTION_TITLE_1}
+        headline={TEXTS.WORKSHOPS_INTRO_HEADLINE_1}
         paragraphs={[TEXTS.WORKSHOPS_PAGE_DESCRIPTION_1]}
       />
 
