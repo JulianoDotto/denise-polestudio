@@ -13,7 +13,7 @@ export default function PageIntro({ eyebrow, headline, paragraphs, children }: P
         <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
         {eyebrow}
       </p>
-      <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-[0.12em] text-vinho sm:text-4xl">
+      <h2 className="mt-5 font-display text-[2.1rem] leading-[1.08] tracking-[0.005em] text-vinho sm:text-5xl">
         {headline}
       </h2>
       <div aria-hidden="true" className="mt-6 h-px w-12 bg-vinho/30" />

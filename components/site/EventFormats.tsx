@@ -29,7 +29,7 @@ export default function EventFormats({ phone }: EventFormatsProps) {
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
           {TEXTS.EVENTOS_FORMATS_EYEBROW_1}
         </p>
-        <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-[0.12em] text-marfim sm:text-4xl">
+        <h2 className="mt-5 font-display text-[2.1rem] leading-[1.08] tracking-[0.005em] text-marfim sm:text-5xl">
           {TEXTS.EVENTOS_FORMATS_TITLE_1}
         </h2>
         <div aria-hidden="true" className="mt-6 h-px w-12 bg-marfim/30" />
@@ -49,7 +49,7 @@ export default function EventFormats({ phone }: EventFormatsProps) {
                     <span aria-hidden="true" className="w-7 shrink-0 text-[11px] tracking-[0.32em] text-marfim/45 sm:w-10">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <span className="min-w-0 flex-1 font-display text-lg uppercase leading-tight tracking-[0.12em] text-marfim transition-colors duration-300 group-open:text-[#e3b3be] group-hover:text-marfim/80 group-focus-visible:underline group-focus-visible:underline-offset-8 sm:text-2xl">
+                    <span className="min-w-0 flex-1 font-display text-[15px] min-[360px]:text-lg uppercase leading-tight tracking-[0.05em] min-[360px]:tracking-[0.12em] text-marfim transition-colors duration-300 group-open:text-[#e3b3be] group-hover:text-marfim/80 group-focus-visible:underline group-focus-visible:underline-offset-8 sm:text-2xl">
                       {format.title}
                     </span>
                     <span

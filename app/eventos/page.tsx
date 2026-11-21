@@ -64,7 +64,7 @@ export default async function EventosPage() {
           {TEXTS.EVENTOS_AGENDA_EYEBROW_1}
         </p>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-          <h2 className="font-display text-3xl uppercase leading-tight tracking-[0.12em] text-vinho sm:text-4xl">
+          <h2 className="font-display text-[2.1rem] leading-[1.08] tracking-[0.005em] text-vinho sm:text-5xl">
             {TEXTS.EVENTOS_SECTION_UPCOMING_1}
           </h2>
           <span className="text-[11px] uppercase tracking-[0.28em] text-vinho/60">

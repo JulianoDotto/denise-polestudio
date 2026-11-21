@@ -97,6 +97,9 @@
   .hero-image {
     animation: hero-image-in 2s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+  .hero-title-soft {
+    animation: hero-title-soft-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  }
   .hero-title {
     letter-spacing: 0.24em;
     animation: hero-title-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
@@ -111,6 +114,17 @@
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes hero-title-soft-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -148,7 +162,8 @@
     display: none;
   }
   .hero-image,
-  .hero-title {
+  .hero-title,
+  .hero-title-soft {
     animation: none;
     transition: none;
   }

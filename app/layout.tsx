@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Work_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import { TEXTS } from "@/hardcoded/texts";
 
-const display = localFont({
+// Titles: a high-contrast didone, luxurious and sober; its italic is the burlesque accent.
+const display = Bodoni_Moda({
   variable: "--font-display",
-  src: "../public/fonts/Aboreto-Regular.ttf",
-  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
-const body = Work_Sans({
+// Text: a geometric art-deco sans that stays out of the way.
+const body = Jost({
   variable: "--font-body",
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 

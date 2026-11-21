@@ -27,7 +27,7 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
         <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
         {eyebrow}
       </p>
-      <h2 className="mt-4 font-display text-3xl uppercase leading-tight tracking-[0.16em] text-marfim sm:text-4xl">
+      <h2 className="mt-4 font-display text-[2.1rem] leading-[1.08] tracking-[0.005em] text-marfim sm:text-5xl">
         {title}
       </h2>
 
