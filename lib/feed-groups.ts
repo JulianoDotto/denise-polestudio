@@ -23,6 +23,21 @@ export type FeedCategoryGroup = {
   }>
 }
 
+// Shared by the store page and the reorder action so both agree on who is a neighbor.
+export function compareStoreSections(
+  left: { order: number; title: string },
+  right: { order: number; title: string },
+) {
+  return left.order - right.order || left.title.localeCompare(right.title, 'pt-BR')
+}
+
+// Posts the store shows: pinned ones, or ones that have not expired yet.
+export function activeFeedPostWhere(now: Date) {
+  return {
+    OR: [{ isPinned: true }, { expiresAt: { gt: now } }],
+  }
+}
+
 export function groupFeedPostsByCategory(
   posts: FeedPostForGrouping[],
   fallbackImageUrl: string,
@@ -50,9 +65,7 @@ export function groupFeedPostsByCategory(
   }
 
   return Array.from(groups.values())
-    .sort((left, right) =>
-      left.order - right.order || left.title.localeCompare(right.title, 'pt-BR'),
-    )
+    .sort(compareStoreSections)
     .map((group) => ({
       id: group.id,
       title: group.title,

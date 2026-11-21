@@ -17,7 +17,7 @@ import { createStorePost } from '@/lib/admin/actions/store-posts'
 import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
-import { groupFeedPostsByCategory } from '@/lib/feed-groups'
+import { activeFeedPostWhere, groupFeedPostsByCategory } from '@/lib/feed-groups'
 
 export const metadata: Metadata = {
   title: TEXTS.META_LOJA_TITLE_1,
@@ -43,12 +43,7 @@ export default async function LojaPage({
   const isAdmin = session?.user?.role === 'ADMIN'
   const now = new Date()
   const posts = await prisma.storePost.findMany({
-    where: {
-      OR: [
-        { isPinned: true },
-        { expiresAt: { gt: now } },
-      ],
-    },
+    where: activeFeedPostWhere(now),
     orderBy: [
       { isPinned: 'desc' },
       { createdAt: 'desc' },
@@ -87,9 +82,10 @@ export default async function LojaPage({
         headline={TEXTS.LOJA_INTRO_HEADLINE_1}
         paragraphs={[TEXTS.LOJA_SECTION_P1_1]}
       >
-        <ul className="mt-6 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.2em] text-vinho/80">
+        <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[11px] uppercase tracking-[0.2em] text-zinc-600">
           {TEXTS.LOJA_PAYMENT_FACTS_1.split('|').map((fact) => (
-            <li key={fact} className="rounded-full border border-vinho/20 px-3 py-1.5">
+            <li key={fact} className="flex items-center gap-2">
+              <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-vinho/50" />
               {fact}
             </li>
           ))}
