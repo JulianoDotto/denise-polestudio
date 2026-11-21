@@ -29,8 +29,7 @@ export default async function WorkshopsPage() {
     <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
       <PageHero
         title={TEXTS.WORKSHOPS_PAGE_TITLE_1}
-        eyebrow={TEXTS.WORKSHOPS_HERO_EYEBROW_1}
-      />
+        eyebrow={TEXTS.WORKSHOPS_HERO_EYEBROW_1} index={5} total={5} />
 
       <PageIntro
         eyebrow={TEXTS.WORKSHOPS_SECTION_TITLE_1}

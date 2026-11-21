@@ -47,7 +47,7 @@ export default async function EventosPage() {
     : ''
   return (
     <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
-      <PageHero title={TEXTS.EVENTOS_PAGE_TITLE_1} eyebrow={TEXTS.EVENTOS_HERO_EYEBROW_1} />
+      <PageHero title={TEXTS.EVENTOS_PAGE_TITLE_1} eyebrow={TEXTS.EVENTOS_HERO_EYEBROW_1} index={4} total={5} />
 
       <PageIntro
         eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}

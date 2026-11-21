@@ -79,8 +79,7 @@ export default async function LojaPage({
 
       <PageHero
         title={TEXTS.LOJA_HERO_TITLE_1}
-        eyebrow={TEXTS.LOJA_HERO_EYEBROW_1}
-      />
+        eyebrow={TEXTS.LOJA_HERO_EYEBROW_1} index={2} total={5} />
 
       <PageIntro
         eyebrow={TEXTS.LOJA_SECTION_TITLE_1}
