@@ -32,37 +32,40 @@ export default function ReorderButtons({ target, id, isFirst, isLast, tone }: Re
   )
   const buttonClass = `inline-flex h-11 w-11 items-center justify-center rounded-full border transition disabled:cursor-not-allowed disabled:opacity-35 ${TONE_CLASSES[tone]}`
 
+  // One form per arrow with the direction in a hidden field: React drops the
+  // submit button's name when the form action is a function, so the server
+  // never saw which arrow was tapped.
+  const arrows = [
+    { direction: 'up', disabled: isFirst, label: TEXTS.ADMIN_REORDER_UP_ARIA_1, Icon: ChevronUp },
+    { direction: 'down', disabled: isLast, label: TEXTS.ADMIN_REORDER_DOWN_ARIA_1, Icon: ChevronDown },
+  ] as const
+
   return (
-    <form action={formAction} className="flex flex-col items-end gap-1">
-      <input type="hidden" name="id" value={id} />
-      {target.kind === 'item' ? <input type="hidden" name="list" value={target.list} /> : null}
+    <div className="flex flex-col items-end gap-1">
       <div className="flex gap-2">
-        <button
-          type="submit"
-          name="direction"
-          value="up"
-          disabled={pending || isFirst}
-          className={buttonClass}
-          aria-label={TEXTS.ADMIN_REORDER_UP_ARIA_1}
-        >
-          <ChevronUp className="h-5 w-5" />
-        </button>
-        <button
-          type="submit"
-          name="direction"
-          value="down"
-          disabled={pending || isLast}
-          className={buttonClass}
-          aria-label={TEXTS.ADMIN_REORDER_DOWN_ARIA_1}
-        >
-          <ChevronDown className="h-5 w-5" />
-        </button>
+        {arrows.map(({ direction, disabled, label, Icon }) => (
+          <form key={direction} action={formAction}>
+            <input type="hidden" name="id" value={id} />
+            <input type="hidden" name="direction" value={direction} />
+            {target.kind === 'item' ? (
+              <input type="hidden" name="list" value={target.list} />
+            ) : null}
+            <button
+              type="submit"
+              disabled={pending || disabled}
+              className={buttonClass}
+              aria-label={label}
+            >
+              <Icon className="h-5 w-5" />
+            </button>
+          </form>
+        ))}
       </div>
       {state.error ? (
         <p role="alert" className={`text-xs ${tone === 'light' ? 'text-rose-200' : 'text-rose-700'}`}>
           {TEXTS.ADMIN_REORDER_ERROR_1}
         </p>
       ) : null}
-    </form>
+    </div>
   )
 }

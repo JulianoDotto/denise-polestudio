@@ -11,6 +11,9 @@ import { prisma } from '@/lib/prisma'
 
 export type ReorderState = { error?: string }
 
+// The whole list is rewritten in one UPDATE: one round trip to the cloud
+// database, atomic, and far below the 5s limit a batch of per-row updates hit.
+
 const ITEM_LISTS = {
   class: { types: [ItemType.CLASS], path: '/aulas' },
   digitalProduct: { types: [ItemType.EBOOK, ItemType.VIDEO], path: '/produtos-digitais' },
@@ -46,11 +49,10 @@ export async function moveItem(
       return { error: 'move' }
     }
 
-    await prisma.$transaction(
-      next.map((itemId, order) =>
-        prisma.item.update({ where: { id: itemId }, data: { order } }),
-      ),
-    )
+    await prisma.$executeRaw`
+      UPDATE "Item" AS item SET "order" = v.ord - 1
+      FROM unnest(${next}::text[]) WITH ORDINALITY AS v(id, ord)
+      WHERE item.id = v.id`
   } catch (error) {
     console.error('Failed to reorder items', error)
     return { error: 'persistence' }
@@ -91,11 +93,10 @@ export async function moveStoreSection(
       return { error: 'move' }
     }
 
-    await prisma.$transaction(
-      next.map((sectionId, order) =>
-        prisma.storeSection.update({ where: { id: sectionId }, data: { order } }),
-      ),
-    )
+    await prisma.$executeRaw`
+      UPDATE "StoreSection" AS section SET "order" = v.ord - 1
+      FROM unnest(${next}::text[]) WITH ORDINALITY AS v(id, ord)
+      WHERE section.id = v.id`
   } catch (error) {
     console.error('Failed to reorder store sections', error)
     return { error: 'persistence' }
