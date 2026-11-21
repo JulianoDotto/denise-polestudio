@@ -30,6 +30,9 @@ Navegar para as páginas e abrir o WhatsApp ou o Instagram.
 Nada nesta página. Mudar textos ou fotos da home exige editar `hardcoded/`.
 
 ## Regras
-- A ordem das páginas no índice da home (`homeLinks` em `app/page.tsx`) é a mesma do rodapé e
-  da numeração "01 / 05" do topo das páginas internas (`PAGES` em
-  `components/site/PageHero.tsx`). Ao incluir uma página, atualize os três.
+- A ordem das páginas está repetida em quatro lugares. Ao incluir ou reordenar uma página,
+  atualize todos:
+  - `homeLinks` em `app/page.tsx`;
+  - `SITE_LINKS` em `components/site/Footer.tsx`;
+  - `PAGES` em `components/site/PageHero.tsx`;
+  - o `index={n} total={5}` passado ao `PageHero` em cada `app/<rota>/page.tsx`.

@@ -1,7 +1,8 @@
 # AGENTS.md — Denise Garcia Pole Studio
 
 Site da Denise Garcia, instrutora de pole dance em Caçapava/SP: aulas, workshops, eventos,
-produtos digitais e uma loja. Tudo é vendido pelo WhatsApp. O admin (a própria Denise) edita
+produtos digitais e uma loja. Quase tudo é vendido pelo WhatsApp (produtos digitais podem
+apontar para um link externo de venda), sem carrinho nem pagamento no site. O admin (a própria Denise) edita
 o conteúdo pelo próprio site, sem painel separado.
 
 **Antes de mexer em qualquer coisa, leia

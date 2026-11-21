@@ -33,10 +33,10 @@ formulário em `CONTENT_FORMS.event` (`lib/admin/content-forms.ts`).
 Os 6 formatos **não** são editáveis pelo site. Para mudá-los, edite `hardcoded/event-types.ts`.
 
 ## Regras
-- Ordem: data mais próxima primeiro, depois o criado mais recentemente. Sem setas de
-  reordenação.
-- **Eventos que já passaram continuam aparecendo** até o admin excluir. Se isso é desejado:
-  **a confirmar**.
+- Ordem: data em ordem crescente (`eventDate` asc), depois o criado mais recentemente. Eventos
+  sem data ficam no fim. Sem setas de reordenação.
+- **Eventos que já passaram continuam aparecendo**, e no topo da lista (a data mais antiga vem
+  primeiro), até o admin excluir. Se isso é desejado: **a confirmar**.
 - A data é só dia, mês e ano, sem horário. É gravada em UTC e exibida em UTC, para não virar o
   dia anterior.
 - Dois eventos com o mesmo título geram slugs `-2`, `-3`…. Depois de 20 tentativas aparece o erro

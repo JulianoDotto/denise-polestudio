@@ -27,14 +27,15 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
    (`GlowCard`, `PageIntro`, `HomeHero`) ficam no servidor.
 3. **Slots em vez de condicionais dentro do componente.** O card do site não sabe que existe
    admin: ele recebe `adminControls`, `reorderControls`, `action` e `media` como `ReactNode`, e a
-   página preenche (ver `GlowCard` e `StoreProductRow`).
+   página preenche (ver `GlowCard`).
 4. **Regra de negócio vai para `lib/`, numa função pura e testada.** Ação, página e componente
    só chamam. Exemplos: `moveVisible`, `parsePriceToCents`, `groupFeedPostsByCategory`,
    `parseImageBytes`. Quando a regra depende do banco, injete as dependências (veja
    `persistFeedPostWithCategory` e `persistWorkshopCreation`) para poder testar sem banco.
-5. **Toda Server Action começa com `await requireAdmin()`**, valida a entrada com um `parse*` de
-   `lib/admin/`, grava, chama `revalidatePath` e devolve `{ success, error }` com uma chave
-   curta de erro.
+5. **Toda Server Action começa com `await requireAdmin()`**, valida a entrada, grava, chama
+   `revalidatePath` e devolve `{ success, error }` com uma chave curta de erro. Para validação
+   nova, prefira uma função `parse*` testada em `lib/admin/`. As edições já fazem assim
+   (`lib/admin/item-updates.ts`); as criações ainda validam o título dentro da ação.
 6. **Conteúdo novo no padrão "card editável"** (título, descrição…) entra em
    `CONTENT_FORMS` (`lib/admin/content-forms.ts`): campos, textos e erros. Assim
    `ContentFormModal`, `ContentFields` e `ContentDeleteButton` funcionam sem componente novo.
@@ -43,7 +44,8 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
 8. **Botões:** use `ActionButton` (`components/site/ActionButton.tsx`), que aceita link ou botão,
    `size` sm/md/lg, `variant` solid/outline, `tone` dark/light e tem o efeito de toque. As
    classes vêm de `getActionButtonClasses` (`lib/action-button-styles.ts`). Botões só de ícone do
-   admin usam `contentIconButtonClass` (`components/admin/ContentFields.tsx`).
+   admin usam `contentIconButtonClass` (`components/admin/ContentFields.tsx`). Hoje ele tem
+   36 px, abaixo da regra 10 (ver desvios).
 9. **Cores e fontes:** use os tokens de `app/globals.css` (`vinho`, `vinho-hover`, `marfim`,
    `areia`, `tinta`, `font-display`, `font-body`) em vez de hex soltos. Para combinar classes,
    use `cn()` de `lib/utils.ts`.
@@ -72,11 +74,20 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
   - `app/loja/page.tsx`: mensagens de erro de categoria, "Não foi possível publicar no feed…";
   - `components/admin/FeedCategoryField.tsx`: "Categoria", "Cadastrar nova categoria", "Sem
     categoria", "Nome da nova categoria";
-  - `app/login/LoginForm.tsx`, `app/logout/page.tsx` e o contador "N eventos na agenda" em
+  - `app/login/LoginForm.tsx`, `app/login/page.tsx` ("Carregando..."), `app/logout/page.tsx` e o contador "N eventos na agenda" em
     `app/eventos/page.tsx`.
-- **Hex soltos em vez de tokens:** fundo `#d8bfb6` (`app/layout.tsx`, `Header.tsx`), rosa
-  `#c97a8c`/`#e4aab8` e degradês em vários componentes de `components/site/`.
-- **`app/eventos/page.tsx` tem o card de ingresso inteiro inline** (cerca de 70 linhas). Os
+- **Hex soltos em vez de tokens** (lista viva: `grep -rn "#[0-9a-fA-F]\{6\}" app components`).
+  Exemplos:
+  - fundo `#d8bfb6` em `app/layout.tsx` e `Header.tsx`;
+  - o próprio vinho `#5a1a2a` em `StoreProductRow.tsx`;
+  - rosas `#c97a8c`, `#e4aab8`, `#e3b3be`, `#d4919f`;
+  - `#1a0b10` em `AgeGateModal.tsx`;
+  - `#0E0E0E` em `ContentFormModal.tsx`;
+  - o verde do WhatsApp `#25D366` em `Footer.tsx`.
+- **Alvos de toque menores que 44 px:** `contentIconButtonClass` usa `h-9 w-9` (lápis e lixeira
+  de aulas, eventos, workshops e produtos digitais), e a lixeira da loja em `StoreProductRow.tsx`
+  usa `h-10 w-10`.
+- **`app/eventos/page.tsx` tem o card de ingresso inteiro inline** (cerca de 55 linhas). Os
   outros cards são componentes. Candidato a um `EventTicket` em `components/site/`.
 - **O formulário da loja fica dentro de `app/loja/page.tsx`**, e não num componente de
   `components/admin/` nem no `CONTENT_FORMS`. Ele devolve erros por `redirect` com query string,

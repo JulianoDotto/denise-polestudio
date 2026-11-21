@@ -47,6 +47,9 @@ No código, os produtos da loja aparecem como "posts" ou "feed" (`StorePost`) e 
 - **Foto.**
 - **Duração:** marcar "Publicação fixa" (fica para sempre) **ou** escolher data e hora em "Tempo
   de duração" (some depois disso). Um dos dois é obrigatório.
+  - Atenção: o servidor lê essa data e hora no próprio fuso (`parseDateTime` em
+    `lib/admin/form-values.ts`). Na Vercel, que usa UTC, o post deve sumir cerca de 3 h depois
+    do horário de Brasília que o admin escolheu. **A confirmar** no ambiente real.
 
 Erros e sucesso voltam pela URL (`/loja?error=title`, `/loja?success=1`), e o modal reabre
 mostrando a mensagem.

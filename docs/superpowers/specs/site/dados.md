@@ -1,7 +1,8 @@
 # Dados
 
 Banco PostgreSQL via Prisma 7 (`prisma/schema.prisma`). O cliente fica em `lib/prisma.ts` e usa
-o adapter `pg`. `lib/postgres.ts` força `sslmode=verify-full` em bancos remotos.
+o adapter `pg`. `lib/postgres.ts` troca `sslmode` `prefer`, `require` ou `verify-ca` por
+`verify-full`; sem `sslmode` na URL, nada muda.
 
 ## Modelos
 
@@ -54,8 +55,8 @@ banco. `USER` não tem nenhum uso hoje.
   Sem reordenação manual.
 - **Workshops:** mesma ordenação de `ITEM_ORDER_BY`, mas **sem setas**, e o workshop novo é
   criado com `order` 0.
-- **Eventos:** por `eventDate` (mais próximo primeiro), depois o mais novo. Eventos passados
-  continuam aparecendo até o admin apagar.
+- **Eventos:** `eventDate` crescente, depois o mais novo; sem data fica no fim. Não há filtro de
+  data: eventos passados continuam aparecendo (no topo) até o admin apagar.
 
 A reordenação regrava a lista inteira como 0, 1, 2… num único `UPDATE` e pula os itens que não
 aparecem na tela (`moveVisible` em `lib/admin/reorder.ts`). Design:
@@ -88,5 +89,7 @@ aparecem na tela (`moveVisible` em `lib/admin/reorder.ts`). Design:
 ## Seed
 
 `npm run db:seed` (`prisma/seed.ts`) **apaga todas as tabelas** e recria exemplos: 2 categorias,
-itens de cada tipo e o usuário admin. `assertLocalDatabase` (`lib/seed-guard.ts`) bloqueia
+itens `PRODUCT`, `CLASS`, `EBOOK`, `EVENT` e `WORKSHOP` (nenhum `VIDEO`) e o usuário admin
+(`ADMIN_EMAIL`/`ADMIN_PASSWORD`, ou `admin@local`/`admin123` sem as variáveis). **Não cria
+`StorePost`**, então a loja fica vazia depois do seed. `assertLocalDatabase` (`lib/seed-guard.ts`) bloqueia
 qualquer banco que não seja `localhost`, `127.0.0.1` ou `[::1]`.

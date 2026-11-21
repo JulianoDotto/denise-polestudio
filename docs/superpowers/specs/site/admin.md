@@ -8,9 +8,9 @@ lixeira e setas.
 
 | Rota | O que faz | Arquivos |
 |---|---|---|
-| `/login` | Formulário de e-mail e senha. Quem já está logado vai para a home. Depois de entrar, volta para `?from=` ou para `/` | `app/login/page.tsx`, `app/login/LoginForm.tsx` |
+| `/login` | Formulário de e-mail e senha. Quem já está logado vai para a home. Depois de entrar, vai para `/` (o formulário lê `?from=`, mas nada no site preenche esse parâmetro) | `app/login/page.tsx`, `app/login/LoginForm.tsx` |
 | `/logout` | Encerra a sessão e volta para a home | `app/logout/page.tsx` |
-| `/403` | "Acesso negado", para quem está logado mas não é admin | `app/403/page.tsx` |
+| `/403` | "Acesso negado", para quem está logado mas não é admin, ou foi desativado/rebaixado no banco depois de entrar | `app/403/page.tsx` |
 
 **Não há link para o login nem para o logout no site.** O admin digita o endereço.
 
@@ -30,7 +30,8 @@ lixeira e setas.
    confere a sessão **e** relê o usuário no banco (ainda é admin? ainda está ativo?). Sem sessão,
    manda para `/login`; sem permissão, para `/403`.
 
-Esconder o botão é só aparência. A segurança está no passo 2, e **toda ação nova precisa chamar
+O passo 1 usa só o token. Por isso, um admin desativado continua vendo os botões até a sessão
+expirar, mas qualquer ação dele cai em `/403`. Esconder o botão é só aparência. A segurança está no passo 2, e **toda ação nova precisa chamar
 `requireAdmin()` na primeira linha**.
 
 ## Todos os poderes
@@ -69,8 +70,9 @@ Esconder o botão é só aparência. A segurança está no passo 2, e **toda aç
 ## Padrões das ações
 
 - Os formulários do admin abrem dentro de `AdminModal` (`components/admin/AdminModal.tsx`) e
-  usam `useActionState`. A ação devolve `{ success, error }`, e o `error` é uma chave curta
-  (`title`, `imageType`, `persistence`…) que o modal traduz por `errorMessages`.
+  usam `useActionState`. A ação devolve `{ success, error }` (as de reordenar devolvem
+  `{ error? }`), e o `error` é uma chave curta (`title`, `imageType`, `persistence`…) que o
+  modal traduz por `errorMessages`.
 - A loja é a exceção: devolve o resultado pela URL com `redirect('/loja?error=…')`.
 - Depois de gravar, a ação chama `revalidatePath` da página, que atualiza sem recarregar.
 - Excluir sempre pede confirmação num diálogo.

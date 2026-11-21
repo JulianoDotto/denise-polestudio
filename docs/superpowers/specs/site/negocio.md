@@ -20,7 +20,7 @@ A vivência "O despertar da Deusa" é "direcionada ao público feminino ou quem 
 | Oferta | Página | Como compra |
 |---|---|---|
 | Aulas presenciais de pole dance em Caçapava/SP | `/aulas` | WhatsApp (pergunta horários e valores) |
-| Produtos físicos (pole, sensualidade, bem-estar, autocuidado, sex shop) | `/loja` | WhatsApp com o nome e o preço do produto. Aceita PIX, dinheiro, cartão e parcelamento, com envio para todo o Brasil (`LOJA_PAYMENT_FACTS_1`) |
+| Produtos físicos para pole dance, sensualidade, bem-estar e autocuidado, incluindo produtos adultos (por isso o aviso de 18 anos). As categorias reais são criadas pelo admin; quais existem hoje: **a confirmar** | `/loja` | WhatsApp com o nome e o preço do produto. Aceita PIX, dinheiro, cartão e parcelamento, com envio para todo o Brasil (`LOJA_PAYMENT_FACTS_1`) |
 | Produtos digitais: e-books e aulas gravadas | `/produtos-digitais` | Link externo cadastrado pelo admin (o campo se chama `hotmartUrl`) ou, sem link, WhatsApp |
 | Eventos que ela leva até o cliente (chá de lingerie, reunião de amigas, performances, Pole Canto, palestras, vivência) | `/eventos` | WhatsApp |
 | Agenda de eventos abertos com data | `/eventos` | WhatsApp |
