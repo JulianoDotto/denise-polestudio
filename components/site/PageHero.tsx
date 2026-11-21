@@ -30,7 +30,7 @@ const GRAIN =
 // The studio name set large in outline, as a watermark behind the type hero.
 function NameMark() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[22%] select-none @container sm:top-[16%]">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[20%] select-none @container sm:top-[19%]">
       <p className="mx-auto max-w-5xl whitespace-nowrap px-4 font-display text-[min(10.2cqw,6rem)] uppercase leading-none tracking-[0.06em] text-transparent [-webkit-text-stroke:1px_rgba(243,236,226,0.2)]">
         Denise Garcia
       </p>
@@ -42,7 +42,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
   if (!imageUrl) {
     const progress = index && total ? (index / total) * 100 : 0
     return (
-      <section className="relative isolate h-[360px] overflow-hidden bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[400px]">
+      <section className="relative isolate h-[300px] overflow-hidden bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[320px]">
         {/* Light: a soft marfim glow top left, a rosé glow low on the right. */}
         <div
           aria-hidden="true"
@@ -110,11 +110,11 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
                 {eyebrow}
               </p>
             ) : null}
-            <h1 className="hero-title mt-4 font-display text-[min(8.8vw,2.3rem)] uppercase leading-[0.95] text-marfim sm:text-6xl">
+            <h1 className="hero-title mt-4 font-display text-[min(8.8vw,2.3rem)] uppercase leading-[0.95] text-marfim sm:text-5xl">
               {title}
             </h1>
             {/* Hairline that fills up to this page's place among the five. */}
-            <div aria-hidden="true" className="relative mt-8 h-px w-full bg-marfim/15">
+            <div aria-hidden="true" className="relative mt-6 h-px w-full bg-marfim/15">
               {progress ? (
                 <>
                   <span className="absolute inset-y-0 left-0 bg-marfim/60" style={{ width: `${progress}%` }} />
