@@ -13,6 +13,7 @@ export const TEXTS = {
   META_PRODUTOS_DIGITAIS_DESCRIPTION_1: 'E-books e aulas gravadas de pole dance e sensualidade para aprender no seu ritmo.',
   META_WORKSHOPS_TITLE_1: 'Workshops',
   META_WORKSHOPS_DESCRIPTION_1: 'Workshops de pole dance com temas específicos para conhecer ou aprofundar técnicas e movimentos.',
+  SITE_AGE_GATE_EYEBROW_1: 'Conteúdo adulto',
   SITE_AGE_GATE_TITLE_1: 'Você tem 18 anos ou mais?',
   SITE_AGE_GATE_DESCRIPTION_1: 'Alguns produtos desta página são destinados apenas a maiores de 18 anos.',
   SITE_AGE_GATE_CONFIRM_1: 'Sim, tenho 18 anos ou mais',
