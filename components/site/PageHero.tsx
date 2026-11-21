@@ -30,7 +30,7 @@ const GRAIN =
 // The studio name set large in outline, as a watermark behind the type hero.
 function NameMark() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[24%] select-none @container sm:top-[20%]">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[22%] select-none @container sm:top-[16%]">
       <p className="mx-auto max-w-5xl whitespace-nowrap px-4 font-display text-[min(10.2cqw,6rem)] uppercase leading-none tracking-[0.06em] text-transparent [-webkit-text-stroke:1px_rgba(243,236,226,0.2)]">
         Denise Garcia
       </p>
@@ -42,7 +42,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
   if (!imageUrl) {
     const progress = index && total ? (index / total) * 100 : 0
     return (
-      <section className="relative isolate h-[440px] overflow-hidden bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[500px]">
+      <section className="relative isolate h-[360px] overflow-hidden bg-[linear-gradient(165deg,#6e2235_0%,#5a1a2a_40%,#2a0b13_100%)] text-marfim sm:h-[400px]">
         {/* Light: a soft marfim glow top left, a rosé glow low on the right. */}
         <div
           aria-hidden="true"
@@ -66,7 +66,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
           </div>
         </div>
         <NameMark />
-        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-between px-4 pb-10 pt-10">
+        <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col justify-between px-4 pb-8 pt-8">
           <div className="flex items-center justify-between text-[11px] tracking-[0.32em] text-marfim/60">
             {index && total ? (
               <p aria-hidden="true" className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
                 {eyebrow}
               </p>
             ) : null}
-            <h1 className="hero-title mt-4 font-display text-[2.3rem] uppercase leading-[0.95] text-marfim sm:text-7xl">
+            <h1 className="hero-title mt-4 font-display text-[min(8.8vw,2.3rem)] uppercase leading-[0.95] text-marfim sm:text-6xl">
               {title}
             </h1>
             {/* Hairline that fills up to this page's place among the five. */}
