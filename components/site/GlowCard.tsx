@@ -20,7 +20,7 @@ export default function GlowCard({
 }: GlowCardProps) {
   return (
     <article className="group relative flex rounded-[28px] shadow-[0_24px_48px_-28px_rgba(90,26,42,0.6)] ring-1 ring-marfim/10 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_32px_64px_-28px_rgba(90,26,42,0.8)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-      <div className="relative isolate flex w-full flex-col bg-tinta p-7 text-marfim [clip-path:inset(0_round_28px)]">
+      <div className="relative isolate flex w-full flex-col bg-tinta p-7 text-marfim [clip-path:inset(0_round_28px)] [overflow:clip]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-28 -top-28 -z-10 h-80 w-80 rounded-full bg-vinho opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"

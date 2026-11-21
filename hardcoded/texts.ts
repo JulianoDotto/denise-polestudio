@@ -64,6 +64,7 @@ export const TEXTS = {
   HOME_LINK_WORKSHOPS_TITLE_1: 'Workshops',
   HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1: 'Produtos digitais',
   LOJA_HERO_TITLE_1: 'Loja',
+  PAGE_HERO_NAV_ARIA_1: 'Páginas do site',
   LOJA_HERO_EYEBROW_1: 'Coleção',
   LOJA_SECTION_TITLE_1: 'A loja',
   LOJA_INTRO_HEADLINE_1: 'Para o palco, o quarto e o autocuidado',
