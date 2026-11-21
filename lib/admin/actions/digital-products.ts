@@ -8,6 +8,7 @@ import { normalizeExternalUrl } from '@/lib/externalUrl'
 import { createItemWithUniqueSlug } from '@/lib/admin/create-item'
 import { parseCheckbox } from '@/lib/admin/form-values'
 import { parseDigitalProductUpdate } from '@/lib/admin/item-updates'
+import { nextItemOrder } from '@/lib/admin/next-order'
 import { slugify } from '@/lib/admin/slug'
 
 export async function createDigitalProductInline(
@@ -38,6 +39,7 @@ export async function createDigitalProductInline(
       hotmartUrl,
       isActive,
       type,
+      order: await nextItemOrder(['EBOOK', 'VIDEO']),
     },
     slug,
   )

@@ -10,6 +10,7 @@ import { readImageField } from '@/lib/admin/image-file'
 import { ImageUploadError, persistWithImage, removeStoredImage } from '@/lib/admin/image-flow'
 import { blobImageStore } from '@/lib/admin/image-store'
 import { parseClassUpdate } from '@/lib/admin/item-updates'
+import { nextItemOrder } from '@/lib/admin/next-order'
 import { slugify } from '@/lib/admin/slug'
 
 export async function createClassInline(
@@ -31,6 +32,7 @@ export async function createClassInline(
   if ('error' in upload) return { success: false, error: upload.error }
 
   try {
+    const order = await nextItemOrder(['CLASS'])
     await persistWithImage(blobImageStore, {
       folder: 'aulas',
       image: upload.image,
@@ -42,6 +44,7 @@ export async function createClassInline(
             coverUrl: newUrl,
             isActive,
             type: 'CLASS',
+            order,
           },
           slug,
         ),

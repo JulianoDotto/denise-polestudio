@@ -7,6 +7,7 @@ import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { requireAdmin } from '@/lib/auth/requireAdmin'
 import { parseFeedCategory } from '@/lib/admin/feed-category'
+import { nextStoreSectionOrder } from '@/lib/admin/next-order'
 import {
   persistFeedPostWithCategory,
   FeedCategoryDuplicateError,
@@ -73,6 +74,7 @@ export async function createStorePost(formData: FormData) {
                             create: {
                               title: data.category.title,
                               slug: data.category.slug,
+                              order: await nextStoreSectionOrder(),
                             },
                           }
                         : undefined,
