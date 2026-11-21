@@ -56,7 +56,7 @@ export default async function AulasPage() {
                     alt={aula.title}
                     loading={index < 2 ? undefined : 'lazy'}
                     decoding="async"
-                    className="h-52 w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="block h-auto w-full transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 ) : undefined
               }
