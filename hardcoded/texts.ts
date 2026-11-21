@@ -88,7 +88,6 @@ export const TEXTS = {
   LOJA_ADMIN_ERROR_TITLE_1: 'Informe um título para a publicação.',
   LOJA_ADMIN_ERROR_EXPIRES_1: 'Defina uma data de duração ou marque como publicação fixa.',
   AULAS_PAGE_TITLE_1: 'Aulas',
-  AULAS_HERO_EYEBROW_1: 'Pole dance',
   AULAS_SECTION_TITLE_1: 'As aulas',
   AULAS_INTRO_HEADLINE_1: 'Do primeiro giro à sua melhor versão',
   AULAS_DEFAULT_DESC_1: 'Você começa pelo seu nível, com orientação e evolução gradual.',

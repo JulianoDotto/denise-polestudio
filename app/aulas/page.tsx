@@ -26,7 +26,7 @@ export default async function AulasPage() {
 
   return (
     <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
-      <PageHero title={TEXTS.AULAS_PAGE_TITLE_1} eyebrow={TEXTS.AULAS_HERO_EYEBROW_1} index={1} total={5} />
+      <PageHero title={TEXTS.AULAS_PAGE_TITLE_1} index={1} total={5} />
 
       <PageIntro
         eyebrow={TEXTS.AULAS_SECTION_TITLE_1}
