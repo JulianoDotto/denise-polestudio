@@ -21,6 +21,7 @@ const homeLinks: HomeLink[] = [
     title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
     description: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_DESC_1,
     href: '/produtos-digitais',
+    imageUrl: IMAGES.HOME_LINK_PRODUTOS_DIGITAIS_1,
   },
   {
     title: TEXTS.HOME_LINK_EVENTOS_TITLE_1,
