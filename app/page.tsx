@@ -1,24 +1,48 @@
 import HomeHero from '@/components/site/HomeHero'
 import HomeIntro from '@/components/site/HomeIntro'
-import ImageLinkCard from '@/components/site/ImageLinkCard'
+import HomeLinks, { type HomeLink } from '@/components/site/HomeLinks'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 
-const helpLinks = [
-  { title: TEXTS.HOME_LINK_AULAS_TITLE_1, href: '/aulas', imageUrl: IMAGES.HOME_LINK_AULAS_1 },
-  { title: TEXTS.HOME_LINK_LOJA_TITLE_1, href: '/loja', imageUrl: IMAGES.HOME_LINK_LOJA_1 },
+const homeLinks: HomeLink[] = [
+  {
+    title: TEXTS.HOME_LINK_AULAS_TITLE_1,
+    description: TEXTS.HOME_LINK_AULAS_DESC_1,
+    href: '/aulas',
+    imageUrl: IMAGES.HOME_LINK_AULAS_1,
+    imagePosition: '58% 50%',
+  },
+  {
+    title: TEXTS.HOME_LINK_LOJA_TITLE_1,
+    description: TEXTS.HOME_LINK_LOJA_DESC_1,
+    href: '/loja',
+    imageUrl: IMAGES.HOME_LINK_LOJA_1,
+    imagePosition: '52% 50%',
+  },
   {
     title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
+    description: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_DESC_1,
     href: '/produtos-digitais',
-    imageUrl: IMAGES.HOME_LINK_PRODUTOS_DIGITAIS_1,
   },
-  { title: TEXTS.HOME_LINK_EVENTOS_TITLE_1, href: '/eventos', imageUrl: IMAGES.HOME_LINK_EVENTOS_1 },
-  { title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1, href: '/workshops', imageUrl: IMAGES.HOME_LINK_WORKSHOPS_1 },
+  {
+    title: TEXTS.HOME_LINK_EVENTOS_TITLE_1,
+    description: TEXTS.HOME_LINK_EVENTOS_DESC_1,
+    href: '/eventos',
+    imageUrl: IMAGES.HOME_LINK_EVENTOS_1,
+    imagePosition: '38% 30%',
+  },
+  {
+    title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1,
+    description: TEXTS.HOME_LINK_WORKSHOPS_DESC_1,
+    href: '/workshops',
+    imageUrl: IMAGES.HOME_LINK_WORKSHOPS_1,
+    imagePosition: '40% 50%',
+  },
 ]
 
 export default async function Home() {
   return (
-    <div className="pb-12">
+    <div className="pb-6">
       <HomeHero
         imageUrl={IMAGES.HOME_HERO_1}
         headline={TEXTS.HOME_HERO_HEADLINE_1}
@@ -34,22 +58,7 @@ export default async function Home() {
         imageAlt={TEXTS.HOME_INTRO_IMAGE_ALT_1}
       />
 
-      <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-12">
-        <h2 className="text-center font-display text-2xl uppercase tracking-[0.4em] text-marfim/90">
-          {TEXTS.HOME_HELP_TITLE_1}
-        </h2>
-        <div className="grid gap-3">
-          {helpLinks.map((item, index) => (
-            <ImageLinkCard
-              key={item.href}
-              href={item.href}
-              title={item.title}
-              imageUrl={item.imageUrl}
-              index={index}
-            />
-          ))}
-        </div>
-      </section>
+      <HomeLinks eyebrow={TEXTS.HOME_HELP_EYEBROW_1} title={TEXTS.HOME_HELP_TITLE_1} links={homeLinks} />
     </div>
   )
 }

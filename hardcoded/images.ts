@@ -6,7 +6,5 @@ export const IMAGES = {
   HOME_LINK_AULAS_1: '/images/home/link-aulas.webp',
   HOME_LINK_LOJA_1: '/images/home/link-loja.webp',
   HOME_LINK_EVENTOS_1: '/images/home/link-eventos.webp',
-  // Same photo as the classes link until a photo of its own arrives.
-  HOME_LINK_PRODUTOS_DIGITAIS_1: '/images/home/link-aulas.webp',
   HOME_LINK_WORKSHOPS_1: '/images/home/link-workshops.webp',
 } as const
