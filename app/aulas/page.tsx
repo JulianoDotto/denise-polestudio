@@ -25,8 +25,9 @@ export default async function AulasPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
+    <div className="flex flex-col gap-3 pb-3">
       <PageHero title={TEXTS.AULAS_PAGE_TITLE_1} index={1} total={5} />
+      <div className="mx-3 rounded-[28px] bg-areia text-zinc-900 flex flex-col gap-10 pb-12 pt-10">
 
       <PageIntro
         eyebrow={TEXTS.AULAS_SECTION_TITLE_1}
@@ -94,6 +95,7 @@ export default async function AulasPage() {
           <ContentFormModal kind="class" mode="create" />
         </div>
       ) : null}
+      </div>
     </div>
   )
 }

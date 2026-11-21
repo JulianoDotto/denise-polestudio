@@ -16,7 +16,7 @@ export default function HomeIntro({
   imageAlt,
 }: HomeIntroProps) {
   return (
-    <section className="bg-areia">
+    <section className="mx-3 mt-3 rounded-[28px] bg-areia">
       <div className="mx-auto grid w-full max-w-5xl gap-8 px-6 py-14 sm:grid-cols-[0.9fr_1.1fr] sm:items-center sm:gap-10">
         <div className="overflow-hidden rounded-[28px] [clip-path:inset(0_round_28px)]">
           <img

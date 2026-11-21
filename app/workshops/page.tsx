@@ -26,10 +26,11 @@ export default async function WorkshopsPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="flex flex-col gap-10 bg-areia pb-12 text-zinc-900">
+    <div className="flex flex-col gap-3 pb-3">
       <PageHero
         title={TEXTS.WORKSHOPS_PAGE_TITLE_1}
         eyebrow={TEXTS.WORKSHOPS_HERO_EYEBROW_1} index={5} total={5} />
+      <div className="mx-3 rounded-[28px] bg-areia text-zinc-900 flex flex-col gap-10 pb-12 pt-10">
 
       <PageIntro
         eyebrow={TEXTS.WORKSHOPS_SECTION_TITLE_1}
@@ -112,6 +113,7 @@ export default async function WorkshopsPage() {
           <WorkshopCreateModal />
         </div>
       ) : null}
+      </div>
     </div>
   )
 }

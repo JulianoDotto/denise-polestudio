@@ -26,10 +26,11 @@ export default async function EbooksPage() {
   const isAdmin = session?.user?.role === 'ADMIN'
 
   return (
-    <div className="flex flex-col gap-10 pb-12 text-zinc-900 bg-areia">
+    <div className="flex flex-col gap-3 pb-3">
       <PageHero
         title={TEXTS.PRODUTOS_DIGITAIS_HERO_TITLE_1}
         eyebrow={TEXTS.PRODUTOS_DIGITAIS_HERO_EYEBROW_1} index={3} total={5} />
+      <div className="mx-3 rounded-[28px] bg-areia text-zinc-900 flex flex-col gap-10 pb-12 pt-10">
 
       <PageIntro
         eyebrow={TEXTS.PRODUTOS_DIGITAIS_SECTION_TITLE_1}
@@ -111,6 +112,7 @@ export default async function EbooksPage() {
           <ContentFormModal kind="digitalProduct" mode="create" />
         </div>
       ) : null}
+      </div>
     </div>
   )
 }

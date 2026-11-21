@@ -3,7 +3,7 @@ import { TEXTS } from '@/hardcoded/texts'
 
 export default async function Header() {
   return (
-    <header className="border-b border-vinho/10 bg-areia">
+    <header className="border-b border-vinho/10 bg-[#d8bfb6]">
       <div className="mx-auto flex max-w-6xl items-center justify-center px-4 py-5">
         <Link
           href="/"

@@ -45,10 +45,10 @@ export default async function EventosPage() {
   const contactUrl = phone ? buildWhatsAppUrl(phone, TEXTS.EVENTOS_WHATSAPP_MESSAGE_1) : ''
 
   return (
-    <div className="flex flex-col bg-areia pb-14 text-zinc-900">
+    <div className="flex flex-col gap-3 pb-3">
       <PageHero title={TEXTS.EVENTOS_PAGE_TITLE_1} eyebrow={TEXTS.EVENTOS_HERO_EYEBROW_1} index={4} total={5} />
 
-      <div className="py-12 sm:py-16">
+      <div className="mx-3 rounded-[28px] bg-areia text-zinc-900 py-12 sm:py-16">
         <PageIntro
           eyebrow={TEXTS.EVENTOS_TYPES_TITLE_1}
           headline={TEXTS.EVENTOS_INTRO_HEADLINE_1}
@@ -58,7 +58,7 @@ export default async function EventosPage() {
 
       <EventFormats phone={phone} />
 
-      <section className="mx-auto w-full max-w-5xl px-4 pt-14 sm:pt-20">
+      <section className="mx-3 rounded-[28px] bg-areia text-zinc-900 px-4 pb-12 pt-12 sm:px-8 sm:pt-16">
         <p className="flex items-center gap-2 text-[11px] uppercase tracking-[0.32em] text-vinho/70">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#c97a8c]" />
           {TEXTS.EVENTOS_AGENDA_EYEBROW_1}
