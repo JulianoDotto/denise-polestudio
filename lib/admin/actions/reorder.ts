@@ -40,7 +40,11 @@ export async function moveItem(
       id,
       direction,
     )
-    if (!next) return { error: 'move' }
+    if (!next) {
+      // The page was stale: refresh it so the next tap works on what is really there.
+      revalidatePath(list.path)
+      return { error: 'move' }
+    }
 
     await prisma.$transaction(
       next.map((itemId, order) =>
@@ -82,7 +86,10 @@ export async function moveStoreSection(
       id,
       direction,
     )
-    if (!next) return { error: 'move' }
+    if (!next) {
+      revalidatePath('/loja')
+      return { error: 'move' }
+    }
 
     await prisma.$transaction(
       next.map((sectionId, order) =>
