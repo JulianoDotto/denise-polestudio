@@ -10,14 +10,12 @@ const homeLinks: HomeLink[] = [
     description: TEXTS.HOME_LINK_AULAS_DESC_1,
     href: '/aulas',
     imageUrl: IMAGES.HOME_LINK_AULAS_1,
-    imagePosition: '58% 50%',
   },
   {
     title: TEXTS.HOME_LINK_LOJA_TITLE_1,
     description: TEXTS.HOME_LINK_LOJA_DESC_1,
     href: '/loja',
     imageUrl: IMAGES.HOME_LINK_LOJA_1,
-    imagePosition: '52% 50%',
   },
   {
     title: TEXTS.HOME_LINK_PRODUTOS_DIGITAIS_TITLE_1,
@@ -29,14 +27,12 @@ const homeLinks: HomeLink[] = [
     description: TEXTS.HOME_LINK_EVENTOS_DESC_1,
     href: '/eventos',
     imageUrl: IMAGES.HOME_LINK_EVENTOS_1,
-    imagePosition: '38% 30%',
   },
   {
     title: TEXTS.HOME_LINK_WORKSHOPS_TITLE_1,
     description: TEXTS.HOME_LINK_WORKSHOPS_DESC_1,
     href: '/workshops',
     imageUrl: IMAGES.HOME_LINK_WORKSHOPS_1,
-    imagePosition: '40% 50%',
   },
 ]
 

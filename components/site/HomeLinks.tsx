@@ -7,8 +7,6 @@ export type HomeLink = {
   description: string
   // Without a photo the thumbnail is a wine tile with an icon.
   imageUrl?: string
-  // Focal point for the square crop on phones.
-  imagePosition?: string
 }
 
 type HomeLinksProps = {
@@ -34,7 +32,7 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
           <li key={link.href} className="border-b border-marfim/10">
             <Link
               href={link.href}
-              className="group relative flex items-center gap-3.5 py-4 transition-transform duration-150 active:scale-[0.985] motion-reduce:active:scale-100 focus-visible:outline-none sm:gap-7 sm:py-5"
+              className="group relative flex flex-wrap items-center gap-x-3.5 gap-y-3 py-4 transition-transform duration-150 active:scale-[0.985] motion-reduce:active:scale-100 focus-visible:outline-none sm:flex-nowrap sm:gap-7 sm:py-5"
             >
               {/* Wine wash behind the row on hover and focus. */}
               <span
@@ -42,15 +40,15 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
                 className="pointer-events-none absolute inset-y-1 -inset-x-3 rounded-2xl bg-vinho/0 ring-marfim/0 transition duration-300 group-hover:bg-vinho/45 group-active:bg-vinho/60 group-focus-visible:bg-vinho/45 group-focus-visible:ring-2 group-focus-visible:ring-marfim/80 motion-reduce:transition-none sm:-inset-x-4"
               />
 
-              <span className="relative h-16 w-16 shrink-0 min-[360px]:h-[72px] min-[360px]:w-[72px] overflow-hidden rounded-2xl ring-1 ring-marfim/10 sm:h-24 sm:w-40">
+              {/* Frame in the photos' own 358:156 shape, so cover never crops them. */}
+              <span className="relative aspect-[358/156] w-full overflow-hidden rounded-2xl ring-1 ring-marfim/10 sm:w-44 sm:shrink-0">
                 {link.imageUrl ? (
                   <img
                     src={link.imageUrl}
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    style={{ objectPosition: link.imagePosition }}
-                    className="h-full w-full object-cover sm:!object-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 ) : (
                   <span className="flex h-full w-full items-center justify-center bg-[linear-gradient(150deg,#6e2235_0%,#3a101c_100%)]">
@@ -63,7 +61,7 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
                 <span aria-hidden="true" className="block text-[11px] tracking-[0.32em] text-marfim/45">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="mt-1 block font-display text-base min-[360px]:text-lg uppercase leading-tight tracking-[0.12em] min-[360px]:tracking-[0.16em] sm:tracking-[0.18em] text-marfim transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 sm:text-3xl">
+                <span className="mt-1 block font-display text-xl uppercase leading-tight tracking-[0.16em] sm:tracking-[0.18em] text-marfim transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 sm:text-3xl">
                   {link.title}
                 </span>
                 <span className="mt-1 block text-sm leading-snug text-marfim/65 sm:mt-1.5 sm:text-[15px]">
@@ -73,9 +71,9 @@ export default function HomeLinks({ eyebrow, title, links }: HomeLinksProps) {
 
               <span
                 aria-hidden="true"
-                className="relative inline-flex h-9 w-9 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-marfim/30 text-marfim transition duration-300 ease-out group-hover:border-marfim group-hover:bg-marfim group-hover:text-tinta group-active:bg-marfim group-active:text-tinta group-focus-visible:bg-marfim group-focus-visible:text-tinta motion-reduce:transition-none"
+                className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-marfim/30 text-marfim transition duration-300 ease-out group-hover:border-marfim group-hover:bg-marfim group-hover:text-tinta group-active:bg-marfim group-active:text-tinta group-focus-visible:bg-marfim group-focus-visible:text-tinta motion-reduce:transition-none"
               >
-                <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
+                <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0" />
               </span>
             </Link>
           </li>
