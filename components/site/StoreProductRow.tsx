@@ -105,7 +105,7 @@ export default function StoreProductRow({
 
       <ul
         ref={listRef}
-        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-20 pt-2 -mb-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-4 pb-20 pt-2 -mb-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item, index) => {
           const price = formatPrice(item.priceCents)
@@ -155,7 +155,7 @@ export default function StoreProductRow({
               className={single ? 'w-full shrink-0' : 'w-[72%] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)]'}
             >
               <article className="group relative h-full rounded-[28px] shadow-[0_24px_48px_-28px_rgba(90,26,42,0.6)] ring-1 ring-marfim/10 transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_32px_64px_-28px_rgba(90,26,42,0.8)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                <div className={`relative isolate flex h-full bg-tinta text-marfim [clip-path:inset(0_round_28px)] ${single ? 'flex-col sm:flex-row' : 'flex-col'}`}>
+                <div className={`relative isolate flex h-full bg-tinta text-marfim [clip-path:inset(0_round_28px)] [overflow:clip] ${single ? 'flex-col sm:flex-row' : 'flex-col'}`}>
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute -bottom-28 -right-24 -z-10 h-64 w-64 rounded-full bg-vinho opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
