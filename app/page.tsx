@@ -5,10 +5,11 @@ import HomeIntro from '@/components/site/HomeIntro'
 import HomeLinks, { type HomeLink } from '@/components/site/HomeLinks'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: { absolute: TEXTS.SITE_HOME_METADATA_TITLE_1 },
-  alternates: { canonical: '/' },
+  ...pageMetadata('/'),
 }
 
 const homeLinks: HomeLink[] = [

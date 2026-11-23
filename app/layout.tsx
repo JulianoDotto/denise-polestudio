@@ -5,7 +5,7 @@ import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import { TEXTS } from "@/hardcoded/texts";
 import { preconnect } from "react-dom";
-import { buildStudioJsonLd, getSiteUrl, serializeJsonLd } from "@/lib/seo";
+import { BASE_OPEN_GRAPH, buildStudioJsonLd, getSiteUrl, serializeJsonLd } from "@/lib/seo";
 import { getBlobOrigin } from "@/lib/url-state";
 
 const siteUrl = getSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
@@ -34,11 +34,7 @@ export const metadata: Metadata = {
     template: `%s · ${TEXTS.SITE_METADATA_TITLE_1}`,
   },
   description: TEXTS.SITE_METADATA_DESCRIPTION_1,
-  openGraph: {
-    siteName: TEXTS.SITE_METADATA_TITLE_1,
-    locale: "pt_BR",
-    type: "website",
-  },
+  openGraph: BASE_OPEN_GRAPH,
 };
 
 // Matches the page and header background, so the mobile browser bar blends in.

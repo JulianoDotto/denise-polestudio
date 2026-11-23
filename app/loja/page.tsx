@@ -15,6 +15,7 @@ import FeedCategoryField from '@/components/admin/FeedCategoryField'
 import ReorderButtons from '@/components/admin/ReorderButtons'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 import { createStorePost } from '@/lib/admin/actions/store-posts'
 import { authOptions } from '@/lib/auth/authOptions'
 import { prisma } from '@/lib/prisma'
@@ -24,7 +25,7 @@ import { activeFeedPostWhere, groupFeedPostsByCategory } from '@/lib/feed-groups
 export const metadata: Metadata = {
   title: TEXTS.META_LOJA_TITLE_1,
   description: TEXTS.META_LOJA_DESCRIPTION_1,
-  alternates: { canonical: '/loja' },
+  ...pageMetadata('/loja'),
 }
 
 type LojaSearchParams = {

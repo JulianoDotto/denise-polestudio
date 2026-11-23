@@ -13,11 +13,12 @@ import { prisma } from '@/lib/prisma'
 import { authOptions } from '@/lib/auth/authOptions'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: TEXTS.META_EVENTOS_TITLE_1,
   description: TEXTS.META_EVENTOS_DESCRIPTION_1,
-  alternates: { canonical: '/eventos' },
+  ...pageMetadata('/eventos'),
 }
 
 function getEventDateParts(date?: Date | null) {

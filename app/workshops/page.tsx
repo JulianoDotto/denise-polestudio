@@ -14,11 +14,12 @@ import { authOptions } from '@/lib/auth/authOptions'
 import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: TEXTS.META_WORKSHOPS_TITLE_1,
   description: TEXTS.META_WORKSHOPS_DESCRIPTION_1,
-  alternates: { canonical: '/workshops' },
+  ...pageMetadata('/workshops'),
 }
 
 export default async function WorkshopsPage() {

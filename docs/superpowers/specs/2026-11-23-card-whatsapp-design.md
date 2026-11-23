@@ -50,3 +50,11 @@ recomprimida, em que a foto cheia de detalhe vira borrão e o subtítulo some. C
 (121 → 97 KB) não resolveu. Trocamos o modelo para a opção B: fundo vinho liso, recorte fechado no
 rosto da Denise no quadrado central e uma faixa vinho com o nome grande. A opção A (só a marca) foi
 descartada por perder a foto.
+
+## Revisão 2: og:url
+
+Mesmo com o modelo B, o WhatsApp continuou mostrando a miniatura pequena, que é granulada por
+natureza (ele reduz a imagem para uns 100 px). A imagem já cumpria os requisitos da prévia grande
+(abaixo de 600 KB, 300 px ou mais de largura, proporção até 4:1). O que faltava era o `og:url`, que a
+documentação do WhatsApp pede junto com título e descrição; sem ele, o WhatsApp "relaxa" e cai na
+prévia pequena. Cada página pública passa a mandar `og:url`.

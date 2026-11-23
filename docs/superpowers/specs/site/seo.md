@@ -27,6 +27,10 @@ o card é fundo vinho liso, com um recorte fechado no rosto da Denise no quadrad
 folhas desfocado) e, embaixo, uma faixa vinho com "DENISE GARCIA" e "POLE DANCE". A cidade fica no
 título da prévia. O JPEG sai com qualidade 82 e fica abaixo de 100 KB.
 
+Cada página pública manda `og:url` (via `pageMetadata` em `lib/seo.ts`, junto com o canônico).
+A documentação do WhatsApp exige `og:title`, `og:description` e `og:url`; sem o `og:url` ele cai na
+prévia pequena. Página nova pública: usar `...pageMetadata('/caminho')` no `metadata`.
+
 O WhatsApp guarda a prévia em cache. Para ver uma imagem nova, mande o link com `?v=2` no final.
 
 ## Endereço do site

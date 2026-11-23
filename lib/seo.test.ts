@@ -9,6 +9,7 @@ import {
   buildSitemapEntries,
   buildStudioJsonLd,
   getSiteUrl,
+  pageMetadata,
   serializeJsonLd,
 } from './seo'
 
@@ -85,4 +86,15 @@ test('json-ld serialization cannot close the script tag', () => {
   const out = serializeJsonLd({ name: '</script><script>alert(1)</script>' })
   assert.equal(out.includes('<'), false)
   assert.deepEqual(JSON.parse(out), { name: '</script><script>alert(1)</script>' })
+})
+
+test('each public page carries its canonical and the og:url WhatsApp requires', () => {
+  for (const path of PUBLIC_PATHS) {
+    const meta = pageMetadata(path)
+    assert.deepEqual(meta.alternates, { canonical: path })
+    assert.equal(meta.openGraph?.url, path)
+    // A page-level openGraph replaces the layout one, so it has to repeat the shared fields.
+    assert.equal(meta.openGraph?.siteName, TEXTS.SITE_METADATA_TITLE_1)
+    assert.equal(meta.openGraph?.locale, 'pt_BR')
+  }
 })

@@ -14,11 +14,12 @@ import { getItemsByType } from '@/lib/db'
 import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: TEXTS.META_AULAS_TITLE_1,
   description: TEXTS.META_AULAS_DESCRIPTION_1,
-  alternates: { canonical: '/aulas' },
+  ...pageMetadata('/aulas'),
 }
 
 export default async function AulasPage() {

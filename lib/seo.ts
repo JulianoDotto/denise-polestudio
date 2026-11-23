@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next'
+import type { Metadata, MetadataRoute } from 'next'
 
 import { TEXTS } from '../hardcoded/texts'
 
@@ -9,6 +9,22 @@ export const PUBLIC_PATHS = ['/', '/aulas', '/workshops', '/eventos', '/produtos
 
 // Pages that must stay out of search results.
 const PRIVATE_PATHS = ['/login', '/logout', '/403', '/api/']
+
+// Open Graph fields shared by every page.
+export const BASE_OPEN_GRAPH = {
+  siteName: TEXTS.SITE_METADATA_TITLE_1,
+  locale: 'pt_BR',
+  type: 'website',
+} as const
+
+// Canonical plus og:url for a public page. WhatsApp falls back to the small preview without og:url.
+// A page-level openGraph replaces the layout one, so the shared fields go along.
+export function pageMetadata(path: (typeof PUBLIC_PATHS)[number]): Pick<Metadata, 'alternates' | 'openGraph'> {
+  return {
+    alternates: { canonical: path },
+    openGraph: { ...BASE_OPEN_GRAPH, url: path },
+  }
+}
 
 export function getSiteUrl(raw?: string): string {
   const value = raw?.trim()

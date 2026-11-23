@@ -15,11 +15,12 @@ import { buildWhatsAppUrl, getWhatsAppPhone } from '@/lib/whatsapp'
 import { authOptions } from '@/lib/auth/authOptions'
 import { normalizeExternalUrl } from '@/lib/externalUrl'
 import { TEXTS } from '@/hardcoded/texts'
+import { pageMetadata } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: TEXTS.META_PRODUTOS_DIGITAIS_TITLE_1,
   description: TEXTS.META_PRODUTOS_DIGITAIS_DESCRIPTION_1,
-  alternates: { canonical: '/produtos-digitais' },
+  ...pageMetadata('/produtos-digitais'),
 }
 
 export default async function EbooksPage() {
