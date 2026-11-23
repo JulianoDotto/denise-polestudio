@@ -16,6 +16,16 @@ O App Router descobre automaticamente app/icon.svg, app/favicon.ico (16, 32 e
 48 px) e app/apple-icon.png (180 px, fundo opaco para a máscara do iOS).
 Ao mudar o desenho, atualizar os três arquivos juntos a partir do SVG.
 
+## Imagem de compartilhamento
+
+`app/opengraph-image.jpg` (1200×630) é o card que aparece quando alguém manda o link no WhatsApp,
+no Instagram e em outros apps. É a mesma imagem para todas as páginas. Ela é gerada por
+`scripts/og-image.py` a partir da foto original do aro (as instruções estão no topo do script).
+O fundo de folhas é desfocado para não virar granulado. Rosto e nome ficam no quadrado central,
+que é o que aparece na miniatura do WhatsApp. O arquivo precisa ficar abaixo de 300 KB.
+
+O WhatsApp guarda a prévia em cache. Para ver uma imagem nova, mande o link com `?v=2` no final.
+
 ## Endereço do site
 
 - A URL base vem de `NEXT_PUBLIC_SITE_URL`. Sem ela, ou se o valor não for `http(s)://…`, vale
