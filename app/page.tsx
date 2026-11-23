@@ -7,6 +7,7 @@ import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
 
 export const metadata: Metadata = {
+  title: { absolute: TEXTS.SITE_HOME_METADATA_TITLE_1 },
   alternates: { canonical: '/' },
 }
 

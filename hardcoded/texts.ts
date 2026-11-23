@@ -1,10 +1,11 @@
 export const TEXTS = {
   SITE_METADATA_TITLE_1: 'Denise Garcia',
+  SITE_HOME_METADATA_TITLE_1: 'Denise Garcia · Pole Dance em Caçapava/SP',
   SITE_METADATA_DESCRIPTION_1:
-    'Aulas de Pole Dance e artes sensuais, workshops, eventos e conteúdos de Denise Garcia.',
+    'Aulas de pole dance e artes sensuais com Denise Garcia em Caçapava/SP, pertinho de São José dos Campos e Taubaté. Workshops, eventos, loja e conteúdos digitais.',
   SITE_HEADER_LOGO_1: 'Denise Garcia',
-  META_AULAS_TITLE_1: 'Aulas',
-  META_AULAS_DESCRIPTION_1: 'Aulas de pole dance com a Denise Garcia em Caçapava/SP. Consulte horários e valores pelo WhatsApp.',
+  META_AULAS_TITLE_1: 'Aulas de pole dance em Caçapava/SP',
+  META_AULAS_DESCRIPTION_1: 'Aulas presenciais de pole dance em Caçapava/SP, para todos os níveis, com a Denise Garcia. Pertinho de São José dos Campos e Taubaté. Horários e valores pelo WhatsApp.',
   META_LOJA_TITLE_1: 'Loja',
   META_LOJA_DESCRIPTION_1: 'Produtos para pole dance, sensualidade, bem-estar e autocuidado, com envio para todo o Brasil.',
   META_EVENTOS_TITLE_1: 'Eventos',
@@ -105,8 +106,14 @@ export const TEXTS = {
   LOJA_ADMIN_ERROR_TITLE_1: 'Informe um título para a publicação.',
   LOJA_ADMIN_ERROR_EXPIRES_1: 'Defina uma data de duração ou marque como publicação fixa.',
   AULAS_PAGE_TITLE_1: 'Aulas',
-  AULAS_SECTION_TITLE_1: 'As aulas',
+  AULAS_SECTION_TITLE_1: 'Pole dance em Caçapava/SP',
   AULAS_INTRO_HEADLINE_1: 'Do primeiro giro à sua melhor versão',
+  AULAS_INTRO_TEXT_1:
+    'Aulas presenciais de pole dance no estúdio da Denise Garcia, no Jardim Rafael, em Caçapava/SP. Você começa pelo seu nível, com orientação de perto e evolução no seu tempo.',
+  AULAS_INTRO_TEXT_2:
+    'A Denise é formada em Educação Física e acompanha mulheres desde 2017, unindo técnica, força e autoestima.',
+  AULAS_INTRO_TEXT_3:
+    'O estúdio fica pertinho de São José dos Campos e Taubaté. Escolha a aula abaixo e chame no WhatsApp para saber horários e valores.',
   AULAS_DEFAULT_DESC_1: 'Você começa pelo seu nível, com orientação e evolução gradual.',
   AULAS_WHATSAPP_REQUEST_1: 'Olá! Quero conhecer a aula de {title}. Pode me passar os horários e valores?',
   AULAS_CARD_BUTTON_1: 'Ver horários e valores',

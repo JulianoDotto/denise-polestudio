@@ -7,7 +7,13 @@
 (`CONTENT_FORMS.class`).
 
 ## O que mostra
-- Topo "Aulas" (01 / 05) e abertura "Do primeiro giro à sua melhor versão".
+- Topo "Aulas" (01 / 05) e abertura com o selo "Pole dance em Caçapava/SP", o título "Do
+  primeiro giro à sua melhor versão" e três parágrafos para a aluna nova (`AULAS_INTRO_TEXT_1` a
+  `_3`): o estúdio em Caçapava e o começo pelo seu nível, a formação da Denise e a proximidade de
+  São José dos Campos e Taubaté.
+- **No Google:** título "Aulas de pole dance em Caçapava/SP · Denise Garcia" e descrição
+  `META_AULAS_DESCRIPTION_1`. Esse texto é de busca local (ver [seo.md](../seo.md)): ao mudar,
+  manter "pole dance" e "Caçapava".
 - Um card escuro por aula (`Item` com `type = CLASS` e `isActive`): selo "Aula", foto (se
   houver), título, descrição e botão **"Ver horários e valores"**.
 - Sem descrição, o card usa o texto padrão `AULAS_DEFAULT_DESC_1`.

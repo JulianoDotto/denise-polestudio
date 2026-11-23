@@ -14,6 +14,11 @@
 A home é **100% fixa**: textos em `hardcoded/texts.ts` (`HOME_*`) e fotos em
 `hardcoded/images.ts` (`HOME_*`). Não lê o banco.
 
+**No Google:** título "Denise Garcia · Pole Dance em Caçapava/SP" (`SITE_HOME_METADATA_TITLE_1`,
+via `title.absolute`, sem o sufixo das outras páginas) e descrição `SITE_METADATA_DESCRIPTION_1`,
+que cita Caçapava, São José dos Campos e Taubaté. Sitemap, canônico e dados do estúdio: ver
+[seo.md](../seo.md).
+
 ## Em todas as páginas (layout)
 - **Cabeçalho:** só o nome "Denise Garcia", com link para a home. Não tem menu.
 - **Rodapé:** endereço, telefone (link para o WhatsApp), Instagram, copyright e links para as 5

@@ -34,7 +34,7 @@ export default async function AulasPage() {
       <PageIntro
         eyebrow={TEXTS.AULAS_SECTION_TITLE_1}
         headline={TEXTS.AULAS_INTRO_HEADLINE_1}
-        paragraphs={[TEXTS.AULAS_DEFAULT_DESC_1]}
+        paragraphs={[TEXTS.AULAS_INTRO_TEXT_1, TEXTS.AULAS_INTRO_TEXT_2, TEXTS.AULAS_INTRO_TEXT_3]}
       />
 
       <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
