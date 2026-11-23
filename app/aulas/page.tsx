@@ -6,6 +6,7 @@ import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import ReorderButtons from '@/components/admin/ReorderButtons'
+import EmptyState from '@/components/site/EmptyState'
 import GlowCard from '@/components/site/GlowCard'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
@@ -37,7 +38,23 @@ export default async function AulasPage() {
         paragraphs={[TEXTS.AULAS_INTRO_TEXT_1, TEXTS.AULAS_INTRO_TEXT_2, TEXTS.AULAS_INTRO_TEXT_3]}
       />
 
-      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
+      {aulas.length === 0 ? (
+        <div className="mx-auto w-full max-w-5xl px-4">
+          <EmptyState
+            title={TEXTS.AULAS_EMPTY_TITLE_1}
+            description={TEXTS.AULAS_EMPTY_DESCRIPTION_1}
+            action={
+              phone ? (
+                <ActionButton href={buildWhatsAppUrl(phone, TEXTS.AULAS_EMPTY_WHATSAPP_1)} target="_blank" size="sm" className="w-full max-w-xs">
+                  {TEXTS.SITE_EMPTY_BUTTON_1}
+                </ActionButton>
+              ) : null
+            }
+          />
+        </div>
+      ) : null}
+
+      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 empty:hidden sm:grid-cols-2">
         {aulas.map((aula, index) => {
           const message = aula.whatsappTextTemplate
             ? aula.whatsappTextTemplate
@@ -56,9 +73,11 @@ export default async function AulasPage() {
                   <img
                     src={aula.coverUrl}
                     alt={aula.title}
+                    width={1600}
+                    height={1067}
                     loading={index < 2 ? undefined : 'lazy'}
                     decoding="async"
-                    className="block h-auto w-full transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="block aspect-[3/2] h-auto w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                 ) : undefined
               }

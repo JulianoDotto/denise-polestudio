@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import { ItemType } from '@prisma/client'
 
 import ActionButton from '@/components/site/ActionButton'
+import EmptyState from '@/components/site/EmptyState'
 import GlowCard from '@/components/site/GlowCard'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
@@ -40,7 +41,23 @@ export default async function EbooksPage() {
         paragraphs={[TEXTS.PRODUTOS_DIGITAIS_SECTION_P1_1, TEXTS.PRODUTOS_DIGITAIS_SECTION_P2_1]}
       />
 
-      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
+      {items.length === 0 ? (
+        <div className="mx-auto w-full max-w-5xl px-4">
+          <EmptyState
+            title={TEXTS.PRODUTOS_DIGITAIS_EMPTY_TITLE_1}
+            description={TEXTS.PRODUTOS_DIGITAIS_EMPTY_DESCRIPTION_1}
+            action={
+              phone ? (
+                <ActionButton href={buildWhatsAppUrl(phone, TEXTS.PRODUTOS_DIGITAIS_EMPTY_WHATSAPP_1)} target="_blank" size="sm" className="w-full max-w-xs">
+                  {TEXTS.SITE_EMPTY_BUTTON_1}
+                </ActionButton>
+              ) : null
+            }
+          />
+        </div>
+      ) : null}
+
+      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 empty:hidden sm:grid-cols-2">
         {items.map((item, index) => {
           const isVideo = item.type === ItemType.VIDEO
           const badge = isVideo

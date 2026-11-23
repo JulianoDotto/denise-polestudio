@@ -30,7 +30,7 @@ export default function ReorderButtons({ target, id, isFirst, isLast, tone }: Re
     target.kind === 'item' ? moveItem : moveStoreSection,
     initialState,
   )
-  const buttonClass = `inline-flex h-11 w-11 items-center justify-center rounded-full border transition disabled:cursor-not-allowed disabled:opacity-35 ${TONE_CLASSES[tone]}`
+  const buttonClass = `inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:cursor-not-allowed disabled:opacity-35 ${TONE_CLASSES[tone]}`
 
   // One form per arrow with the direction in a hidden field: React drops the
   // submit button's name when the form action is a function, so the server

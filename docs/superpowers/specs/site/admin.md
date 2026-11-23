@@ -77,3 +77,9 @@ expirar, mas qualquer ação dele cai em `/403`. Esconder o botão é só aparê
 - A loja é a exceção: devolve o resultado pela URL com `redirect('/loja?error=…')`.
 - Depois de gravar, a ação chama `revalidatePath` da página, que atualiza sem recarregar.
 - Excluir sempre pede confirmação num diálogo.
+- Todo botão de salvar ou excluir troca o texto enquanto envia ("Salvando…", "Excluindo…",
+  "Publicando…"); o `pending` é obrigatório em `CONTENT_FORMS`.
+- Tocar fora do `AdminModal` não fecha o modal, para não perder o que foi digitado. Ele fecha
+  no "Fechar" ou no Esc.
+- Mensagens de erro e de sucesso dos modais são anunciadas ao leitor de tela (`role="alert"` /
+  `role="status"`).

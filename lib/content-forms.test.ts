@@ -11,6 +11,14 @@ test('each content type keeps its current fields', () => {
   assert.deepEqual(CONTENT_FORMS.digitalProduct.fields, ['title', 'description', 'link', 'digitalType'])
 })
 
+test('every create, edit and delete shows a pending label ending in an ellipsis', () => {
+  for (const config of Object.values(CONTENT_FORMS)) {
+    for (const pending of [config.create.pending, config.edit.pending, config.delete.pending]) {
+      assert.match(pending, /…$/)
+    }
+  }
+})
+
 test('each content type keeps its current messages', () => {
   assert.equal(CONTENT_FORMS.class.errors.imageSize, TEXTS.AULAS_ADMIN_ERROR_IMAGE_SIZE_1)
   assert.equal(CONTENT_FORMS.workshop.errors.update, TEXTS.WORKSHOPS_EDIT_ERROR_UPDATE_1)

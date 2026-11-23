@@ -10,11 +10,15 @@ proteção contra duplicar em `lib/admin/workshop-persistence.ts` · formulário
 - Topo "Workshops" (05 / 05) e abertura "Um tema por encontro, para ir mais fundo".
 - Um card escuro por workshop (`Item` com `type = WORKSHOP`): selo "Workshop", foto (se houver no
   banco), título, descrição e o botão **"CONHECER O WORKSHOP"**.
+- Sem descrição, o card usa o texto padrão `WORKSHOPS_DEFAULT_DESC_1`.
+- **Sem nenhum workshop publicado**, aparece o card tracejado "Próximo workshop em breve"
+  (`components/site/EmptyState.tsx`) com o botão "Falar no WhatsApp".
 
 ## Visitante pode
 - Tocar no botão para abrir o WhatsApp com "Olá, quero informações sobre o workshop {título}."
   (ou o `whatsappTextTemplate`).
-- Sem número de WhatsApp configurado, o botão aparece desabilitado.
+- Sem número de WhatsApp configurado, no lugar do botão aparece o aviso "Configure o WhatsApp
+  para contato", como em produtos digitais.
 
 ## Admin pode
 | Ação | Onde | Função |

@@ -32,7 +32,6 @@ export default function StorePostDurationFields() {
           name="expiresAt"
           disabled={isPinned}
           onClick={handleOpenPicker}
-          onFocus={handleOpenPicker}
           className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 disabled:cursor-not-allowed disabled:bg-muted disabled:text-zinc-300"
         />
       </label>

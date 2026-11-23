@@ -24,6 +24,12 @@ import { CONTENT_FORMS, type ContentKind } from '@/lib/admin/content-forms'
 
 const initialState = { success: false, error: '' }
 
+// Shared with the store's delete dialog (StoreProductRow).
+export const DANGER_BUTTON_CLASS =
+  'min-h-11 flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2 disabled:opacity-60'
+export const CANCEL_BUTTON_CLASS =
+  'min-h-11 flex-1 rounded-full border px-4 py-2 text-sm text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2'
+
 const DELETE_ACTIONS = {
   class: deleteClassInline,
   event: deleteEventInline,
@@ -49,7 +55,6 @@ export default function ContentDeleteButton({
     DELETE_ACTIONS[kind],
     initialState,
   )
-  const showPending = pending && Boolean(config.pending)
 
   return (
     <Dialog>
@@ -70,7 +75,7 @@ export default function ContentDeleteButton({
           </DialogDescription>
         </DialogHeader>
         {state.error ? (
-          <p className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+          <p role="alert" className="mt-3 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
             {config.error}
           </p>
         ) : null}
@@ -78,15 +83,15 @@ export default function ContentDeleteButton({
           <input type="hidden" name="id" value={id} />
           <button
             type="submit"
-            disabled={showPending}
-            className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-zinc-300 disabled:opacity-60"
+            disabled={pending}
+            className={DANGER_BUTTON_CLASS}
           >
-            {showPending ? config.pending : config.confirm}
+            {pending ? config.pending : config.confirm}
           </button>
           <DialogClose asChild>
             <button
               type="button"
-              className="flex-1 rounded-full border px-4 py-2 text-sm text-zinc-700"
+              className={CANCEL_BUTTON_CLASS}
             >
               {config.cancel}
             </button>

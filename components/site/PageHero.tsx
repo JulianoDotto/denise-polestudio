@@ -88,7 +88,7 @@ export default function PageHero({ imageUrl, title, eyebrow, index, total, image
                         <Link
                           href={page.href}
                           aria-current={current ? 'page' : undefined}
-                          className={`inline-flex items-center gap-2 transition-colors duration-300 ${
+                          className={`inline-flex items-center gap-2 rounded-sm transition-colors duration-300 focus-visible:text-marfim focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-marfim/70 focus-visible:ring-offset-4 focus-visible:ring-offset-vinho ${
                             current ? 'text-marfim' : 'text-marfim/45 hover:text-marfim/85'
                           }`}
                         >

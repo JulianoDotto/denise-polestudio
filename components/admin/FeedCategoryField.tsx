@@ -24,7 +24,7 @@ export default function FeedCategoryField({
             setCategory(nextCategory)
             if (nextCategory !== NEW_FEED_CATEGORY_VALUE) setNewCategoryName('')
           }}
-          className="w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900"
+          className="w-full rounded-2xl border bg-white px-4 py-2 text-sm text-zinc-900"
         >
           <option value={NEW_FEED_CATEGORY_VALUE}>Cadastrar nova categoria</option>
           <option value="">Sem categoria</option>

@@ -5,6 +5,7 @@ import { ItemType } from '@prisma/client'
 import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
+import EmptyState from '@/components/site/EmptyState'
 import EventFormats from '@/components/site/EventFormats'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
@@ -132,7 +133,7 @@ export default async function EventosPage() {
                           <ContentDeleteButton kind="event" id={event.id} title={event.title} />
                         </div>
                       ) : null}
-                      <h3 className="font-display text-xl uppercase leading-tight tracking-[0.1em] text-vinho">
+                      <h3 className="break-words font-display text-xl uppercase leading-tight tracking-[0.1em] text-vinho">
                         {event.title}
                       </h3>
                       {event.description ? (
@@ -154,29 +155,20 @@ export default async function EventosPage() {
             })}
           </ul>
         ) : (
-          <div className="relative mt-10 overflow-hidden rounded-[24px] border border-dashed border-vinho/30 bg-white/70 px-6 py-10 text-center">
-            <span
-              aria-hidden="true"
-              className="absolute -left-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-dashed border-vinho/30 bg-areia"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute -right-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-dashed border-vinho/30 bg-areia"
-            />
-            <h3 className="font-display text-2xl uppercase tracking-[0.12em] text-vinho">
-              {TEXTS.EVENTOS_EMPTY_TITLE_1}
-            </h3>
-            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-600">
-              {TEXTS.EVENTOS_EMPTY_DESCRIPTION_1}
-            </p>
-            {contactUrl ? (
-              <ActionButton href={contactUrl} target="_blank" size="sm" className="mt-6 w-full max-w-xs">
-                {TEXTS.EVENTOS_CONTACT_BUTTON_2}
-              </ActionButton>
-            ) : (
-              <p className="mt-6 text-sm text-zinc-500">{TEXTS.EVENTOS_WHATSAPP_MISSING_1}</p>
-            )}
-          </div>
+          <EmptyState
+            className="mt-10"
+            title={TEXTS.EVENTOS_EMPTY_TITLE_1}
+            description={TEXTS.EVENTOS_EMPTY_DESCRIPTION_1}
+            action={
+              contactUrl ? (
+                <ActionButton href={contactUrl} target="_blank" size="sm" className="w-full max-w-xs">
+                  {TEXTS.EVENTOS_CONTACT_BUTTON_2}
+                </ActionButton>
+              ) : (
+                <p className="text-sm text-zinc-500">{TEXTS.EVENTOS_WHATSAPP_MISSING_1}</p>
+              )
+            }
+          />
         )}
 
         {events.length > 0 && contactUrl ? (

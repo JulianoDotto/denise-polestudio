@@ -6,6 +6,7 @@ import ActionButton from '@/components/site/ActionButton'
 import ContentDeleteButton from '@/components/admin/ContentDeleteButton'
 import ContentFormModal from '@/components/admin/ContentFormModal'
 import WorkshopCreateModal from '@/components/admin/WorkshopCreateModal'
+import EmptyState from '@/components/site/EmptyState'
 import GlowCard from '@/components/site/GlowCard'
 import PageHero from '@/components/site/PageHero'
 import PageIntro from '@/components/site/PageIntro'
@@ -39,7 +40,23 @@ export default async function WorkshopsPage() {
         paragraphs={[TEXTS.WORKSHOPS_PAGE_DESCRIPTION_1]}
       />
 
-      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 sm:grid-cols-2">
+      {workshops.length === 0 ? (
+        <div className="mx-auto w-full max-w-5xl px-4">
+          <EmptyState
+            title={TEXTS.WORKSHOPS_EMPTY_TITLE_1}
+            description={TEXTS.WORKSHOPS_EMPTY_DESCRIPTION_1}
+            action={
+              phone ? (
+                <ActionButton href={buildWhatsAppUrl(phone, TEXTS.WORKSHOPS_EMPTY_WHATSAPP_1)} target="_blank" size="sm" className="w-full max-w-xs">
+                  {TEXTS.SITE_EMPTY_BUTTON_1}
+                </ActionButton>
+              ) : null
+            }
+          />
+        </div>
+      ) : null}
+
+      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 empty:hidden sm:grid-cols-2">
         {workshops.map((workshop, index) => {
           const message =
             workshop.whatsappTextTemplate ||
@@ -52,7 +69,7 @@ export default async function WorkshopsPage() {
               index={index}
               eyebrow={TEXTS.WORKSHOPS_BADGE_1}
               title={workshop.title}
-              description={workshop.description ?? ''}
+              description={workshop.description || TEXTS.WORKSHOPS_DEFAULT_DESC_1}
               media={
                 workshop.coverUrl ? (
                   <img
@@ -99,9 +116,9 @@ export default async function WorkshopsPage() {
                     {TEXTS.WORKSHOPS_BUTTON_1}
                   </ActionButton>
                 ) : (
-                  <ActionButton disabled tone="light" size="md" className="w-full">
-                    {TEXTS.WORKSHOPS_BUTTON_1}
-                  </ActionButton>
+                  <span className="block rounded-full border border-marfim/20 px-4 py-3 text-center text-sm text-marfim/60">
+                    {TEXTS.WORKSHOPS_WHATSAPP_MISSING_1}
+                  </span>
                 )
               }
             />

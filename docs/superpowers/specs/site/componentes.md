@@ -8,7 +8,7 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
 | Pasta | O que vai lá | Exemplos |
 |---|---|---|
 | `app/<rota>/page.tsx` | A página: busca os dados no servidor, verifica se é admin e monta os componentes. Não tem lógica de regra | `app/aulas/page.tsx` |
-| `components/site/` | Peças que o **visitante** vê | `ActionButton`, `GlowCard`, `PageHero`, `PageIntro`, `StoreProductRow` |
+| `components/site/` | Peças que o **visitante** vê | `ActionButton`, `EmptyState`, `GlowCard`, `PageHero`, `PageIntro`, `StoreProductRow` |
 | `components/admin/` | Peças que **só o admin** vê: modais, campos, botões de editar, excluir e reordenar | `ContentFormModal`, `AdminModal`, `ReorderButtons` |
 | `components/ui/` | Primitivos do shadcn/ui, sem regra do projeto | `dialog.tsx` (Radix Dialog) |
 | `lib/*.ts` | Lógica **pura** usada pelo site (formatar preço, agrupar a loja, montar a mensagem do WhatsApp) | `format.ts`, `feed-groups.ts`, `store-product.ts` |
@@ -44,8 +44,10 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
 8. **Botões:** use `ActionButton` (`components/site/ActionButton.tsx`), que aceita link ou botão,
    `size` sm/md/lg, `variant` solid/outline, `tone` dark/light e tem o efeito de toque. As
    classes vêm de `getActionButtonClasses` (`lib/action-button-styles.ts`). Botões só de ícone do
-   admin usam `contentIconButtonClass` (`components/admin/ContentFields.tsx`). Hoje ele tem
-   36 px, abaixo da regra 10 (ver desvios).
+   admin usam `contentIconButtonClass` (`components/admin/ContentFields.tsx`), com 44 px e anel
+   de foco. Os botões de excluir e cancelar dos diálogos de confirmação usam
+   `DANGER_BUTTON_CLASS` e `CANCEL_BUTTON_CLASS` (`components/admin/ContentDeleteButton.tsx`).
+   `ActionButton` com `target="_blank"` já põe `rel="noopener noreferrer"`.
 9. **Cores e fontes:** use os tokens de `app/globals.css` (`vinho`, `vinho-hover`, `marfim`,
    `areia`, `tinta`, `font-display`, `font-body`) em vez de hex soltos. Para combinar classes,
    use `cn()` de `lib/utils.ts`.
@@ -54,6 +56,10 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
     - nada que só funcione no hover;
     - layout de uma coluna que abre em `sm:` (largura máxima do conteúdo: 738 px);
     - respeitar `motion-reduce`.
+    - todo link e botão tem estado de hover e anel de `focus-visible`; nunca `outline-none` sem
+      um substituto que apareça;
+    - lista que pode ficar vazia mostra `EmptyState` (o card tracejado de ingresso), nunca uma
+      seção em branco.
 11. **Fotos enviadas pelo admin** passam por `ImageUploadField` (reduz no navegador) e por
     `readImageField` + `persistWithImage` no servidor. Não faça upload por outro caminho.
 12. **Ícones:** `lucide-react`.
@@ -74,7 +80,7 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
   - `app/loja/page.tsx`: mensagens de erro de categoria, "Não foi possível publicar no feed…";
   - `components/admin/FeedCategoryField.tsx`: "Categoria", "Cadastrar nova categoria", "Sem
     categoria", "Nome da nova categoria";
-  - `app/login/LoginForm.tsx`, `app/login/page.tsx` ("Carregando..."), `app/logout/page.tsx` e o contador "N eventos na agenda" em
+  - `app/login/LoginForm.tsx`, `app/login/page.tsx` ("Carregando…"), `app/logout/page.tsx` e o contador "N eventos na agenda" em
     `app/eventos/page.tsx`.
 - **Hex soltos em vez de tokens** (lista viva: `grep -rn "#[0-9a-fA-F]\{6\}" app components`).
   Exemplos:
@@ -84,9 +90,6 @@ padrão. Ao mexer num desses pontos, aproxime-o do padrão, mas não refatore s�
   - `#1a0b10` em `AgeGateModal.tsx`;
   - `#0E0E0E` em `ContentFormModal.tsx`;
   - o verde do WhatsApp `#25D366` em `Footer.tsx`.
-- **Alvos de toque menores que 44 px:** `contentIconButtonClass` usa `h-9 w-9` (lápis e lixeira
-  de aulas, eventos, workshops e produtos digitais), e a lixeira da loja em `StoreProductRow.tsx`
-  usa `h-10 w-10`.
 - **`app/eventos/page.tsx` tem o card de ingresso inteiro inline** (cerca de 55 linhas). Os
   outros cards são componentes. Candidato a um `EventTicket` em `components/site/`.
 - **O formulário da loja fica dentro de `app/loja/page.tsx`**, e não num componente de

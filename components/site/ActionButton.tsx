@@ -49,8 +49,10 @@ export default function ActionButton(
   ): value is ActionButtonLinkProps => typeof (value as ActionButtonLinkProps).href === 'string'
 
   if (isLink(props)) {
-    const { href, target, rel } = props
+    const { href, target } = props
     const isExternal = /^https?:\/\//i.test(href)
+    // A new tab never gets a handle back to this page.
+    const rel = props.rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)
 
     if (isExternal) {
       return (

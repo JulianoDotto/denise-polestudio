@@ -46,12 +46,12 @@ export default function GlowCard({
         <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#d4919f]" />
         {eyebrow}
       </p>
-      <h2 className="mt-5 font-display text-2xl uppercase leading-tight tracking-[0.12em] text-marfim">
+      <h2 className="mt-5 break-words font-display text-2xl uppercase leading-tight tracking-[0.12em] text-marfim">
         {title}
       </h2>
       <div
         aria-hidden="true"
-        className="mt-5 h-px w-12 bg-marfim/30 transition-all duration-500 group-hover:w-20 motion-reduce:transition-none"
+        className="mt-5 h-px w-12 origin-left bg-marfim/30 transition-transform duration-500 group-hover:scale-x-[1.667] motion-reduce:transition-none"
       />
       <p className="mt-5 flex-1 whitespace-pre-line text-[15px] leading-relaxed text-marfim/75">
         {description}

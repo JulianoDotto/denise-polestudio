@@ -10,7 +10,7 @@ export default function StorePostSubmitButton() {
 
   return (
     <ActionButton type="submit" size="sm" className="self-start" disabled={pending}>
-      {TEXTS.LOJA_ADMIN_SUBMIT_1}
+      {pending ? TEXTS.LOJA_ADMIN_SUBMIT_PENDING_1 : TEXTS.LOJA_ADMIN_SUBMIT_1}
     </ActionButton>
   )
 }

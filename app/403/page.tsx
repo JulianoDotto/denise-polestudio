@@ -15,7 +15,7 @@ export default function ForbiddenPage() {
       </p>
       <Link
         href="/"
-        className="rounded-full border px-4 py-2 text-xs uppercase tracking-[0.2em]"
+        className="inline-flex min-h-11 items-center rounded-full border px-5 py-2 text-xs uppercase tracking-[0.2em] transition-colors hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {TEXTS.FORBIDDEN_BACK_HOME_1}
       </Link>

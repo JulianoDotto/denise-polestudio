@@ -1,9 +1,12 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { useFormStatus } from 'react-dom'
+import { useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight, Trash2 } from 'lucide-react'
 
 import ActionButton from '@/components/site/ActionButton'
+import { CANCEL_BUTTON_CLASS, DANGER_BUTTON_CLASS } from '@/components/admin/ContentDeleteButton'
 import {
   Dialog,
   DialogClose,
@@ -16,7 +19,10 @@ import { TEXTS } from '@/hardcoded/texts'
 import { deleteStorePost } from '@/lib/admin/actions/store-posts'
 import { formatPrice } from '@/lib/format'
 import { buildProductOrderMessage, formatProductCount } from '@/lib/store-product'
+import { withSearchParam } from '@/lib/url-state'
 import { buildWhatsAppUrl } from '@/lib/whatsapp'
+
+const PRODUCT_PARAM = 'produto'
 
 export type StoreProduct = {
   id: string
@@ -40,6 +46,16 @@ const VISIBLE_ON_DESKTOP = 3
 const iconButtonClass =
   'inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-300 text-zinc-800 transition hover:border-vinho hover:text-vinho focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vinho'
 
+// Inside the delete form, so it can read the form's pending state.
+function DeleteSubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <button type="submit" disabled={pending} className={DANGER_BUTTON_CLASS}>
+      {pending ? TEXTS.ADMIN_DELETE_PENDING_1 : TEXTS.STORE_CAROUSEL_DELETE_CONFIRM_1}
+    </button>
+  )
+}
+
 export default function StoreProductRow({
   title,
   items,
@@ -48,7 +64,13 @@ export default function StoreProductRow({
   reorderControls,
 }: StoreProductRowProps) {
   const listRef = useRef<HTMLUListElement>(null)
-  const [openId, setOpenId] = useState<string | null>(null)
+  // The open product lives in the URL (?produto=id), so a product can be shared as a link.
+  const searchParams = useSearchParams()
+  const openId = searchParams.get(PRODUCT_PARAM)
+  const setOpenId = (id: string | null) => {
+    const query = withSearchParam(window.location.search, PRODUCT_PARAM, id)
+    window.history.replaceState(null, '', `${window.location.pathname}${query}`)
+  }
   const [deleteId, setDeleteId] = useState<string | null>(null)
 
   if (items.length === 0) return null
@@ -115,11 +137,12 @@ export default function StoreProductRow({
         {items.map((item, index) => {
           const price = formatPrice(item.priceCents)
           const url = orderUrl(item)
+          const detailsLabel = `${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`
           const photo = (
             <div className="relative aspect-square w-full overflow-hidden bg-white">
               <img
                 src={item.imageUrl}
-                alt={item.title}
+                alt=""
                 loading={index < 2 ? undefined : 'lazy'}
                 decoding="async"
                 className="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -136,10 +159,19 @@ export default function StoreProductRow({
               />
             </div>
           )
+          // The title is the card's one control: its hit area stretches over the whole card
+          // (after:inset-0), so the photo opens the details too, without a second tab stop.
           const info = (
             <div className={single ? 'grid gap-2' : 'grid gap-2 px-5 pt-5'}>
-              <h3 className="line-clamp-2 font-sans text-base font-medium leading-snug tracking-normal text-marfim">
-                {item.title}
+              <h3 className="line-clamp-2 break-words font-sans text-base font-medium leading-snug tracking-normal text-marfim">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(item.id)}
+                  aria-label={detailsLabel}
+                  className="text-left after:absolute after:inset-0 after:rounded-[28px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-marfim"
+                >
+                  {item.title}
+                </button>
               </h3>
               {price ? (
                 <p className="font-display text-xl tracking-[0.08em] text-[#e4aab8]">{price}</p>
@@ -151,8 +183,6 @@ export default function StoreProductRow({
               {TEXTS.LOJA_PRODUCT_ORDER_BUTTON_1}
             </ActionButton>
           ) : null
-          const detailsLabel = `${TEXTS.LOJA_PRODUCT_DETAILS_ARIA_1} ${item.title}`
-          const focusClass = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-marfim'
 
           return (
             <li
@@ -167,30 +197,24 @@ export default function StoreProductRow({
                   />
                   {single ? (
                     <>
-                      <button type="button" onClick={() => setOpenId(item.id)} className={`flex w-full shrink-0 sm:w-[44%] ${focusClass}`} aria-label={detailsLabel}>
-                        {photo}
-                      </button>
+                      <div className="flex w-full shrink-0 sm:w-[44%]">{photo}</div>
                       <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 p-5 sm:p-7">
-                        <button type="button" onClick={() => setOpenId(item.id)} className={`text-left ${focusClass}`} aria-label={detailsLabel}>
-                          {info}
-                        </button>
-                        {order}
+                        {info}
+                        {order ? <div className="relative z-10">{order}</div> : null}
                       </div>
                     </>
                   ) : (
                     <>
-                      <button type="button" onClick={() => setOpenId(item.id)} className={`block text-left ${focusClass}`} aria-label={detailsLabel}>
-                        {photo}
-                        {info}
-                      </button>
-                      {order ? <div className="mt-auto p-5 pt-4">{order}</div> : <div className="pb-5" />}
+                      {photo}
+                      {info}
+                      {order ? <div className="relative z-10 mt-auto p-5 pt-4">{order}</div> : <div className="pb-5" />}
                     </>
                   )}
                   {isAdmin ? (
                     <button
                       type="button"
                       onClick={() => setDeleteId(item.id)}
-                      className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-marfim/30 bg-tinta/80 text-marfim transition hover:border-rose-300 hover:text-rose-200"
+                      className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-marfim/30 bg-tinta/80 text-marfim transition-colors hover:border-rose-300 hover:text-rose-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-marfim"
                       aria-label={`${TEXTS.STORE_CAROUSEL_DELETE_ARIA_1}: ${item.title}`}
                     >
                       <Trash2 className="h-4 w-4" />
@@ -258,14 +282,9 @@ export default function StoreProductRow({
             </DialogHeader>
             <form action={deleteStorePost} className="mt-4 flex gap-3">
               <input type="hidden" name="id" value={deleteId} />
-              <button
-                type="submit"
-                className="flex-1 rounded-full bg-rose-600 px-4 py-2 text-sm font-medium text-zinc-100"
-              >
-                {TEXTS.STORE_CAROUSEL_DELETE_CONFIRM_1}
-              </button>
+              <DeleteSubmitButton />
               <DialogClose asChild>
-                <button type="button" className="flex-1 rounded-full border px-4 py-2 text-sm text-zinc-700">
+                <button type="button" className={CANCEL_BUTTON_CLASS}>
                   {TEXTS.STORE_CAROUSEL_DELETE_CANCEL_1}
                 </button>
               </DialogClose>

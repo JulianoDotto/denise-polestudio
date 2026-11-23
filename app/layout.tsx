@@ -4,9 +4,13 @@ import "./globals.css";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import { TEXTS } from "@/hardcoded/texts";
+import { preconnect } from "react-dom";
 import { buildStudioJsonLd, getSiteUrl, serializeJsonLd } from "@/lib/seo";
+import { getBlobOrigin } from "@/lib/url-state";
 
 const siteUrl = getSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+// Photos uploaded by the admin live on Vercel Blob; open the connection early.
+const blobOrigin = getBlobOrigin(process.env.BLOB_STORE_ID);
 
 // Titles: a transitional display serif, luxurious but sturdy enough to read; its italic is the burlesque accent.
 const display = Playfair_Display({
@@ -47,6 +51,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (blobOrigin) preconnect(blobOrigin);
+
   return (
     <html lang="pt-BR">
       <body className={`${display.variable} ${body.variable} bg-[#d8bfb6] antialiased`}>

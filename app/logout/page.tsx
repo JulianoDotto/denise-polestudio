@@ -10,7 +10,7 @@ export default function LogoutPage() {
 
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4 text-sm text-muted-foreground">
-      Encerrando sessão...
+      Encerrando sessão…
     </div>
   )
 }

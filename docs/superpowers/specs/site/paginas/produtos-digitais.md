@@ -12,6 +12,8 @@
   admin definiu. Cada card tem selo "E-book" ou "Aula digital", título, descrição e o botão
   **"Conhecer o conteúdo"**.
 - Os cards não têm foto.
+- **Sem nenhum produto publicado**, aparece o card tracejado "Novos conteúdos em breve"
+  (`components/site/EmptyState.tsx`) com o botão "Falar no WhatsApp".
 
 ## Visitante pode
 - Tocar em "Conhecer o conteúdo":

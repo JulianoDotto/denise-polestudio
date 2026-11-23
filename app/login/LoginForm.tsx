@@ -12,7 +12,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
-  const authErrorMessage = 'Usuário ou senha incorretos, ou acesso não autorizado.'
+  const authErrorMessage = 'Usuário ou senha incorretos, ou acesso não autorizado. Confira os dados e tente de novo.'
   const error = submitError ?? (searchParams.get('error') ? authErrorMessage : '')
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -62,6 +62,8 @@ export default function LoginForm() {
               type="text"
               name="email"
               autoComplete="username"
+              autoCapitalize="none"
+              spellCheck={false}
               className="w-full rounded-2xl border px-4 py-2 text-sm"
               required
             />
@@ -95,16 +97,16 @@ export default function LoginForm() {
           </label>
         </div>
 
-        {error ? (
-          <p className="mt-4 text-sm text-red-500">{error}</p>
-        ) : null}
+        <p role="alert" className="mt-4 text-sm text-red-600 empty:hidden">
+          {error}
+        </p>
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-6 w-full rounded-full bg-primary px-4 py-2 text-xs uppercase tracking-[0.2em] text-primary-foreground"
+          className="mt-6 min-h-11 w-full rounded-full bg-primary px-4 py-2 text-xs uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60"
         >
-          {loading ? 'Entrando...' : 'Entrar'}
+          {loading ? 'Entrando…' : 'Entrar'}
         </button>
       </form>
     </div>

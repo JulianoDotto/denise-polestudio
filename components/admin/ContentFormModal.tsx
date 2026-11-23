@@ -87,7 +87,7 @@ export default function ContentFormModal(props: ContentFormModalProps) {
           <input type="hidden" name="isActive" value="on" />
           <ContentFields kind={kind} />
           <ActionButton type="submit" size="sm" disabled={pending} className="self-start">
-            {config.create.submit}
+            {pending ? config.create.pending : config.create.submit}
           </ActionButton>
         </form>
       </AdminModal>
@@ -95,7 +95,6 @@ export default function ContentFormModal(props: ContentFormModalProps) {
   }
 
   const { values } = props
-  const showPending = pending && Boolean(config.edit.pending)
 
   return (
     <AdminModal
@@ -126,10 +125,10 @@ export default function ContentFormModal(props: ContentFormModalProps) {
         ) : (
           <button
             type="submit"
-            disabled={showPending}
-            className="self-start rounded-full bg-[#0E0E0E] px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-stone-950 disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={pending}
+            className="min-h-11 self-start rounded-full bg-[#0E0E0E] px-5 py-2 text-sm font-medium text-zinc-100 transition-colors hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {showPending ? config.edit.pending : config.edit.submit}
+            {pending ? config.edit.pending : config.edit.submit}
           </button>
         )}
       </form>

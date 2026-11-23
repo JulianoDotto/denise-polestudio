@@ -37,6 +37,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    /* A soft wine flash on tap instead of the browser's grey box. */
+    -webkit-tap-highlight-color: oklch(0.35 0.1 20 / 15%);
+  }
+  a,
+  button,
+  summary,
+  input,
+  select,
+  textarea,
+  label {
+    /* No double-tap zoom delay on touch. */
+    touch-action: manipulation;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
@@ -62,6 +76,7 @@
   h5 {
     font-family: var(--font-display);
     letter-spacing: 0.06em;
+    text-wrap: balance;
   }
   h1 {
     text-transform: uppercase;
@@ -128,14 +143,15 @@
   }
 }
 
+/* Rises into place instead of tightening its letter-spacing, so only transform and opacity move. */
 @keyframes hero-title-in {
   from {
-    letter-spacing: 0.36em;
     opacity: 0;
+    transform: translateY(0.35em);
   }
   to {
-    letter-spacing: 0.24em;
     opacity: 1;
+    transform: none;
   }
 }
 

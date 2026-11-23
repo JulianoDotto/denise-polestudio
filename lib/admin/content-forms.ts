@@ -41,7 +41,7 @@ type ContentFormConfig = {
     description: string
     trigger: string
     submit: string
-    pending?: string
+    pending: string
     success?: string
   }
   edit: {
@@ -49,7 +49,7 @@ type ContentFormConfig = {
     description: string
     iconAria: string
     submit: string
-    pending?: string
+    pending: string
   }
   delete: {
     iconAria: string
@@ -58,7 +58,7 @@ type ContentFormConfig = {
     confirm: string
     cancel: string
     error: string
-    pending?: string
+    pending: string
   }
   errors: Record<string, string>
 }
@@ -77,6 +77,7 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       description: TEXTS.AULAS_ADMIN_MODAL_DESCRIPTION_1,
       trigger: TEXTS.AULAS_ADMIN_TRIGGER_1,
       submit: TEXTS.AULAS_ADMIN_SUBMIT_1,
+      pending: TEXTS.ADMIN_SAVING_1,
     },
     edit: {
       title: TEXTS.AULAS_EDIT_MODAL_TITLE_1,
@@ -92,6 +93,7 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       confirm: TEXTS.AULAS_DELETE_CONFIRM_1,
       cancel: TEXTS.AULAS_DELETE_CANCEL_1,
       error: TEXTS.AULAS_DELETE_ERROR_1,
+      pending: TEXTS.ADMIN_DELETE_PENDING_1,
     },
     errors: {
       title: TEXTS.AULAS_ADMIN_ERROR_TITLE_1,
@@ -116,12 +118,14 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       description: TEXTS.EVENTOS_ADMIN_MODAL_DESCRIPTION_1,
       trigger: TEXTS.EVENTOS_ADMIN_TRIGGER_1,
       submit: TEXTS.EVENTOS_ADMIN_SUBMIT_1,
+      pending: TEXTS.ADMIN_SAVING_1,
     },
     edit: {
       title: TEXTS.EVENTOS_EDIT_MODAL_TITLE_1,
       description: TEXTS.EVENTOS_EDIT_MODAL_DESCRIPTION_1,
       iconAria: TEXTS.EVENTOS_EDIT_ICON_ARIA_1,
       submit: TEXTS.EVENTOS_EDIT_MODAL_SUBMIT_1,
+      pending: TEXTS.ADMIN_SAVING_1,
     },
     delete: {
       iconAria: TEXTS.EVENTOS_DELETE_ICON_ARIA_1,
@@ -130,6 +134,7 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       confirm: TEXTS.EVENTOS_DELETE_CONFIRM_1,
       cancel: TEXTS.EVENTOS_DELETE_CANCEL_1,
       error: TEXTS.EVENTOS_DELETE_ERROR_1,
+      pending: TEXTS.ADMIN_DELETE_PENDING_1,
     },
     errors: {
       title: TEXTS.EVENTOS_ADMIN_ERROR_TITLE_1,
@@ -194,12 +199,14 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       description: TEXTS.PRODUTOS_DIGITAIS_ADMIN_MODAL_DESCRIPTION_1,
       trigger: TEXTS.PRODUTOS_DIGITAIS_ADMIN_TRIGGER_1,
       submit: TEXTS.PRODUTOS_DIGITAIS_ADMIN_SUBMIT_1,
+      pending: TEXTS.ADMIN_SAVING_1,
     },
     edit: {
       title: TEXTS.PRODUTOS_DIGITAIS_EDIT_MODAL_TITLE_1,
       description: TEXTS.PRODUTOS_DIGITAIS_EDIT_MODAL_DESCRIPTION_1,
       iconAria: TEXTS.PRODUTOS_DIGITAIS_EDIT_ICON_ARIA_1,
       submit: TEXTS.PRODUTOS_DIGITAIS_ADMIN_SUBMIT_1,
+      pending: TEXTS.ADMIN_SAVING_1,
     },
     delete: {
       iconAria: TEXTS.PRODUTOS_DIGITAIS_DELETE_ICON_ARIA_1,
@@ -208,6 +215,7 @@ export const CONTENT_FORMS: Record<ContentKind, ContentFormConfig> = {
       confirm: TEXTS.PRODUTOS_DIGITAIS_DELETE_CONFIRM_1,
       cancel: TEXTS.PRODUTOS_DIGITAIS_DELETE_CANCEL_1,
       error: TEXTS.PRODUTOS_DIGITAIS_DELETE_ERROR_1,
+      pending: TEXTS.ADMIN_DELETE_PENDING_1,
     },
     errors: {
       title: TEXTS.PRODUTOS_DIGITAIS_ADMIN_ERROR_TITLE_1,

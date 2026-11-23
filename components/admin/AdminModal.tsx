@@ -58,7 +58,11 @@ export default function AdminModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="max-w-2xl rounded-3xl border bg-white p-0">
+      {/* A tap outside would throw away what was typed; closing takes Esc or the button. */}
+      <DialogContent
+        className="max-w-2xl rounded-3xl border bg-white p-0"
+        onInteractOutside={(event) => event.preventDefault()}
+      >
         <div className="grid gap-4 p-6">
           <DialogHeader className="gap-2">
             <DialogTitle className="text-lg text-zinc-900">{title}</DialogTitle>
@@ -70,12 +74,12 @@ export default function AdminModal({
           </DialogHeader>
 
           {errorMessage ? (
-            <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+            <p role="alert" className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
               {errorMessage}
             </p>
           ) : null}
           {success ? (
-            <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+            <p role="status" className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
               {successMessage}
             </p>
           ) : null}

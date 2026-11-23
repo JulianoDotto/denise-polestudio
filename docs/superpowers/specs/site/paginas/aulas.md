@@ -16,7 +16,11 @@
   manter "pole dance" e "Caçapava".
 - Um card escuro por aula (`Item` com `type = CLASS` e `isActive`): selo "Aula", foto (se
   houver), título, descrição e botão **"Ver horários e valores"**.
+- A foto ocupa um quadro 3:2 reservado antes de carregar (`aspect-[3/2] object-cover`), para a
+  página não pular. As fotos atuais são de paisagem perto dessa proporção.
 - Sem descrição, o card usa o texto padrão `AULAS_DEFAULT_DESC_1`.
+- **Sem nenhuma aula publicada**, aparece o card tracejado "Turmas no WhatsApp"
+  (`components/site/EmptyState.tsx`) com o botão "Falar no WhatsApp".
 
 ## Visitante pode
 - Tocar em "Ver horários e valores" para abrir o WhatsApp com "Olá! Quero conhecer a aula de

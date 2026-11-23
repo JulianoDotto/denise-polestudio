@@ -25,13 +25,13 @@ export function contentIconButtonClass(kind: ContentKind, tone?: ContentTone) {
     tone === undefined && kind === 'class'
       ? CLASS_ICON_CLASSES
       : TONE_CLASSES[tone ?? 'dark']
-  return `inline-flex h-9 w-9 items-center justify-center rounded-full border transition ${toneClasses}`
+  return `inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${toneClasses}`
 }
 
 const LABEL_CLASS = 'text-xs uppercase tracking-[0.2em] text-zinc-600'
 const TEXT_INPUT_CLASS =
-  'w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-300'
-const PLAIN_INPUT_CLASS = 'w-full rounded-2xl border px-4 py-2 text-sm text-zinc-900'
+  'w-full rounded-2xl border bg-white px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400'
+const PLAIN_INPUT_CLASS = 'w-full rounded-2xl border bg-white px-4 py-2 text-sm text-zinc-900'
 
 type ContentFieldsProps = {
   kind: ContentKind
@@ -52,6 +52,7 @@ export default function ContentFields({ kind, values }: ContentFieldsProps) {
           <span className={LABEL_CLASS}>{labels.title}</span>
           <input
             name="title"
+            autoComplete="off"
             required={kind === 'workshop'}
             defaultValue={editing ? (values.title ?? '') : undefined}
             className={textInputClass}
@@ -64,6 +65,7 @@ export default function ContentFields({ kind, values }: ContentFieldsProps) {
           <span className={LABEL_CLASS}>{labels.description}</span>
           <textarea
             name="description"
+            autoComplete="off"
             rows={4}
             defaultValue={editing ? (values.description ?? '') : undefined}
             className={textInputClass}
@@ -87,6 +89,9 @@ export default function ContentFields({ kind, values }: ContentFieldsProps) {
           <span className={LABEL_CLASS}>{labels.link}</span>
           <input
             name="hotmartUrl"
+            inputMode="url"
+            autoComplete="off"
+            spellCheck={false}
             defaultValue={editing ? (values.hotmartUrl ?? '') : undefined}
             className={TEXT_INPUT_CLASS}
             placeholder={labels.linkPlaceholder}

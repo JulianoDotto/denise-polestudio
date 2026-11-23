@@ -22,7 +22,7 @@ export default function Footer() {
       <footer className="bg-vinho text-marfim">
         <div className="mx-auto grid w-full max-w-[738px] gap-10 px-6 py-12 sm:grid-cols-[1fr_auto] sm:gap-16">
           <div>
-            <p className="font-display text-2xl uppercase tracking-[0.3em]">{TEXTS.SITE_HEADER_LOGO_1}</p>
+            <p translate="no" className="font-display text-2xl uppercase tracking-[0.3em]">{TEXTS.SITE_HEADER_LOGO_1}</p>
             <p className="mt-3 text-sm text-marfim/70">{TEXTS.HOME_HERO_HEADLINE_1}</p>
           </div>
 

@@ -24,11 +24,19 @@ No código, os produtos da loja aparecem como "posts" ou "feed" (`StorePost`) e 
    há mais de 3 produtos).
    - **Card:** foto quadrada, título, preço (se houver) e "Pedir no WhatsApp".
    - **Categoria com um produto só:** o card ocupa a largura toda.
-   - **Tocar na foto ou no título** abre um modal com a foto inteira, o preço, a descrição
-     completa e "Pedir no WhatsApp".
+   - **Tocar em qualquer lugar do card** (fora do "Pedir no WhatsApp") abre um modal com a foto
+     inteira, o preço, a descrição completa e "Pedir no WhatsApp". No código, o título é o único
+     botão do card (`<h3><button>`), com a área de toque esticada sobre o card inteiro; assim o
+     Tab para uma vez por produto e o título continua sendo um cabeçalho.
+   - **O produto aberto fica na URL** (`/loja?produto=<id>`, via `withSearchParam` em
+     `lib/url-state.ts`). O link pode ser compartilhado e abre a loja com o modal do produto.
+     Fechar o modal tira o parâmetro.
+4. **Sem nenhum produto ativo**, aparece o card tracejado "Vitrine em atualização"
+   (`components/site/EmptyState.tsx`), sem botão próprio, porque a abertura já tem o "Comprar
+   pelo WhatsApp".
 
 ## Visitante pode
-- Pedir um produto: abre o WhatsApp com "Olá! Tenho interesse no produto "{título}" (R$ X,XX)."
+- Pedir um produto: abre o WhatsApp com "Olá! Tenho interesse no produto “{título}” (R$ X,XX)."
   (o preço só entra se existir; `buildProductOrderMessage`).
 - Falar com a Denise sem um produto específico, pelo botão da abertura.
 
