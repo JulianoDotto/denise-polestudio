@@ -20,7 +20,8 @@ que cita Caçapava, São José dos Campos e Taubaté. Sitemap, canônico e dados
 [seo.md](../seo.md).
 
 ## Em todas as páginas (layout)
-- **Cabeçalho:** só o nome "Denise Garcia", com link para a home. Não tem menu.
+- **Cabeçalho:** só o nome "Denise Garcia" (Playfair em semibold, caixa alta), com link para a
+  home. Não tem menu.
 - **Rodapé:** endereço, telefone (link para o WhatsApp), Instagram, copyright e links para as 5
   páginas.
 - **Botão flutuante do WhatsApp:** canto inferior direito, número fixo de
