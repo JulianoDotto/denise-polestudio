@@ -4,6 +4,7 @@ export const TEXTS = {
   SITE_METADATA_DESCRIPTION_1:
     'Aulas de pole dance e artes sensuais com Denise Garcia em Caçapava/SP, pertinho de São José dos Campos e Taubaté. Workshops, eventos, loja e conteúdos digitais.',
   SITE_HEADER_LOGO_1: 'Denise Garcia',
+  SITE_SKIP_LINK_1: 'Pular para o conteúdo',
   META_AULAS_TITLE_1: 'Aulas de pole dance em Caçapava/SP',
   META_AULAS_DESCRIPTION_1: 'Aulas presenciais de pole dance em Caçapava/SP com a Denise Garcia: você começa pelo seu nível. Pertinho de São José dos Campos e Taubaté. Horários e valores pelo WhatsApp.',
   META_LOJA_TITLE_1: 'Loja',

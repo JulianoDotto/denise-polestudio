@@ -24,7 +24,12 @@ que cita Caçapava, São José dos Campos e Taubaté. Sitemap, canônico e dados
 - **Rodapé:** endereço, telefone (link para o WhatsApp), Instagram, copyright e links para as 5
   páginas.
 - **Botão flutuante do WhatsApp:** canto inferior direito, número fixo de
-  `SITE_FOOTER_WHATSAPP_URL_1`.
+  `SITE_FOOTER_WHATSAPP_URL_1`. É um `<a>` externo, respeita a área segura do celular
+  (`env(safe-area-inset-*)`), e a última faixa do rodapé tem espaço embaixo (`pb-24`) para ele
+  não cobrir os links.
+- **Link "Pular para o conteúdo"** (`SITE_SKIP_LINK_1`): primeiro item do Tab, só aparece com o
+  foco do teclado e leva ao `<main id="conteudo">`.
+- **Cor da barra do navegador** (`viewport.themeColor`): `#d8bfb6`, a mesma do fundo.
 - Conteúdo com largura máxima de 738 px, centralizado. É pensado para o celular, e no
   computador fica como uma coluna.
 

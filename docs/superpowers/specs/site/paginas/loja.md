@@ -14,6 +14,8 @@ No código, os produtos da loja aparecem como "posts" ou "feed" (`StorePost`) e 
 
 ## O que mostra
 1. **Aviso de 18 anos** na primeira visita (ver [negocio.md](../negocio.md#restrição-de-idade)).
+   Enquanto ele está aberto, o resto da página fica `inert`: o Tab e o leitor de tela não saem
+   do aviso.
 2. Topo "Loja" (02 / 05) e abertura "Para o palco, o quarto e o autocuidado", com as formas de
    pagamento (PIX · Dinheiro · Cartão · Parcelamento · Envio para todo o Brasil) e o botão
    **"Comprar pelo WhatsApp"** (mensagem geral).

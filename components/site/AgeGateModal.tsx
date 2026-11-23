@@ -1,6 +1,6 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
+import { useEffect, useRef, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { TEXTS } from '@/hardcoded/texts'
@@ -34,6 +34,25 @@ function getServerIsAccepted() {
 export default function AgeGateModal() {
   const router = useRouter()
   const isAccepted = useSyncExternalStore(subscribe, getIsAccepted, getServerIsAccepted)
+  const overlayRef = useRef<HTMLDivElement>(null)
+
+  // Keeps keyboard and screen reader focus inside the gate: everything else in <body> goes inert.
+  useEffect(() => {
+    if (isAccepted) return
+    const overlay = overlayRef.current
+    const madeInert = Array.from(document.body.children).filter(
+      (element): element is HTMLElement =>
+        element instanceof HTMLElement && element !== overlay && !element.inert,
+    )
+    madeInert.forEach((element) => {
+      element.inert = true
+    })
+    return () => {
+      madeInert.forEach((element) => {
+        element.inert = false
+      })
+    }
+  }, [isAccepted])
 
   if (isAccepted) return null
 
@@ -53,7 +72,10 @@ export default function AgeGateModal() {
 
   // Rendered into <body> so it sits above the floating WhatsApp button in the footer.
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-end justify-center bg-[#1a0b10]/70 p-3 backdrop-blur-sm sm:items-center">
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-[100] flex items-end justify-center overscroll-contain bg-[#1a0b10]/70 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:items-center"
+    >
       <div
         role="dialog"
         aria-modal="true"

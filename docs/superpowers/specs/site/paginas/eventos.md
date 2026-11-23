@@ -9,7 +9,8 @@ formulário em `CONTENT_FORMS.event` (`lib/admin/content-forms.ts`).
 1. Topo "Eventos" (04 / 05) e abertura "Dança e sensualidade para celebrar junto".
 2. **"Formatos para levar até você":** lista fixa de 6 formatos (Chá de Lingerie, Reunião de
    amigas, Apresentações e Performances, Pole Canto, Palestras, Vivência O despertar da Deusa).
-   Cada um abre ao toque, mostra a descrição e o botão "Quero no meu evento".
+   Cada um abre ao toque, mostra a descrição e o botão "Quero no meu evento". Com o foco do
+   teclado, o título fica sublinhado e o círculo do "+" ganha um anel.
 3. **"Próximos eventos" (agenda):** contador "N eventos na agenda" e um card em formato de
    ingresso por evento (`Item` com `type = EVENT`), com a data em destaque (dia, mês, ano),
    título, descrição e "Ver detalhes do evento".

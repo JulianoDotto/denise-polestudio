@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Jost, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/site/Header";
@@ -37,6 +37,11 @@ export const metadata: Metadata = {
   },
 };
 
+// Matches the page and header background, so the mobile browser bar blends in.
+export const viewport: Viewport = {
+  themeColor: "#d8bfb6",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,8 +54,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildStudioJsonLd(siteUrl)) }}
         />
+        <a
+          href="#conteudo"
+          className="sr-only rounded-full bg-vinho px-5 py-3 text-sm text-marfim focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:outline-none focus:ring-2 focus:ring-marfim focus:ring-offset-2 focus:ring-offset-vinho"
+        >
+          {TEXTS.SITE_SKIP_LINK_1}
+        </a>
         <Header />
-        <main className="min-h-[70vh] w-full max-w-[738px] mx-auto">{children}</main>
+        <main id="conteudo" tabIndex={-1} className="min-h-[70vh] w-full max-w-[738px] mx-auto focus:outline-none">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

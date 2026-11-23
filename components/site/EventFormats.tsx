@@ -49,12 +49,12 @@ export default function EventFormats({ phone }: EventFormatsProps) {
                     <span aria-hidden="true" className="w-7 shrink-0 text-[11px] tracking-[0.32em] text-marfim/45 sm:w-10">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <span className="min-w-0 flex-1 font-display text-[15px] min-[360px]:text-lg uppercase leading-tight tracking-[0.05em] min-[360px]:tracking-[0.12em] text-marfim transition-colors duration-300 group-open:text-[#e3b3be] group-hover:text-marfim/80 group-focus-visible:underline group-focus-visible:underline-offset-8 sm:text-2xl">
+                    <span className="min-w-0 flex-1 font-display text-[15px] min-[360px]:text-lg uppercase leading-tight tracking-[0.05em] min-[360px]:tracking-[0.12em] text-marfim transition-colors duration-300 group-open:text-[#e3b3be] group-hover:text-marfim/80 group-has-[summary:focus-visible]:underline group-has-[summary:focus-visible]:underline-offset-8 sm:text-2xl">
                       {format.title}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-marfim/30 transition duration-300 ease-out group-hover:border-marfim group-open:rotate-45 group-open:border-marfim group-open:bg-marfim group-open:text-tinta motion-reduce:transition-none"
+                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-marfim/30 transition duration-300 ease-out group-hover:border-marfim group-has-[summary:focus-visible]:border-marfim group-has-[summary:focus-visible]:ring-2 group-has-[summary:focus-visible]:ring-marfim/60 group-open:rotate-45 group-open:border-marfim group-open:bg-marfim group-open:text-tinta motion-reduce:transition-none"
                     >
                       <Plus className="h-5 w-5" strokeWidth={1.6} />
                     </span>
