@@ -11,7 +11,8 @@ São José dos Campos e Taubaté como região atendida. Por quê: ver
 ## Endereço do site
 
 - A URL base vem de `NEXT_PUBLIC_SITE_URL`. Sem ela, ou se o valor não for `http(s)://…`, vale
-  `https://denisegarcia.vercel.app`. A barra do fim é removida.
+  `https://denisegarcia.vercel.app`. Só a origem é usada: barra do fim, caminho, `?` e `#` são
+  descartados.
 - Dela saem o `metadataBase` (URLs absolutas da imagem de compartilhamento e dos canônicos), o
   sitemap, o robots e o JSON-LD.
 

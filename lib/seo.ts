@@ -16,7 +16,8 @@ export function getSiteUrl(raw?: string): string {
   try {
     const url = new URL(value)
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return DEFAULT_SITE_URL
-    return value.replace(/\/+$/, '')
+    // Only the origin: a path, query or hash would break every URL built from it.
+    return url.origin
   } catch {
     return DEFAULT_SITE_URL
   }

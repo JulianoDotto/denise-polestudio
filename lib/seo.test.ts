@@ -23,6 +23,13 @@ test('site url keeps a valid value and drops trailing slashes', () => {
   assert.equal(getSiteUrl('  https://denisegarcia.com.br  '), 'https://denisegarcia.com.br')
 })
 
+test('site url keeps only the origin, dropping path, query and hash', () => {
+  assert.equal(getSiteUrl('https://x.com.br/sub'), 'https://x.com.br')
+  assert.equal(getSiteUrl('https://x.com.br/?a=1'), 'https://x.com.br')
+  assert.equal(getSiteUrl('https://x.com.br#topo'), 'https://x.com.br')
+  assert.equal(getSiteUrl('http:x.com.br'), 'http://x.com.br')
+})
+
 test('sitemap lists the six public pages under the site url', () => {
   const urls = buildSitemapEntries('https://x.com.br').map((entry) => entry.url)
   assert.deepEqual(urls, [
