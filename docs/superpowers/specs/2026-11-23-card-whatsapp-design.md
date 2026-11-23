@@ -42,3 +42,11 @@ O desfoque, o degradê e o tamanho exato da fonte, conferidos olhando o resultad
 ## Conferir
 
 O WhatsApp guarda a prévia em cache. Para ver a nova, mandar o link com `?v=2` no final.
+
+## Revisão (mesmo dia)
+
+O card refeito ainda saía ruim: o print do WhatsApp mostrou a **miniatura quadrada pequena**,
+recomprimida, em que a foto cheia de detalhe vira borrão e o subtítulo some. Compactar o arquivo
+(121 → 97 KB) não resolveu. Trocamos o modelo para a opção B: fundo vinho liso, recorte fechado no
+rosto da Denise no quadrado central e uma faixa vinho com o nome grande. A opção A (só a marca) foi
+descartada por perder a foto.

@@ -21,8 +21,11 @@ Ao mudar o desenho, atualizar os três arquivos juntos a partir do SVG.
 `app/opengraph-image.jpg` (1200×630) é o card que aparece quando alguém manda o link no WhatsApp,
 no Instagram e em outros apps. É a mesma imagem para todas as páginas. Ela é gerada por
 `scripts/og-image.py` a partir da foto original do aro (as instruções estão no topo do script).
-O fundo de folhas é desfocado para não virar granulado. Rosto e nome ficam no quadrado central,
-que é o que aparece na miniatura do WhatsApp. O JPEG sai com qualidade 82 e fica abaixo de 100 KB, sem perda visível.
+
+O WhatsApp quase sempre mostra só uma miniatura pequena do quadrado central, recomprimida. Por isso
+o card é fundo vinho liso, com um recorte fechado no rosto da Denise no quadrado central (fundo de
+folhas desfocado) e, embaixo, uma faixa vinho com "DENISE GARCIA" e "POLE DANCE". A cidade fica no
+título da prévia. O JPEG sai com qualidade 82 e fica abaixo de 100 KB.
 
 O WhatsApp guarda a prévia em cache. Para ver uma imagem nova, mande o link com `?v=2` no final.
 

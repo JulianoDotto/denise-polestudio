@@ -5,10 +5,12 @@ Uso: python scripts/og-image.py <foto-original.jpg> <saida.jpg>
 A foto original é a do aro (2048x1365), guardada no histórico:
   git show 972f178^:public/images/home/home_about_denise_5776.jpg > source.jpg
 
-Cuidados para o WhatsApp:
-- o fundo de folhas é desfocado de leve, senão vira granulado na recompressão;
-- rosto e nome ficam no quadrado central (x 285 a 915), que é o que sobra na miniatura;
-- o arquivo fica abaixo de 100 KB (qualidade 82).
+O WhatsApp quase sempre mostra só a miniatura: o quadrado central (x 285 a 915), reduzido
+para uns 100 px e recomprimido. Por isso o card é:
+- fundo vinho liso, que não perde nada na compressão;
+- no quadrado central, um recorte fechado no rosto da Denise com o fundo de folhas desfocado;
+- embaixo, uma faixa vinho com o nome grande;
+- JPEG qualidade 82, abaixo de 100 KB.
 """
 
 import sys
@@ -16,32 +18,37 @@ import sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 W, H = 1200, 630
+SQUARE_X = (W - H) // 2  # 285: left edge of the center square the thumbnail keeps
+BAND_TOP = 440  # photo above, wine band with the name below
 NAME = "DENISE GARCIA"
-SUBTITLE = "POLE DANCE · CAÇAPAVA/SP"
+SUBTITLE = "POLE DANCE"
 SERIF = "C:/Windows/Fonts/georgia.ttf"
 SANS = "C:/Windows/Fonts/arial.ttf"
 
-# Wine tint of the site, applied as a soft duotone over the black and white photo.
+VINHO = (90, 26, 42)  # --color-vinho
+MARFIM = (243, 236, 226)  # --color-marfim
 SHADOW = (28, 14, 20)
 HIGHLIGHT = (246, 236, 232)
-TEXT = (250, 244, 240)
-SUBTEXT = (238, 224, 220)
+
+# Window of the original photo (2048x1365) around the face, same ratio as the photo area.
+PHOTO_BOX = (300, 330, 1240, 987)
 
 
-def crop(photo: Image.Image) -> Image.Image:
-    # Full width; top cut so the face sits a little above the middle.
-    top = 150
-    height = round(photo.width * H / W)
-    return photo.crop((0, top, photo.width, top + height)).resize((W, H), Image.LANCZOS)
+def portrait(source: str) -> Image.Image:
+    photo = ImageOps.grayscale(Image.open(source))
+    size = (H, BAND_TOP)
+    base = photo.crop(PHOTO_BOX).resize(size, Image.LANCZOS)
 
+    # Sharp on Denise, blurred hedge around her so it does not turn to grain.
+    mask = Image.new("L", size, 0)
+    ImageDraw.Draw(mask).ellipse((110, 110, 720, 620), fill=255)
+    mask = mask.filter(ImageFilter.GaussianBlur(35))
+    # Softer and a little darker, so the hedge stays behind her.
+    backdrop = base.filter(ImageFilter.GaussianBlur(10)).point(lambda v: round(v * 0.8))
+    img = Image.composite(base, backdrop, mask)
 
-def subject_mask() -> Image.Image:
-    # Sharp area: Denise, the seat of the hoop and the boots. Everything else gets the blur.
-    mask = Image.new("L", (W, H), 0)
-    draw = ImageDraw.Draw(mask)
-    draw.ellipse((320, 150, 1120, 640), fill=255)
-    draw.ellipse((780, 60, 1130, 330), fill=255)
-    return mask.filter(ImageFilter.GaussianBlur(40))
+    img = ImageOps.autocontrast(img, cutoff=0.5)
+    return ImageOps.colorize(img, SHADOW, HIGHLIGHT)
 
 
 def spaced(draw, center_x, y, text, font, spacing, fill):
@@ -54,25 +61,12 @@ def spaced(draw, center_x, y, text, font, spacing, fill):
 
 
 def build(source: str, out: str) -> None:
-    photo = ImageOps.grayscale(Image.open(source))
-    base = crop(photo)
-
-    blurred = base.filter(ImageFilter.GaussianBlur(5))
-    img = Image.composite(base, blurred, subject_mask())
-    img = ImageOps.autocontrast(img, cutoff=0.5)
-    img = ImageOps.colorize(img, SHADOW, HIGHLIGHT).convert("RGB")
-
-    # Dark band only at the top, where the text goes.
-    shade = Image.new("L", (W, H), 0)
-    sd = ImageDraw.Draw(shade)
-    for y in range(230):
-        sd.line((0, y, W, y), fill=round(200 * (1 - y / 230) ** 1.6))
-    img = Image.composite(Image.new("RGB", (W, H), SHADOW), img, shade)
+    img = Image.new("RGB", (W, H), VINHO)
+    img.paste(portrait(source), (SQUARE_X, 0))
 
     draw = ImageDraw.Draw(img)
-    cx = 600
-    spaced(draw, cx, 38, NAME, ImageFont.truetype(SERIF, 58), 10, TEXT)
-    spaced(draw, cx, 120, SUBTITLE, ImageFont.truetype(SANS, 24), 5, SUBTEXT)
+    spaced(draw, W // 2, 468, NAME, ImageFont.truetype(SERIF, 64), 5, MARFIM)
+    spaced(draw, W // 2, 562, SUBTITLE, ImageFont.truetype(SANS, 30), 9, MARFIM)
 
     # 82 keeps it under 100 KB with no visible loss (about 40 dB PSNR against the lossless render).
     img.save(out, "JPEG", quality=82, optimize=True, progressive=True, subsampling="4:2:0")
