@@ -22,7 +22,7 @@ Ao mudar o desenho, atualizar os três arquivos juntos a partir do SVG.
 no Instagram e em outros apps. É a mesma imagem para todas as páginas. Ela é gerada por
 `scripts/og-image.py` a partir da foto original do aro (as instruções estão no topo do script).
 O fundo de folhas é desfocado para não virar granulado. Rosto e nome ficam no quadrado central,
-que é o que aparece na miniatura do WhatsApp. O arquivo precisa ficar abaixo de 300 KB.
+que é o que aparece na miniatura do WhatsApp. O JPEG sai com qualidade 82 e fica abaixo de 100 KB, sem perda visível.
 
 O WhatsApp guarda a prévia em cache. Para ver uma imagem nova, mande o link com `?v=2` no final.
 
