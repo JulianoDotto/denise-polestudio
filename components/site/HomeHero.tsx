@@ -1,15 +1,19 @@
 type HomeHeroProps = {
   imageUrl: string
+  imageSrcSet: string
   headline: string
   eyebrow: string
 }
 
-export default function HomeHero({ imageUrl, headline, eyebrow }: HomeHeroProps) {
+export default function HomeHero({ imageUrl, imageSrcSet, headline, eyebrow }: HomeHeroProps) {
   return (
     <div className="px-3 pt-3">
     <section className="relative isolate h-[520px] overflow-hidden rounded-[28px] bg-stone-950 sm:h-[640px]">
       <img
         src={imageUrl}
+        srcSet={imageSrcSet}
+        // The card spans the page minus its 12px margins, up to the 738px column.
+        sizes="(min-width: 738px) 714px, calc(100vw - 24px)"
         alt=""
         fetchPriority="high"
         decoding="async"

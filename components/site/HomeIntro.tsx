@@ -4,6 +4,7 @@ type HomeIntroProps = {
   text: string
   additionalText?: string
   imageUrl: string
+  imageSrcSet: string
   imageAlt: string
 }
 
@@ -13,6 +14,7 @@ export default function HomeIntro({
   text,
   additionalText,
   imageUrl,
+  imageSrcSet,
   imageAlt,
 }: HomeIntroProps) {
   return (
@@ -21,9 +23,12 @@ export default function HomeIntro({
         <div className="overflow-hidden rounded-[28px] [clip-path:inset(0_round_28px)]">
           <img
             src={imageUrl}
+            srcSet={imageSrcSet}
+            // Full width minus the card's margins and padding on phones; the narrower grid column from sm up.
+            sizes="(min-width: 640px) 300px, calc(100vw - 72px)"
             alt={imageAlt}
-            width={1600}
-            height={1066}
+            width={800}
+            height={1000}
             loading="lazy"
             decoding="async"
             className="aspect-[4/5] w-full object-cover object-[42%_50%]"

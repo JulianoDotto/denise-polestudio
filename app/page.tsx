@@ -50,6 +50,7 @@ export default async function Home() {
     <div className="pb-6">
       <HomeHero
         imageUrl={IMAGES.HOME_HERO_1}
+        imageSrcSet={IMAGES.HOME_HERO_SRCSET_1}
         headline={TEXTS.HOME_HERO_HEADLINE_1}
         eyebrow={TEXTS.HOME_HERO_EYEBROW_1}
       />
@@ -60,6 +61,7 @@ export default async function Home() {
         text={TEXTS.HOME_INTRO_TEXT_1}
         additionalText={TEXTS.HOME_INTRO_TEXT_2}
         imageUrl={IMAGES.HOME_SECTION_IMAGE_1}
+        imageSrcSet={IMAGES.HOME_SECTION_IMAGE_SRCSET_1}
         imageAlt={TEXTS.HOME_INTRO_IMAGE_ALT_1}
       />
 

@@ -15,7 +15,8 @@ const blobOrigin = getBlobOrigin(process.env.BLOB_STORE_ID);
 // Titles: a transitional display serif, luxurious but sturdy enough to read; its italic is the burlesque accent.
 const display = Playfair_Display({
   variable: "--font-display",
-  subsets: ["latin", "latin-ext"],
+  // Portuguese fits in latin; latin-ext only added three more preloaded files.
+  subsets: ["latin"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -23,7 +24,7 @@ const display = Playfair_Display({
 // Text: a geometric art-deco sans that stays out of the way.
 const body = Jost({
   variable: "--font-body",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
 });
 

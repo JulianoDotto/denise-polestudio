@@ -14,6 +14,13 @@
 A home é **100% fixa**: textos em `hardcoded/texts.ts` (`HOME_*`) e fotos em
 `hardcoded/images.ts` (`HOME_*`). Não lê o banco.
 
+**Fotos e velocidade:** a foto do hero é o LCP (o que o Lighthouse mede como "carregou"). Ela e a
+foto do "Sobre mim" existem em duas larguras (`-480` e `-853`/`-800`) e vão com `srcSet`/`sizes`,
+para o celular baixar só o tamanho de que precisa. A do "Sobre mim" já vem cortada em 4:5, o
+formato em que aparece. Para trocar uma delas, rode `scripts/home-images.py` com a foto nova e
+atualize `hardcoded/images.ts`. As fontes (`app/layout.tsx`) carregam só o subset `latin`, que
+cobre o português; `latin-ext` dobrava os arquivos pré-carregados.
+
 **No Google:** título "Denise Garcia · Pole Dance em Caçapava/SP" (`SITE_HOME_METADATA_TITLE_1`,
 via `title.absolute`, sem o sufixo das outras páginas) e descrição `SITE_METADATA_DESCRIPTION_1`,
 que cita Caçapava, São José dos Campos e Taubaté. Sitemap, canônico e dados do estúdio: ver
