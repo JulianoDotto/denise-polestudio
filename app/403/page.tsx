@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export default function ForbiddenPage() {
   return (

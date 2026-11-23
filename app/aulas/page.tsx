@@ -17,6 +17,7 @@ import { TEXTS } from '@/hardcoded/texts'
 export const metadata: Metadata = {
   title: TEXTS.META_AULAS_TITLE_1,
   description: TEXTS.META_AULAS_DESCRIPTION_1,
+  alternates: { canonical: '/aulas' },
 }
 
 export default async function AulasPage() {

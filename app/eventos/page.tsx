@@ -16,6 +16,7 @@ import { TEXTS } from '@/hardcoded/texts'
 export const metadata: Metadata = {
   title: TEXTS.META_EVENTOS_TITLE_1,
   description: TEXTS.META_EVENTOS_DESCRIPTION_1,
+  alternates: { canonical: '/eventos' },
 }
 
 function getEventDateParts(date?: Date | null) {

@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
+
 import HomeHero from '@/components/site/HomeHero'
 import HomeIntro from '@/components/site/HomeIntro'
 import HomeLinks, { type HomeLink } from '@/components/site/HomeLinks'
 import { IMAGES } from '@/hardcoded/images'
 import { TEXTS } from '@/hardcoded/texts'
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 const homeLinks: HomeLink[] = [
   {

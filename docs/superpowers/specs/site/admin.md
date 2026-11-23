@@ -12,7 +12,8 @@ lixeira e setas.
 | `/logout` | Encerra a sessão e volta para a home | `app/logout/page.tsx` |
 | `/403` | "Acesso negado", para quem está logado mas não é admin, ou foi desativado/rebaixado no banco depois de entrar | `app/403/page.tsx` |
 
-**Não há link para o login nem para o logout no site.** O admin digita o endereço.
+**Não há link para o login nem para o logout no site.** O admin digita o endereço. As três
+rotas ficam fora do Google (`noindex` e bloqueio no `robots.txt`, ver [seo.md](seo.md)).
 
 - **Como funciona:** NextAuth com e-mail e senha (`lib/auth/authOptions.ts`), sessão em JWT, e o
   papel (`role`) vai dentro do token (tipos em `next-auth.d.ts`). A senha é comparada com

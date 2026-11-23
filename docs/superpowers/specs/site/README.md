@@ -11,6 +11,7 @@ entender o projeto sem precisar ler o código inteiro.
 | [negocio.md](negocio.md) | Quem é a Denise, o que ela vende, como a venda acontece (WhatsApp), restrição de idade |
 | [admin.md](admin.md) | Login, permissões e a lista completa de poderes do admin |
 | [dados.md](dados.md) | Modelos do banco, ordem das listas, fotos no Vercel Blob, textos fixos em `hardcoded/` |
+| [seo.md](seo.md) | Sitemap, robots, canônicos, dados do estúdio para o Google e como trocar de domínio |
 | [componentes.md](componentes.md) | Guia de componentização: onde cada coisa mora e como criar uma nova |
 | [paginas/home.md](paginas/home.md) | `/` — apresentação e índice do site |
 | [paginas/aulas.md](paginas/aulas.md) | `/aulas` — aulas presenciais |

@@ -18,6 +18,7 @@ import { TEXTS } from '@/hardcoded/texts'
 export const metadata: Metadata = {
   title: TEXTS.META_PRODUTOS_DIGITAIS_TITLE_1,
   description: TEXTS.META_PRODUTOS_DIGITAIS_DESCRIPTION_1,
+  alternates: { canonical: '/produtos-digitais' },
 }
 
 export default async function EbooksPage() {
