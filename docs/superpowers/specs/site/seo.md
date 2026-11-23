@@ -8,6 +8,14 @@ São José dos Campos e Taubaté como região atendida. Por quê: ver
 `app/robots.ts` · `metadataBase` e JSON-LD em `app/layout.tsx` · textos em `hardcoded/texts.ts`
 (chaves `SITE_STUDIO_*`, `SITE_FOOTER_*` e `META_*`).
 
+## Ícones do site
+
+O D estilizado em marfim sobre vinho tem uma curva que sugere movimento de dança.
+O desenho usa paths vetoriais, sem depender de fontes.
+O App Router descobre automaticamente app/icon.svg, app/favicon.ico (16, 32 e
+48 px) e app/apple-icon.png (180 px, fundo opaco para a máscara do iOS).
+Ao mudar o desenho, atualizar os três arquivos juntos a partir do SVG.
+
 ## Endereço do site
 
 - A URL base vem de `NEXT_PUBLIC_SITE_URL`. Sem ela, ou se o valor não for `http(s)://…`, vale
